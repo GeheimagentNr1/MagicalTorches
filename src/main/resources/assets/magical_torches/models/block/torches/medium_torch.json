@@ -1,0 +1,159 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "minecraft:block/torch",
+        "quartz_pillar": "minecraft:block/quartz_pillar",
+        "torch": "minecraft:block/torch",
+        "quartz_pillar_top": "minecraft:block/quartz_pillar_top"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Wood",
+            "from": [ 6.5, 2, 6.5 ], 
+            "to": [ 8.5, 7, 7.5 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 8, 8, 13 ] }
+            }
+        },
+        {
+            "name": "gold",
+            "from": [ 6.5, 0, 6.5 ], 
+            "to": [ 9.5, 2, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "east": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "south": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "west": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "down": { "texture": "#quartz_pillar_top", "uv": [ 1, 12, 4, 15 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 6.5, 9, 6.5 ], 
+            "to": [ 8.5, 11, 7.5 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 6, 8, 8 ] },
+                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 7 ] }
+            }
+        },
+        {
+            "name": "Wood",
+            "from": [ 8.5, 2, 6.5 ], 
+            "to": [ 9.5, 7, 8.5 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 8, 8, 13 ] },
+                "east": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] }
+            }
+        },
+        {
+            "name": "Wood",
+            "from": [ 7.5, 2, 8.5 ], 
+            "to": [ 9.5, 7, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] },
+                "east": { "texture": "#torch", "uv": [ 7, 8, 8, 13 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] }
+            }
+        },
+        {
+            "name": "Wood",
+            "from": [ 6.5, 2, 7.5 ], 
+            "to": [ 7.5, 7, 9.5 ], 
+            "faces": {
+                "east": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 8, 8, 13 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 8, 9, 13 ] }
+            }
+        },
+        {
+            "name": "gold",
+            "from": [ 6.5, 7, 6.5 ], 
+            "to": [ 9.5, 9, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "east": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "south": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "west": { "texture": "#quartz_pillar", "uv": [ 13, 6, 16, 8 ] },
+                "down": { "texture": "#quartz_pillar_top", "uv": [ 1, 12, 4, 15 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 8.5, 9, 6.5 ], 
+            "to": [ 9.5, 11, 8.5 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 6, 8, 8 ] },
+                "east": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "up": { "texture": "#torch", "uv": [ 7, 6, 8, 8 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 7.5, 9, 8.5 ], 
+            "to": [ 9.5, 11, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "east": { "texture": "#torch", "uv": [ 7, 6, 8, 8 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 7 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 6.5, 9, 7.5 ], 
+            "to": [ 7.5, 11, 9.5 ], 
+            "faces": {
+                "east": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 6, 8, 8 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "up": { "texture": "#torch", "uv": [ 7, 6, 8, 8 ] }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 7.5, 9, 7.5 ], 
+            "to": [ 8.5, 11, 8.5 ], 
+            "faces": {
+                "up": { "texture": "#torch", "uv": [ 7, 6, 8, 7 ] }
+            }
+        }
+    ]
+}

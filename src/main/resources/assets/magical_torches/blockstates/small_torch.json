@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "magical_torches:block/torches/small_torch" }
+  }
+}

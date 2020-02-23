@@ -1,0 +1,11 @@
+{
+	"main_module": "Main",
+		"main_blocks": "Blocks",
+			"main_blocks_torches": "Blocks: Torches",
+				"block.magical_torches.grand_torch": "Grand Torch",
+				"block.magical_torches.medium_torch": "Medium Torch",
+				"block.magical_torches.mega_torch": "Mega Torch",
+				"block.magical_torches.small_torch": "Small Torch",
+		"main_item_groups": "Item Groups",
+			"itemGroup.magical_torches": "Magical Torches"
+}

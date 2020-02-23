@@ -1,0 +1,88 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "minecraft:block/torch",
+        "gold_block": "minecraft:block/gold_block",
+        "torch": "minecraft:block/torch"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 8, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Wood",
+            "from": [ 7, 1, 7 ], 
+            "to": [ 9, 7, 9 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 8, 9, 14 ] },
+                "east": { "texture": "#torch", "uv": [ 7, 8, 9, 14 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 8, 9, 14 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 8, 9, 14 ] }
+            }
+        },
+        {
+            "name": "gold",
+            "from": [ 7, 0, 7 ], 
+            "to": [ 9, 1, 9 ], 
+            "faces": {
+                "north": { "texture": "#gold_block", "uv": [ 14, 6, 16, 7 ] },
+                "east": { "texture": "#gold_block", "uv": [ 14, 6, 16, 7 ] },
+                "south": { "texture": "#gold_block", "uv": [ 14, 6, 16, 7 ] },
+                "west": { "texture": "#gold_block", "uv": [ 14, 6, 16, 7 ] },
+                "down": { "texture": "#gold_block", "uv": [ 5, 14, 7, 16 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "Fire",
+            "from": [ 7, 8, 7 ], 
+            "to": [ 9, 10, 9 ], 
+            "faces": {
+                "north": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "east": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "south": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "west": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
+                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] }
+            }
+        },
+        {
+            "name": "gold",
+            "from": [ 7, 7, 7 ], 
+            "to": [ 9, 8, 9 ], 
+            "faces": {
+                "north": { "texture": "#gold_block", "uv": [ 0, 8, 2, 9 ] },
+                "east": { "texture": "#gold_block", "uv": [ 0, 4, 2, 5 ] },
+                "south": { "texture": "#gold_block", "uv": [ 0, 11, 2, 12 ] },
+                "west": { "texture": "#gold_block", "uv": [ 0, 11, 2, 12 ] }
+            }
+        }
+    ]
+}
