@@ -19,6 +19,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class RegistryEventHandler {
 	
 	
+	@SubscribeEvent
 	public static void setup( FMLCommonSetupEvent event ) {
 		
 		CapabilityManager.INSTANCE.register( SpawnBlockingCapability.class, new SpawnBlockingCapabilityStorage(),
