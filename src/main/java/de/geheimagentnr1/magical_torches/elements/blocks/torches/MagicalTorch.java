@@ -6,8 +6,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.IS
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -43,6 +42,14 @@ abstract class MagicalTorch extends Block implements BlockItemInterface {
 		@Nonnull BlockPos pos, ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
+	}
+	
+	@SuppressWarnings( "deprecation" )
+	@Nonnull
+	@Override
+	public PushReaction getPushReaction( BlockState state ) {
+		
+		return PushReaction.DESTROY;
 	}
 	
 	@SuppressWarnings( "deprecation" )

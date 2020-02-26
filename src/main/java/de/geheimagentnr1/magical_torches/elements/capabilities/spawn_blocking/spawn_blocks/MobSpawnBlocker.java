@@ -9,7 +9,8 @@ import net.minecraft.util.math.BlockPos;
 public abstract class MobSpawnBlocker extends SpawnBlocker {
 	
 	
-	protected MobSpawnBlocker( BlockPos _pos ) {
+	//package-private
+	MobSpawnBlocker( BlockPos _pos ) {
 		
 		super( _pos );
 	}

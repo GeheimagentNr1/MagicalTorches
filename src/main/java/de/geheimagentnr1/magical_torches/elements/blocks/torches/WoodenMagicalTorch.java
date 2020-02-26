@@ -7,7 +7,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 
 
-public abstract class WoodenMagicalTorch extends MagicalTorch {
+//package-private
+abstract class WoodenMagicalTorch extends MagicalTorch {
 	
 	
 	//package-private

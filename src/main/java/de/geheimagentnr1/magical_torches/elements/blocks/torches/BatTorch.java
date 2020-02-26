@@ -7,11 +7,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.PushReaction;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.BlockRenderLayer;
@@ -33,13 +30,11 @@ public class BatTorch extends MagicalTorch {
 	
 	public final static String registry_name = "bat_torch";
 	
-	public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
-	
-	protected static final VoxelShape STANDING_SHAPE = VoxelShapes.or(
+	private static final VoxelShape STANDING_SHAPE = VoxelShapes.or(
 		Block.makeCuboidShape( 5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D ),
 		Block.makeCuboidShape( 6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D ) );
 	
-	protected static final VoxelShape HANGING_SHAPE = VoxelShapes.or(
+	private static final VoxelShape HANGING_SHAPE = VoxelShapes.or(
 		Block.makeCuboidShape( 5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D ),
 		Block.makeCuboidShape( 6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D ) );
 	
@@ -47,7 +42,7 @@ public class BatTorch extends MagicalTorch {
 		
 		super( Block.Properties.create( Material.IRON ).hardnessAndResistance( 3.5F ).sound( SoundType.LANTERN ),
 			registry_name, BatTorchSpawnBlocker.registry_name, BatTorchSpawnBlocker::new );
-		setDefaultState( stateContainer.getBaseState().with( HANGING, Boolean.FALSE ) );
+		setDefaultState( stateContainer.getBaseState().with( BlockStateProperties.HANGING, Boolean.FALSE ) );
 	}
 	
 	@Nonnull
@@ -62,21 +57,13 @@ public class BatTorch extends MagicalTorch {
 	@Override
 	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
 		
-		return state.get( HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
+		return state.get( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
 	}
 	
-	protected static Direction hangingToDirection( BlockState state ) {
+	private static Direction hangingToDirection( BlockState state ) {
 		
-		return state.get( HANGING ) ? Direction.DOWN : Direction.UP;
+		return state.get( BlockStateProperties.HANGING ) ? Direction.DOWN : Direction.UP;
 	}
-	/*
-	@SuppressWarnings( "deprecation" )
-	@Nonnull
-	@Override
-	public PushReaction getPushReaction( BlockState state ) {
-		
-		return PushReaction.DESTROY;
-	}*/
 	
 	@Nullable
 	@Override
@@ -84,7 +71,8 @@ public class BatTorch extends MagicalTorch {
 		
 		for( Direction direction : context.getNearestLookingDirections() ) {
 			if( direction.getAxis() == Direction.Axis.Y ) {
-				BlockState blockstate = getDefaultState().with( HANGING, direction == Direction.UP );
+				BlockState blockstate = getDefaultState().with( BlockStateProperties.HANGING,
+					direction == Direction.UP );
 				if( blockstate.isValidPosition( context.getWorld(), context.getPos() ) ) {
 					return blockstate;
 				}
@@ -99,7 +87,8 @@ public class BatTorch extends MagicalTorch {
 	public BlockState updatePostPlacement( @Nonnull BlockState stateIn, Direction facing, BlockState facingState,
 		IWorld worldIn, BlockPos currentPos, BlockPos facingPos ) {
 		
-		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition( worldIn, currentPos ) ?
+		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition( worldIn,
+			currentPos ) ?
 			Blocks.AIR.getDefaultState() : super.updatePostPlacement( stateIn, facing, facingState, worldIn,
 			currentPos, facingPos );
 	}
@@ -115,7 +104,7 @@ public class BatTorch extends MagicalTorch {
 	@Override
 	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
 		
-		builder.add( HANGING );
+		builder.add( BlockStateProperties.HANGING );
 	}
 	
 	@Override
