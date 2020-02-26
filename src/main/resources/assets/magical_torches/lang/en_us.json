@@ -2,6 +2,7 @@
 	"main_module": "Main",
 		"main_blocks": "Blocks",
 			"main_blocks_torches": "Blocks: Torches",
+				"block.magical_torches.alone_torch": "Alone Torch",
 				"block.magical_torches.bat_torch": "Bat Torch",
 				"block.magical_torches.grand_torch": "Grand Torch",
 				"block.magical_torches.medium_torch": "Medium Torch",

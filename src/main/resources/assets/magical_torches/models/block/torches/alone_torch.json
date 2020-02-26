@@ -1,0 +1,78 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "particle": "minecraft:block/black_stained_glass",
+        "black_stained_glass": "minecraft:block/black_stained_glass",
+        "beacon": "minecraft:block/beacon",
+        "enchanting_table_bottom": "minecraft:block/enchanting_table_bottom",
+        "enchanting_table_side": "minecraft:block/enchanting_table_side",
+        "enchanting_table_top": "minecraft:block/enchanting_table_top"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 45, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "base",
+            "from": [ 2, 0.01, 2 ], 
+            "to": [ 14, 2, 14 ], 
+            "faces": {
+                "north": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
+                "east": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
+                "south": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
+                "west": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
+                "up": { "texture": "#enchanting_table_top", "uv": [ 2, 2, 14, 14 ] },
+                "down": { "texture": "#enchanting_table_bottom", "uv": [ 2, 2, 14, 14 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "beacon",
+            "from": [ 3, 2, 3 ], 
+            "to": [ 13, 12, 13 ], 
+            "faces": {
+                "north": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
+                "east": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
+                "south": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
+                "west": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
+                "up": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] }
+            }
+        },
+        {
+            "name": "glass 1",
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 16, 16 ], 
+            "faces": {
+                "north": { "texture": "#black_stained_glass", "uv": [ 0, 0, 16, 15 ], "cullface": "north" },
+                "east": { "texture": "#black_stained_glass", "uv": [ 0, 0, 16, 16 ], "cullface": "east" },
+                "south": { "texture": "#black_stained_glass", "uv": [ 0, 0, 16, 16 ], "cullface": "south" },
+                "west": { "texture": "#black_stained_glass", "uv": [ 0, 0, 16, 16 ], "cullface": "west" },
+                "up": { "texture": "#black_stained_glass", "uv": [ 0, 0, 16, 16 ], "cullface": "up" },
+                "down": { "texture": "#black_stained_glass", "uv": [ 0, 0, 16, 16 ], "cullface": "down" }
+            }
+        }
+    ]
+}
