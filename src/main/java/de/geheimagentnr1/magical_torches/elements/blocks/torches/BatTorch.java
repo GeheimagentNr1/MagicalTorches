@@ -1,5 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches;
 
+import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blocks.BatTorchSpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -120,6 +121,6 @@ public class BatTorch extends MagicalTorch {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return null;
+		return createBlockItem( ModBlocks.BAT_TORCH, properties, registry_name );
 	}
 }

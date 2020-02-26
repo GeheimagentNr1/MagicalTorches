@@ -21,12 +21,15 @@ public class ModBlocks {
 	// T - Tags fertig
 	
 	public final static Block[] BLOCKS = new Block[] {
-		new BatTorch(),
+		new BatTorch(),//BCPFINRLT
 		new GrandTorch(),//BCPFINRLT
 		new MediumTorch(),//BCPFINRLT
 		new MegaTorch(),//BCPFINRLT
 		new SmallTorch(),//BCPFINRLT
 	};
+	
+	@ObjectHolder( MagicalTorches.MODID + ":" + BatTorch.registry_name )
+	public static BatTorch BAT_TORCH;
 	
 	@ObjectHolder( MagicalTorches.MODID + ":" + GrandTorch.registry_name )
 	public static GrandTorch GRAND_TORCH;
