@@ -1,10 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.blocks;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.GrandTorch;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.MediumTorch;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.MegaTorch;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.SmallTorch;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.*;
 import net.minecraft.block.Block;
 import net.minecraftforge.registries.ObjectHolder;
 
@@ -24,6 +21,7 @@ public class ModBlocks {
 	// T - Tags fertig
 	
 	public final static Block[] BLOCKS = new Block[] {
+		new BatTorch(),
 		new GrandTorch(),//BCPFINRLT
 		new MediumTorch(),//BCPFINRLT
 		new MegaTorch(),//BCPFINRLT

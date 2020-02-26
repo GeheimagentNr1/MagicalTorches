@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nonnull;
 
 
-public class GrandTorch extends MagicalTorch {
+public class GrandTorch extends WoodenMagicalTorch {
 	
 	
 	public final static String registry_name = "grand_torch";

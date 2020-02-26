@@ -27,11 +27,10 @@ abstract class MagicalTorch extends Block implements BlockItemInterface {
 	private final ISpawnBlockFactory spawnBlockFactory;
 	
 	//package-private
-	MagicalTorch( String registry_name, ResourceLocation spawn_block_registry_name,
+	MagicalTorch( Block.Properties properties, String registry_name, ResourceLocation spawn_block_registry_name,
 		ISpawnBlockFactory _spawnBlockFactory ) {
 		
-		super( Block.Properties.create( Material.WOOD ).doesNotBlockMovement().hardnessAndResistance( 3.0F )
-			.lightValue( 15 ).sound( SoundType.WOOD ) );
+		super( properties.doesNotBlockMovement().lightValue( 15 ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );

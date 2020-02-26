@@ -1,5 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
@@ -22,4 +23,6 @@ public abstract class SpawnBlocker {
 	}
 	
 	public abstract int getRange();
+	
+	public abstract boolean shouldBlockEntity( Entity entity );
 }

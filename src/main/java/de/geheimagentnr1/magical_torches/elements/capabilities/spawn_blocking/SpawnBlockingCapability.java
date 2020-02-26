@@ -3,7 +3,6 @@ package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.helper.ResourceLocationBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -48,9 +47,9 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 	
 	public boolean shouldBlockEntitySpawn( Entity entity ) {
 		
-		if( entity instanceof MonsterEntity ) {
-			BlockPos spawn_pos = entity.getPosition();
-			for( SpawnBlocker spawnBlocker : spawnBlockers ) {
+		BlockPos spawn_pos = entity.getPosition();
+		for( SpawnBlocker spawnBlocker : spawnBlockers ) {
+			if( spawnBlocker.shouldBlockEntity( entity ) ) {
 				BlockPos pos = spawnBlocker.getPos();
 				int range = spawnBlocker.getRange();
 				if( pos.getX() - range <= spawn_pos.getX() && pos.getX() + range >= spawn_pos.getX() &&

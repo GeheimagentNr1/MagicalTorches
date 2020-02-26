@@ -20,6 +20,8 @@ public class ModConfig {
 	
 	private final static ForgeConfigSpec CONFIG;
 	
+	private final static ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
+	
 	private final static ForgeConfigSpec.IntValue SMALL_TORCH_RANGE;
 	
 	private final static ForgeConfigSpec.IntValue MEDIUM_TORCH_RANGE;
@@ -30,6 +32,8 @@ public class ModConfig {
 	
 	static {
 		
+		BAT_TORCH_RANGE = BUILDER.comment( "Range of the bat torch." )
+			.defineInRange( "bat_torch_range", 64, 0, Integer.MAX_VALUE );
 		SMALL_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
 			.defineInRange( "small_torch_range", 16, 0, Integer.MAX_VALUE );
 		MEDIUM_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
@@ -50,11 +54,17 @@ public class ModConfig {
 		LOGGER.info( "Loading \"{}\" Config", mod_name );
 		configData.load();
 		CONFIG.setConfig( configData );
+		LOGGER.info( "{} = {}", BAT_TORCH_RANGE.getPath(), BAT_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", SMALL_TORCH_RANGE.getPath(), SMALL_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", MEDIUM_TORCH_RANGE.getPath(), MEDIUM_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", GRAND_TORCH_RANGE.getPath(), GRAND_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", MEGA_TORCH_RANGE.getPath(), MEGA_TORCH_RANGE.get() );
 		LOGGER.info( "\"{}\" Config loaded", mod_name );
+	}
+	
+	public static int getBatTorchRange() {
+		
+		return BAT_TORCH_RANGE.get();
 	}
 	
 	public static int getSmallTorchRange() {
