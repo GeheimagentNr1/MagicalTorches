@@ -8,14 +8,14 @@ import net.minecraft.util.ResourceLocation;
 
 
 //package-private
-abstract class WoodenMagicalTorch extends MagicalTorch {
+abstract class WoodenSpawnBlockingTorch extends SpawnBlockingTorch {
 	
 	
 	//package-private
-	WoodenMagicalTorch( String registry_name, ResourceLocation spawn_block_registry_name,
+	WoodenSpawnBlockingTorch( String registry_name, ResourceLocation spawn_block_registry_name,
 		ISpawnBlockFactory _spawnBlockFactory ) {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 3.0F ).sound( SoundType.WOOD ),
+		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ),
 			registry_name, spawn_block_registry_name, _spawnBlockFactory );
 	}
 }

@@ -1,7 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blocks.MegaTorchSpawnBlocker;
+import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.MegaTorchSpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nonnull;
 
 
-public class MegaTorch extends WoodenMagicalTorch {
+public class MegaTorch extends WoodenSpawnBlockingTorch {
 	
 	
 	public final static String registry_name = "mega_torch";

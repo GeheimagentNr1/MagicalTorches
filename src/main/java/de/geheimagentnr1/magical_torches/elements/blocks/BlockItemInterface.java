@@ -5,7 +5,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 
 
-@SuppressWarnings( "InterfaceWithOnlyOneDirectInheritor" )
 @FunctionalInterface
 public interface BlockItemInterface {
 	

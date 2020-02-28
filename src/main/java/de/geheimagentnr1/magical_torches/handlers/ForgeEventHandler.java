@@ -3,8 +3,13 @@ package de.geheimagentnr1.magical_torches.handlers;
 import de.geheimagentnr1.magical_torches.config.ModConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
+import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.SoundMufflingClientCapability;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -44,5 +49,33 @@ public class ForgeEventHandler {
 				event.setResult( Event.Result.DENY );
 			}
 		} );
+	}
+	
+	@SubscribeEvent
+	public static void handlePlaySoundEvent( PlaySoundEvent event ) {
+		
+		if( event.getResult() == Event.Result.ALLOW ) {
+			return;
+		}
+		ISound sound = event.getSound();
+		World world = Minecraft.getInstance().world;
+		
+		if( world != null ) {
+			if( SoundMufflingClientCapability.shouldMuffleSound( sound ) ) {
+				event.setResultSound( null );
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void handleLogoutInEvent( ClientPlayerNetworkEvent.LoggedInEvent event ) {
+		
+		SoundMufflingClientCapability.init();
+	}
+	
+	@SubscribeEvent
+	public static void handleLogoutOutEvent( ClientPlayerNetworkEvent.LoggedOutEvent event ) {
+		
+		SoundMufflingClientCapability.clear();
 	}
 }

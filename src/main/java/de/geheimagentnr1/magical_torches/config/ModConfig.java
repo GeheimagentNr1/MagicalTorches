@@ -20,6 +20,8 @@ public class ModConfig {
 	
 	private final static ForgeConfigSpec CONFIG;
 	
+	private final static ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
+	
 	private final static ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
 	
 	private final static ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
@@ -34,17 +36,19 @@ public class ModConfig {
 	
 	static {
 		
+		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
+			.defineInRange( "mega_torch_range", 64, 0, Integer.MAX_VALUE );
 		ALONE_TORCH_RANGE = BUILDER.comment( "Range of the alone torch." )
 			.defineInRange( "alone_torch_range", 64, 0, Integer.MAX_VALUE );
 		BAT_TORCH_RANGE = BUILDER.comment( "Range of the bat torch." )
 			.defineInRange( "bat_torch_range", 64, 0, Integer.MAX_VALUE );
 		SMALL_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
 			.defineInRange( "small_torch_range", 16, 0, Integer.MAX_VALUE );
-		MEDIUM_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
+		MEDIUM_TORCH_RANGE = BUILDER.comment( "Range of the medium torch." )
 			.defineInRange( "medium_torch_range", 32, 0, Integer.MAX_VALUE );
-		GRAND_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
+		GRAND_TORCH_RANGE = BUILDER.comment( "Range of the grand torch." )
 			.defineInRange( "grand_torch_range", 64, 0, Integer.MAX_VALUE );
-		MEGA_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
+		MEGA_TORCH_RANGE = BUILDER.comment( "Range of the mega torch." )
 			.defineInRange( "mega_torch_range", 128, 0, Integer.MAX_VALUE );
 		
 		CONFIG = BUILDER.build();
@@ -58,6 +62,7 @@ public class ModConfig {
 		LOGGER.info( "Loading \"{}\" Config", mod_name );
 		configData.load();
 		CONFIG.setConfig( configData );
+		LOGGER.info( "{} = {}", SOUND_MUFFLING_TORCH_RANGE.getPath(), SOUND_MUFFLING_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", ALONE_TORCH_RANGE.getPath(), ALONE_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", BAT_TORCH_RANGE.getPath(), BAT_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", SMALL_TORCH_RANGE.getPath(), SMALL_TORCH_RANGE.get() );
@@ -65,6 +70,11 @@ public class ModConfig {
 		LOGGER.info( "{} = {}", GRAND_TORCH_RANGE.getPath(), GRAND_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", MEGA_TORCH_RANGE.getPath(), MEGA_TORCH_RANGE.get() );
 		LOGGER.info( "\"{}\" Config loaded", mod_name );
+	}
+	
+	public static int getSoundMufflingTorchRange() {
+		
+		return SOUND_MUFFLING_TORCH_RANGE.get();
 	}
 	
 	public static int getAloneTorchRange() {

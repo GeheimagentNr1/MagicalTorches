@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "RCE",
+        " B ",
+        " N "
+    ],
+    "key": {
+        "R": { "item": "minecraft:rotten_flesh" },
+        "C": { "tag": "forge:storage_blocks/coal" },
+        "E": { "item": "minecraft:egg" },
+        "B": { "tag": "minecraft:wool" },
+        "N": { "item": "minecraft:note_block" }
+    },
+    "result": {
+        "item": "magical_torches:sound_muffling_torch"
+    }
+}

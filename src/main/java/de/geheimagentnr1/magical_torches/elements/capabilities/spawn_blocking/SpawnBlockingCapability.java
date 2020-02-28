@@ -1,6 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
+import de.geheimagentnr1.magical_torches.helper.RadiusHelper;
 import de.geheimagentnr1.magical_torches.helper.ResourceLocationBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
@@ -49,14 +50,9 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 		
 		BlockPos spawn_pos = entity.getPosition();
 		for( SpawnBlocker spawnBlocker : spawnBlockers ) {
-			if( spawnBlocker.shouldBlockEntity( entity ) ) {
-				BlockPos pos = spawnBlocker.getPos();
-				int range = spawnBlocker.getRange();
-				if( pos.getX() - range <= spawn_pos.getX() && pos.getX() + range >= spawn_pos.getX() &&
-					pos.getY() - range <= spawn_pos.getY() && pos.getY() + range >= spawn_pos.getY() &&
-					pos.getZ() - range <= spawn_pos.getZ() && pos.getZ() + range >= spawn_pos.getZ() ) {
-					return true;
-				}
+			if( spawnBlocker.shouldBlockEntity( entity )  && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,
+				spawnBlocker.getPos(), spawnBlocker.getRange() ) ) {
+				return true;
 			}
 		}
 		return false;

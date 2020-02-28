@@ -3,10 +3,13 @@ package de.geheimagentnr1.magical_torches.handlers;
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch.SoundMufflingTorch;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch.SoundMufflingTorchTile;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapabilityStorage;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,13 +30,13 @@ public class RegistryEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onBlocksRegistry( RegistryEvent.Register<Block> blockRegistryEvent ) {
+	public static void handleBlocksRegistryEvent( RegistryEvent.Register<Block> blockRegistryEvent ) {
 		
 		blockRegistryEvent.getRegistry().registerAll( ModBlocks.BLOCKS );
 	}
 	
 	@SubscribeEvent
-	public static void onItemsRegistry( RegistryEvent.Register<Item> itemRegistryEvent ) {
+	public static void handleItemsRegistryEvent( RegistryEvent.Register<Item> itemRegistryEvent ) {
 		
 		Item.Properties properties = new Item.Properties().group( MagicalTorches.setup.magicalTorchesItemGroup );
 		
@@ -43,5 +46,13 @@ public class RegistryEventHandler {
 				itemRegistryEvent.getRegistry().register( blockItem.getBlockItem( properties ) );
 			}
 		}
+	}
+	
+	@SuppressWarnings( "ConstantConditions" )
+	@SubscribeEvent
+	public static void onTileEntityRegistry( RegistryEvent.Register<TileEntityType<?>> event ) {
+		
+		event.getRegistry().register( TileEntityType.Builder.create( SoundMufflingTorchTile::new,
+			ModBlocks.SOUND_MUFFLING_TORCH ).build( null ).setRegistryName( SoundMufflingTorch.registry_name ) );
 	}
 }

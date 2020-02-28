@@ -2,7 +2,10 @@ package de.geheimagentnr1.magical_torches.elements.blocks;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.*;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch.SoundMufflingTorch;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch.SoundMufflingTorchTile;
 import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
 
@@ -27,6 +30,7 @@ public class ModBlocks {
 		new MediumTorch(),//BCPFINRLT
 		new MegaTorch(),//BCPFINRLT
 		new SmallTorch(),//BCPFINRLT
+		new SoundMufflingTorch(),//BCPFINRLT
 	};
 	
 	@ObjectHolder( MagicalTorches.MODID + ":" + AloneTorch.registry_name )
@@ -46,4 +50,10 @@ public class ModBlocks {
 	
 	@ObjectHolder( MagicalTorches.MODID + ":" + SmallTorch.registry_name )
 	public static SmallTorch SMALL_TORCH;
+	
+	@ObjectHolder( MagicalTorches.MODID + ":" + SoundMufflingTorch.registry_name )
+	public static SoundMufflingTorch SOUND_MUFFLING_TORCH;
+	
+	@ObjectHolder( MagicalTorches.MODID + ":" + SoundMufflingTorch.registry_name )
+	public static TileEntityType<SoundMufflingTorchTile> SOUND_MUFFLING_TORCH_TILE;
 }

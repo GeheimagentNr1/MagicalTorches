@@ -1,4 +1,4 @@
-package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blocks;
+package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers;
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import net.minecraft.entity.Entity;

@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 //package-private
 @SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-abstract class MagicalTorch extends Block implements BlockItemInterface {
+abstract class SpawnBlockingTorch extends Block implements BlockItemInterface {
 	
 	
 	private final ISpawnBlockFactory spawnBlockFactory;
 	
 	//package-private
-	MagicalTorch( Block.Properties properties, String registry_name, ResourceLocation spawn_block_registry_name,
+	SpawnBlockingTorch( Block.Properties properties, String registry_name, ResourceLocation spawn_block_registry_name,
 		ISpawnBlockFactory _spawnBlockFactory ) {
 		
 		super( properties.doesNotBlockMovement().lightValue( 15 ) );

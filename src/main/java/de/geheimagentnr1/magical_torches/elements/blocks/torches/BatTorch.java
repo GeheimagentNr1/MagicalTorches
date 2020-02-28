@@ -1,7 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blocks.BatTorchSpawnBlocker;
+import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.BatTorchSpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class BatTorch extends MagicalTorch {
+public class BatTorch extends SpawnBlockingTorch {
 	
 	
 	public final static String registry_name = "bat_torch";
