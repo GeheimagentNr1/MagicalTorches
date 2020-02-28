@@ -1,4 +1,4 @@
-package de.geheimagentnr1.magical_torches.elements.blocks.torches;
+package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;

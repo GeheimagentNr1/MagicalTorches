@@ -1,9 +1,9 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers;
 
 import de.geheimagentnr1.magical_torches.config.ModConfig;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.BatTorch;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.BatTorch;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
-import de.geheimagentnr1.magical_torches.helper.ResourceLocationBuilder;
+import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.util.ResourceLocation;

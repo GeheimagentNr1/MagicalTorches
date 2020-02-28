@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling;
 
-import de.geheimagentnr1.magical_torches.helper.RadiusHelper;
+import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.tileentity.TileEntity;

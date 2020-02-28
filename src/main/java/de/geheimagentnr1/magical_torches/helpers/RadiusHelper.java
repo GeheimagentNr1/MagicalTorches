@@ -1,4 +1,4 @@
-package de.geheimagentnr1.magical_torches.helper;
+package de.geheimagentnr1.magical_torches.helpers;
 
 import net.minecraft.util.math.BlockPos;
 

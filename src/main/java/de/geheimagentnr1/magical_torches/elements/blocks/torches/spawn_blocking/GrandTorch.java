@@ -1,7 +1,7 @@
-package de.geheimagentnr1.magical_torches.elements.blocks.torches;
+package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.MegaTorchSpawnBlocker;
+import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.GrandTorchSpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
@@ -13,16 +13,16 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nonnull;
 
 
-public class MegaTorch extends WoodenSpawnBlockingTorch {
+public class GrandTorch extends WoodenSpawnBlockingTorch {
 	
 	
-	public final static String registry_name = "mega_torch";
+	public final static String registry_name = "grand_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 13, 10 );
+	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 12, 10 );
 	
-	public MegaTorch() {
+	public GrandTorch() {
 		
-		super( registry_name, MegaTorchSpawnBlocker.registry_name, MegaTorchSpawnBlocker::new );
+		super( registry_name, GrandTorchSpawnBlocker.registry_name, GrandTorchSpawnBlocker::new );
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -36,6 +36,6 @@ public class MegaTorch extends WoodenSpawnBlockingTorch {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.MEGA_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.GRAND_TORCH, properties, registry_name );
 	}
 }

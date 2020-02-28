@@ -1,4 +1,4 @@
-package de.geheimagentnr1.magical_torches.helper;
+package de.geheimagentnr1.magical_torches.helpers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import net.minecraft.util.ResourceLocation;

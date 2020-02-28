@@ -1,9 +1,9 @@
 package de.geheimagentnr1.magical_torches.elements.blocks;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.*;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch.SoundMufflingTorch;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch.SoundMufflingTorchTile;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorchTile;
+import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.*;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;

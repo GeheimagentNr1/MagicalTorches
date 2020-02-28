@@ -1,5 +1,5 @@
 {
   "variants": {
-    "": { "model": "magical_torches:block/torches/grand_torch" }
+    "": { "model": "magical_torches:block/torches/spawn_blocking/grand_torch" }
   }
 }

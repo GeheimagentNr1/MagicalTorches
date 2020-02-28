@@ -1,8 +1,8 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
-import de.geheimagentnr1.magical_torches.helper.RadiusHelper;
-import de.geheimagentnr1.magical_torches.helper.ResourceLocationBuilder;
+import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
+import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

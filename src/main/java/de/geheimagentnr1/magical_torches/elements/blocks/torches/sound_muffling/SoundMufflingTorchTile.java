@@ -1,4 +1,4 @@
-package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling_torch;
+package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.SoundMufflingClientCapability;
