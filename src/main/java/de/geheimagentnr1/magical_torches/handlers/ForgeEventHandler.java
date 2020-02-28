@@ -2,6 +2,7 @@ package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.config.ModConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
+import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.SoundMufflingClientCapability;
 import net.minecraft.client.Minecraft;
@@ -11,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,6 +34,7 @@ public class ForgeEventHandler {
 	@SubscribeEvent
 	public static void onWorldAttachCapabilityEvent( AttachCapabilitiesEvent<World> event ) {
 		
+		event.addCapability( ChickenEggSpawningCapability.registry_name, new ChickenEggSpawningCapability() );
 		event.addCapability( SpawnBlockingCapability.registry_name, new SpawnBlockingCapability() );
 	}
 	
@@ -47,6 +50,22 @@ public class ForgeEventHandler {
 		world.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent( capability -> {
 			if( capability.shouldBlockEntitySpawn( entity ) ) {
 				event.setResult( Event.Result.DENY );
+			}
+		} );
+	}
+	
+	@SubscribeEvent
+	public static void handleEntityJoinWorldEvent( EntityJoinWorldEvent event ) {
+		
+		if( event.getResult() == Event.Result.ALLOW ) {
+			return;
+		}
+		Entity entity = event.getEntity();
+		World world = event.getWorld();
+		
+		world.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {
+			if( capability.shouldBlockChickenEggSpawn( entity ) ) {
+				event.setCanceled( true );
 			}
 		} );
 	}

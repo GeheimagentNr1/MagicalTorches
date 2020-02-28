@@ -5,6 +5,8 @@ import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorchTile;
+import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
+import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapabilityStorage;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapabilityStorage;
 import net.minecraft.block.Block;
@@ -25,6 +27,8 @@ public class RegistryEventHandler {
 	@SubscribeEvent
 	public static void setup( FMLCommonSetupEvent event ) {
 		
+		CapabilityManager.INSTANCE.register( ChickenEggSpawningCapability.class,
+			new ChickenEggSpawningCapabilityStorage(), ChickenEggSpawningCapability::new );
 		CapabilityManager.INSTANCE.register( SpawnBlockingCapability.class, new SpawnBlockingCapabilityStorage(),
 			SpawnBlockingCapability::new );
 	}

@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "particle": "minecraft:particle/note",
-        "note": "minecraft:particle/note",
+        "particle": "magical_torches:block/torches/sound_muffling/note",
+        "note": "magical_torches:block/torches/sound_muffling/note",
         "black_wool": "minecraft:block/black_wool",
         "note_block": "minecraft:block/note_block"
     },

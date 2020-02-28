@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "EEE",
+        "EWE",
+        "EHE"
+    ],
+    "key": {
+        "E": { "item": "minecraft:egg" },
+        "W": { "tag": "minecraft:wool" },
+        "H": { "item": "minecraft:hay_block" }
+    },
+    "result": {
+        "item": "magical_torches:chicken_egg_torch"
+    }
+}

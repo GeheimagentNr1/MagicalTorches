@@ -42,7 +42,7 @@ public class SpawnBlockerNBTHelper {
 	}
 	
 	public static TreeSet<SpawnBlocker> deserializeSpawnBlockers( ListNBT nbt,
-		TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY  ) {
+		TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY ) {
 		
 		TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
 		for( INBT inbt : nbt ) {

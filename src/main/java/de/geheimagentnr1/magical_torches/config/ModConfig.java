@@ -34,6 +34,10 @@ public class ModConfig {
 	
 	private final static ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
 	
+	private final static ForgeConfigSpec.BooleanValue SHOULD_INVERT_CHICKEN_EGG_BLOCKING;
+	
+	private final static ForgeConfigSpec.IntValue CHICKEN_EGG_TORCH_RANGE;
+	
 	static {
 		
 		BUILDER.comment( "Config for the spawn blocking torches" ).push( "spawn_blockers" );
@@ -49,10 +53,18 @@ public class ModConfig {
 			.defineInRange( "grand_torch_range", 64, 0, Integer.MAX_VALUE );
 		MEGA_TORCH_RANGE = BUILDER.comment( "Range of the mega torch." )
 			.defineInRange( "mega_torch_range", 128, 0, Integer.MAX_VALUE );
-		BUILDER.comment( "Config for the sound muffling torches" ).push( "spawn_mufflers" );
+		BUILDER.pop();
+		BUILDER.comment( "Config for the sound muffling torches" ).push( "sound_mufflers" );
 		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
 			.defineInRange( "mega_torch_range", 64, 0, Integer.MAX_VALUE );
-		
+		BUILDER.pop();
+		BUILDER.comment( "Config for the chicken egg spawning torches" ).push( "chicken_egg_spawning" );
+		SHOULD_INVERT_CHICKEN_EGG_BLOCKING =
+			BUILDER.comment( "If \"false\" chicken egg spawning is allowed and is blocked by chicken egg torches." )
+				.comment( "If \"true\" chicken egg spawning is disabled and is enabled by chicken egg torches." )
+				.define( "should_invert_chicken_egg_blocking", false );
+		CHICKEN_EGG_TORCH_RANGE = BUILDER.comment( "Range of the chicken egg torch." )
+			.defineInRange( "mega_torch_range", 16, 0, Integer.MAX_VALUE );
 		CONFIG = BUILDER.build();
 	}
 	
@@ -109,5 +121,15 @@ public class ModConfig {
 	public static int getSoundMufflingTorchRange() {
 		
 		return SOUND_MUFFLING_TORCH_RANGE.get();
+	}
+	
+	public static boolean getShouldInvertChickenEggBlocking() {
+		
+		return SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get();
+	}
+	
+	public static int getChickenEggTorchRange() {
+		
+		return CHICKEN_EGG_TORCH_RANGE.get();
 	}
 }
