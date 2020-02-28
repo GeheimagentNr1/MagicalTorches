@@ -20,8 +20,6 @@ public class ModConfig {
 	
 	private final static ForgeConfigSpec CONFIG;
 	
-	private final static ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
-	
 	private final static ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
 	
 	private final static ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
@@ -33,6 +31,8 @@ public class ModConfig {
 	private final static ForgeConfigSpec.IntValue GRAND_TORCH_RANGE;
 	
 	private final static ForgeConfigSpec.IntValue MEGA_TORCH_RANGE;
+	
+	private final static ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
 	
 	static {
 		
