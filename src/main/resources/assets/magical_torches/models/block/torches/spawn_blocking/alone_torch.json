@@ -39,25 +39,25 @@
         {
             "name": "base",
             "from": [ 2, 0.01, 2 ], 
-            "to": [ 14, 2, 14 ], 
+            "to": [ 14, 3, 14 ], 
             "faces": {
-                "north": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
-                "east": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
-                "south": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
-                "west": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 7.99 ] },
+                "north": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 8.99 ] },
+                "east": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 8.99 ] },
+                "south": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 8.99 ] },
+                "west": { "texture": "#enchanting_table_side", "uv": [ 2, 6, 14, 8.99 ] },
                 "up": { "texture": "#enchanting_table_top", "uv": [ 2, 2, 14, 14 ] },
                 "down": { "texture": "#enchanting_table_bottom", "uv": [ 2, 2, 14, 14 ], "cullface": "down" }
             }
         },
         {
             "name": "beacon",
-            "from": [ 3, 2, 3 ], 
-            "to": [ 13, 12, 13 ], 
+            "from": [ 3, 3, 3 ], 
+            "to": [ 13, 14, 13 ], 
             "faces": {
-                "north": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
-                "east": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
-                "south": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
-                "west": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] },
+                "north": { "texture": "#beacon", "uv": [ 3, 2, 13, 13 ] },
+                "east": { "texture": "#beacon", "uv": [ 3, 2, 13, 13 ] },
+                "south": { "texture": "#beacon", "uv": [ 3, 2, 13, 13 ] },
+                "west": { "texture": "#beacon", "uv": [ 3, 2, 13, 13 ] },
                 "up": { "texture": "#beacon", "uv": [ 3, 3, 13, 13 ] }
             }
         },
