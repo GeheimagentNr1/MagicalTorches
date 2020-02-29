@@ -1,12 +1,12 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "EEE",
-        "EWE",
-        "EHE"
+        "FFF",
+        "FWF",
+        "FHF"
     ],
     "key": {
-        "E": { "item": "minecraft:egg" },
+        "F": { "item": "minecraft:feather" },
         "W": { "tag": "minecraft:wool" },
         "H": { "item": "minecraft:hay_block" }
     },
