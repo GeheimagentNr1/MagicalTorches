@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.*;
 
@@ -25,9 +24,8 @@ public class SoundMufflingClientCapability {
 	public static void init() {
 		
 		Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
-		for( World world : ServerLifecycleHooks.getCurrentServer().getWorlds() ) {
-			soundMufflers.put( world.getDimension().getType(), new TreeSet<>( comparator ) );
-		}
+		DimensionType.getAll().forEach(
+			dimensionType -> soundMufflers.put( dimensionType, new TreeSet<>( comparator ) ) );
 	}
 	
 	public static void clear() {

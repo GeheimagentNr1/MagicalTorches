@@ -50,11 +50,11 @@ public class SpawnBlockerNBTHelper {
 				CompoundNBT compoundNBT = (CompoundNBT)inbt;
 				if( compoundNBT.contains( registryNameName, Constants.NBT.TAG_STRING ) ) {
 					String registry_name_string = compoundNBT.getString( registryNameName );
-					if( ResourceLocation.isResouceNameValid( registry_name_string ) &&
+					ResourceLocation registry_name = ResourceLocation.tryCreate( registry_name_string );
+					if( registry_name != null &&
 						compoundNBT.contains( xName, Constants.NBT.TAG_INT ) &&
 						compoundNBT.contains( yName, Constants.NBT.TAG_INT ) &&
 						compoundNBT.contains( zName, Constants.NBT.TAG_INT ) ) {
-						ResourceLocation registry_name = new ResourceLocation( registry_name_string );
 						BlockPos pos = new BlockPos( new BlockPos( compoundNBT.getInt( xName ),
 							compoundNBT.getInt( yName ), compoundNBT.getInt( zName ) ) );
 						ISpawnBlockFactory factory = SPAWN_BLOCKING_REGISTERY.get( registry_name );

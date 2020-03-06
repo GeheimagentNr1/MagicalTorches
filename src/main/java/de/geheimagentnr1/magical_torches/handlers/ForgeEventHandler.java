@@ -9,6 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -70,6 +72,7 @@ public class ForgeEventHandler {
 		} );
 	}
 	
+	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
 	public static void handlePlaySoundEvent( PlaySoundEvent event ) {
 		
@@ -86,12 +89,14 @@ public class ForgeEventHandler {
 		}
 	}
 	
+	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
 	public static void handleLogoutInEvent( ClientPlayerNetworkEvent.LoggedInEvent event ) {
 		
 		SoundMufflingClientCapability.init();
 	}
 	
+	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
 	public static void handleLogoutOutEvent( ClientPlayerNetworkEvent.LoggedOutEvent event ) {
 		
