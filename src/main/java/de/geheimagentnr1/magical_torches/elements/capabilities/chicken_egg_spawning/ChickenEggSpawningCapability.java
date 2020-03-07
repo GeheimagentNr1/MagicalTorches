@@ -8,6 +8,8 @@ import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerNBTHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -41,14 +43,22 @@ public class ChickenEggSpawningCapability implements ICapabilitySerializable<Lis
 	
 	public boolean shouldBlockChickenEggSpawn( Entity entity ) {
 		
-		BlockPos spawn_pos = entity.getPosition();
-		for( SpawnBlocker spawnBlocker : spawnBlockers ) {
-			if( spawnBlocker.shouldBlockEntity( entity ) && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,
-				spawnBlocker.getPos(), spawnBlocker.getRange() ) ) {
-				return !ModConfig.getShouldInvertChickenEggBlocking();
+		if( entity instanceof ItemEntity && ( (ItemEntity)entity ).getItem().getItem() == Items.EGG ) {
+			BlockPos spawn_pos = entity.getPosition();
+			boolean block = false;
+			for( SpawnBlocker spawnBlocker : spawnBlockers ) {
+				if( spawnBlocker.shouldBlockEntity( entity ) && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,
+					spawnBlocker.getPos(), spawnBlocker.getRange() ) ) {
+					block = true;
+					break;
+				}
 			}
+			if( ModConfig.getShouldInvertChickenEggBlocking() ) {
+				block = !block;
+			}
+			return block;
 		}
-		return ModConfig.getShouldInvertChickenEggBlocking();
+		return false;
 	}
 	
 	@Nonnull
