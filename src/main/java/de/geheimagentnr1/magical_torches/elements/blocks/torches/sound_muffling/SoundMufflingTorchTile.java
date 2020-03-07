@@ -1,11 +1,11 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
-import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.SoundMufflingClientCapability;
+import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.SoundMufflingClientCapabilityHelper;
 import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.math.BlockPos;
 
 
 public class SoundMufflingTorchTile extends TileEntity {
@@ -23,17 +23,17 @@ public class SoundMufflingTorchTile extends TileEntity {
 	}
 	
 	@Override
-	public void read( CompoundNBT compound ) {
+	public void setPos( BlockPos posIn ) {
 		
-		super.read( compound );
-		SoundMufflingClientCapability.addSoundMuffler( this,
+		super.setPos( posIn );
+		SoundMufflingClientCapabilityHelper.addSoundMuffler( this,
 			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( pos ) );
 	}
 	
 	@Override
 	public void remove() {
 		
-		SoundMufflingClientCapability.removeSoundMuffler(
+		SoundMufflingClientCapabilityHelper.removeSoundMuffler(
 			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( pos ) );
 		super.remove();
 	}

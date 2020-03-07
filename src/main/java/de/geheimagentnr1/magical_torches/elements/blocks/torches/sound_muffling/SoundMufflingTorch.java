@@ -2,8 +2,6 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
-import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.SoundMufflingClientCapability;
-import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -17,7 +15,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -98,24 +95,6 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface {
 	public PushReaction getPushReaction( BlockState state ) {
 		
 		return PushReaction.DESTROY;
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Override
-	public void onBlockAdded( BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving ) {
-		
-		SoundMufflingClientCapability.addSoundMuffler(
-			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( pos ) );
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Override
-	public void onReplaced( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull BlockState newState, boolean isMoving ) {
-		
-		SoundMufflingClientCapability.removeSoundMuffler(
-			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( pos ) );
-		super.onReplaced( state, worldIn, pos, newState, isMoving );
 	}
 	
 	@Override

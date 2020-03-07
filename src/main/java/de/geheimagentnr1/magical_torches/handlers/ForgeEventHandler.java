@@ -8,6 +8,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muff
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -47,6 +48,9 @@ public class ForgeEventHandler {
 			return;
 		}
 		Entity entity = event.getEntity();
+		if( entity instanceof PlayerEntity ) {
+			return;
+		}
 		World world = entity.getEntityWorld();
 		
 		world.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent( capability -> {
@@ -63,6 +67,9 @@ public class ForgeEventHandler {
 			return;
 		}
 		Entity entity = event.getEntity();
+		if( entity instanceof PlayerEntity ) {
+			return;
+		}
 		World world = event.getWorld();
 		
 		world.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {

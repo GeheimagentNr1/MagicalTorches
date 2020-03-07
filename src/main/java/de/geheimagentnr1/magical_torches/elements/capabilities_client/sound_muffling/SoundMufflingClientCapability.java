@@ -7,8 +7,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
 
 import java.util.*;
 
@@ -65,22 +63,20 @@ public class SoundMufflingClientCapability {
 	
 	public static void addSoundMuffler( TileEntity tileEntity, SoundMuffler soundMuffler ) {
 		
-		DistExecutor.runWhenOn( Dist.CLIENT, () -> () -> {
-			if( getWorld() == null ) {
-				SOUND_MUFFLER_STORAGES.add( new SoundMufflerStorage( tileEntity, soundMuffler ) );
-			} else {
-				addSoundMuffler( soundMuffler );
-			}
-		} );
+		if( getWorld() == null ) {
+			SOUND_MUFFLER_STORAGES.add( new SoundMufflerStorage( tileEntity, soundMuffler ) );
+		} else {
+			addSoundMuffler( soundMuffler );
+		}
 	}
 	
 	public static void removeSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		DistExecutor.runWhenOn( Dist.CLIENT, () -> () -> soundMufflers.get( getDimension() ).remove( soundMuffler ) );
+		soundMufflers.get( getDimension() ).remove( soundMuffler );
 	}
 	
-	public static void addSoundMuffler( SoundMuffler soundMuffler ) {
+	private static void addSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		DistExecutor.runWhenOn( Dist.CLIENT, () -> () -> soundMufflers.get( getDimension() ).add( soundMuffler ) );
+		soundMufflers.get( getDimension() ).add( soundMuffler );
 	}
 }
