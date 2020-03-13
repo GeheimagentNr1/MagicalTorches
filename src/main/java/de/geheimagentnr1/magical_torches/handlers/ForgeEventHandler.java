@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -41,6 +42,15 @@ public class ForgeEventHandler {
 		event.addCapability( SpawnBlockingCapability.registry_name, new SpawnBlockingCapability() );
 	}
 	
+	private static void blockSpawning( World world, EntityEvent event, Entity entity ) {
+		
+		world.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent( capability -> {
+			if( capability.shouldBlockEntitySpawn( entity ) ) {
+				event.setResult( Event.Result.DENY );
+			}
+		} );
+	}
+	
 	@SubscribeEvent
 	public static void onCheckSpawn( LivingSpawnEvent.CheckSpawn event ) {
 		
@@ -51,13 +61,7 @@ public class ForgeEventHandler {
 		if( entity instanceof PlayerEntity ) {
 			return;
 		}
-		World world = entity.getEntityWorld();
-		
-		world.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent( capability -> {
-			if( capability.shouldBlockEntitySpawn( entity ) ) {
-				event.setResult( Event.Result.DENY );
-			}
-		} );
+		blockSpawning( entity.getEntityWorld(), event, entity );
 	}
 	
 	@SubscribeEvent
@@ -77,6 +81,9 @@ public class ForgeEventHandler {
 				event.setCanceled( true );
 			}
 		} );
+		if( !event.isCanceled() ) {
+			blockSpawning( world, event, entity );
+		}
 	}
 	
 	@OnlyIn( Dist.CLIENT )
