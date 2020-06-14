@@ -39,7 +39,7 @@ abstract class SpawnBlockingTorch extends Block implements BlockItemInterface {
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
-		@Nonnull BlockPos pos, ISelectionContext context ) {
+		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
 	}
@@ -47,14 +47,15 @@ abstract class SpawnBlockingTorch extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( BlockState state ) {
+	public PushReaction getPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded( BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving ) {
+	public void onBlockAdded( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
+		@Nonnull BlockState oldState, boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(
 			capability -> capability.addSpawnBlocker( spawnBlockFactory.buildSpawnBlocker( pos ) ) );
@@ -62,7 +63,7 @@ abstract class SpawnBlockingTorch extends Block implements BlockItemInterface {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
+	public void onReplaced( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
 		@Nonnull BlockState newState, boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(

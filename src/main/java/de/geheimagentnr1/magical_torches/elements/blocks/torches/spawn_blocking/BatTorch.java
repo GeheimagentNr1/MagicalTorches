@@ -55,7 +55,8 @@ public class BatTorch extends SpawnBlockingTorch {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return state.get( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
 	}
@@ -84,8 +85,9 @@ public class BatTorch extends SpawnBlockingTorch {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public BlockState updatePostPlacement( @Nonnull BlockState stateIn, Direction facing, BlockState facingState,
-		IWorld worldIn, BlockPos currentPos, BlockPos facingPos ) {
+	public BlockState updatePostPlacement( @Nonnull BlockState stateIn, @Nonnull Direction facing,
+		@Nonnull BlockState facingState,
+		@Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos ) {
 		
 		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition( worldIn,
 			currentPos ) ?
@@ -95,7 +97,7 @@ public class BatTorch extends SpawnBlockingTorch {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean isValidPosition( BlockState state, IWorldReader worldIn, BlockPos pos ) {
+	public boolean isValidPosition( @Nonnull BlockState state, @Nonnull IWorldReader worldIn, BlockPos pos ) {
 		
 		Direction direction = hangingToDirection( state ).getOpposite();
 		return Block.hasEnoughSolidSide( worldIn, pos.offset( direction ), direction.getOpposite() );

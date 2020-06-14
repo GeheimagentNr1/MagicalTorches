@@ -7,6 +7,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nonnull;
+
 
 public class SoundMufflingTorchTile extends TileEntity {
 	
@@ -23,7 +25,7 @@ public class SoundMufflingTorchTile extends TileEntity {
 	}
 	
 	@Override
-	public void setPos( BlockPos posIn ) {
+	public void setPos( @Nonnull BlockPos posIn ) {
 		
 		super.setPos( posIn );
 		SoundMufflingClientCapabilityHelper.addSoundMuffler( this,

@@ -52,7 +52,8 @@ public class ChickenEggTorch extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
 	}
@@ -61,7 +62,7 @@ public class ChickenEggTorch extends Block implements BlockItemInterface {
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
-		@Nonnull BlockPos pos, ISelectionContext context ) {
+		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
 	}
@@ -69,14 +70,15 @@ public class ChickenEggTorch extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( BlockState state ) {
+	public PushReaction getPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded( BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving ) {
+	public void onBlockAdded( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
+		@Nonnull BlockState oldState, boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent(
 			capability -> capability.addSpawnBlocker( spawnBlockFactory.buildSpawnBlocker( pos ) ) );
@@ -84,7 +86,7 @@ public class ChickenEggTorch extends Block implements BlockItemInterface {
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced( BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
+	public void onReplaced( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
 		@Nonnull BlockState newState, boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent(

@@ -75,7 +75,8 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context ) {
+	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
 	}
@@ -84,7 +85,7 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface {
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
-		@Nonnull BlockPos pos, ISelectionContext context ) {
+		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
 	}
@@ -92,7 +93,7 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( BlockState state ) {
+	public PushReaction getPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
 	}
