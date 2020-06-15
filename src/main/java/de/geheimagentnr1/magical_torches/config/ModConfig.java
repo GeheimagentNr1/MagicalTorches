@@ -8,6 +8,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+
 
 public class ModConfig {
 	
@@ -56,15 +58,16 @@ public class ModConfig {
 		BUILDER.pop();
 		BUILDER.comment( "Config for the sound muffling torches" ).push( "sound_mufflers" );
 		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
-			.defineInRange( "mega_torch_range", 64, 0, Integer.MAX_VALUE );
+			.defineInRange( "sound_muffling_torch_range", 64, 0, Integer.MAX_VALUE );
 		BUILDER.pop();
 		BUILDER.comment( "Config for the chicken egg spawning torches" ).push( "chicken_egg_spawning" );
 		SHOULD_INVERT_CHICKEN_EGG_BLOCKING =
-			BUILDER.comment( "If \"false\" chicken egg spawning is allowed and is blocked by chicken egg torches." )
-				.comment( "If \"true\" chicken egg spawning is disabled and is enabled by chicken egg torches." )
+			BUILDER.comment( "If \"false\" chicken egg spawning is allowed and is blocked by chicken egg torches." +
+				System.lineSeparator() +
+				"If \"true\" chicken egg spawning is disabled and is enabled by chicken egg torches." )
 				.define( "should_invert_chicken_egg_blocking", false );
 		CHICKEN_EGG_TORCH_RANGE = BUILDER.comment( "Range of the chicken egg torch." )
-			.defineInRange( "mega_torch_range", 16, 0, Integer.MAX_VALUE );
+			.defineInRange( "chicken_egg_torch_range", 16, 0, Integer.MAX_VALUE );
 		CONFIG = BUILDER.build();
 	}
 	
