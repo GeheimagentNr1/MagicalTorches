@@ -1,5 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.BatTorchSpawnBlocker;
 import net.minecraft.block.Block;
@@ -7,11 +8,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class BatTorch extends SpawnBlockingTorch {
+public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInterface {
 	
 	
 	public final static String registry_name = "bat_torch";
@@ -45,11 +46,10 @@ public class BatTorch extends SpawnBlockingTorch {
 		setDefaultState( stateContainer.getBaseState().with( BlockStateProperties.HANGING, Boolean.FALSE ) );
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )

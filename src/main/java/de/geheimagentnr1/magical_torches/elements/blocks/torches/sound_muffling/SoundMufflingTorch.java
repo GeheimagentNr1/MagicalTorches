@@ -1,15 +1,16 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -20,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class SoundMufflingTorch extends Block implements BlockItemInterface {
+public class SoundMufflingTorch extends Block implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
 	public final static String registry_name = "sound_muffling_torch";
@@ -65,11 +66,10 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface {
 		return new SoundMufflingTorchTile();
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )

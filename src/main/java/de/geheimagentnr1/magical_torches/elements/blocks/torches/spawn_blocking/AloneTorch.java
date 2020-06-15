@@ -1,13 +1,14 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.AloneTorchSpawnBlocker;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -17,7 +18,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nonnull;
 
 
-public class AloneTorch extends SpawnBlockingTorch {
+public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInterface {
 	
 	
 	public final static String registry_name = "alone_torch";
@@ -36,11 +37,10 @@ public class AloneTorch extends SpawnBlockingTorch {
 		return VoxelShapes.fullCube();
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.TRANSLUCENT;
+		return RenderType.getTranslucent();
 	}
 	
 	@Override

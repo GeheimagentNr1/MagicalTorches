@@ -10,13 +10,13 @@ public class SoundMufflingClientCapabilityHelper {
 	
 	public static void addSoundMuffler( TileEntity tileEntity, SoundMuffler soundMuffler ) {
 		
-		DistExecutor.runWhenOn( Dist.CLIENT, () -> () ->
+		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, () -> () ->
 			SoundMufflingClientCapability.addSoundMuffler( tileEntity, soundMuffler ) );
 	}
 	
 	public static void removeSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		DistExecutor.runWhenOn( Dist.CLIENT, () -> () ->
+		DistExecutor.unsafeRunWhenOn( Dist.CLIENT, () -> () ->
 			SoundMufflingClientCapability.removeSoundMuffler( soundMuffler ) );
 	}
 }

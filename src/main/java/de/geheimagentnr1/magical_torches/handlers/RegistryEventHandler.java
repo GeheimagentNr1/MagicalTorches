@@ -2,6 +2,7 @@ package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorchTile;
@@ -10,12 +11,14 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawn
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapabilityStorage;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
@@ -23,6 +26,17 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
 public class RegistryEventHandler {
 	
+	
+	@SubscribeEvent
+	public static void handle( FMLClientSetupEvent event ) {
+		
+		for( Block block : ModBlocks.BLOCKS ) {
+			if( block instanceof BlockRenderTypeInterface ) {
+				BlockRenderTypeInterface blockRenderType = (BlockRenderTypeInterface)block;
+				RenderTypeLookup.setRenderLayer( block, blockRenderType.getRenderType() );
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	public static void setup( FMLCommonSetupEvent event ) {

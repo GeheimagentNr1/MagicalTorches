@@ -6,6 +6,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muff
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
@@ -25,9 +26,9 @@ public class SoundMufflingTorchTile extends TileEntity {
 	}
 	
 	@Override
-	public void setPos( @Nonnull BlockPos posIn ) {
+	public void setWorldAndPos( @Nonnull World _world, @Nonnull BlockPos _pos ) {
 		
-		super.setPos( posIn );
+		super.setWorldAndPos( _world, _pos );
 		SoundMufflingClientCapabilityHelper.addSoundMuffler( this,
 			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( pos ) );
 	}

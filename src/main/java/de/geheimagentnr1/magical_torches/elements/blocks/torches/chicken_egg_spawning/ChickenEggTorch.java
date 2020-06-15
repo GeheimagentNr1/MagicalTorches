@@ -1,6 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
@@ -11,8 +12,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -23,7 +24,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 
-public class ChickenEggTorch extends Block implements BlockItemInterface {
+public class ChickenEggTorch extends Block implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
 	public final static String registry_name = "chicken_egg_torch";
@@ -42,11 +43,10 @@ public class ChickenEggTorch extends Block implements BlockItemInterface {
 			spawnBlockFactory );
 	}
 	
-	@Nonnull
 	@Override
-	public BlockRenderLayer getRenderLayer() {
+	public RenderType getRenderType() {
 		
-		return BlockRenderLayer.CUTOUT;
+		return RenderType.getCutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
