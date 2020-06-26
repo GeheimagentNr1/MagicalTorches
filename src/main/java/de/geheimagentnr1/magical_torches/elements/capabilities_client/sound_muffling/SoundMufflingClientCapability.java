@@ -4,9 +4,9 @@ import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
 import java.util.*;
 
@@ -14,16 +14,16 @@ import java.util.*;
 public class SoundMufflingClientCapability {
 	
 	
-	private final static TreeMap<DimensionType, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
-		Comparator.comparingInt( DimensionType::getId ) );
+	private final static TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
+		Comparator.comparing( RegistryKey::func_240901_a_ ) );
 	
 	private final static ArrayList<SoundMufflerStorage> SOUND_MUFFLER_STORAGES = new ArrayList<>();
 	
 	public static void init() {
 		
 		Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
-		DimensionType.getAll().forEach(
-			dimensionType -> soundMufflers.put( dimensionType, new TreeSet<>( comparator ) ) );
+		Objects.requireNonNull( Minecraft.getInstance().getConnection() ).func_239164_m_().forEach(
+			dimension -> soundMufflers.put( dimension, new TreeSet<>( comparator ) ) );
 	}
 	
 	public static void clear() {
@@ -37,7 +37,7 @@ public class SoundMufflingClientCapability {
 		if( !SOUND_MUFFLER_STORAGES.isEmpty() ) {
 			for( SoundMufflerStorage soundMufflerStorage : SOUND_MUFFLER_STORAGES ) {
 				soundMufflers.get( Objects.requireNonNull( soundMufflerStorage.getTileEntity().getWorld() )
-					.getDimension().getType() ).add( soundMufflerStorage.getSoundMuffler() );
+					.func_234923_W_() ).add( soundMufflerStorage.getSoundMuffler() );
 			}
 			SOUND_MUFFLER_STORAGES.clear();
 		}
@@ -56,9 +56,9 @@ public class SoundMufflingClientCapability {
 		return Minecraft.getInstance().world;
 	}
 	
-	private static DimensionType getDimension() {
+	private static RegistryKey<World> getDimension() {
 		
-		return getWorld().getDimension().getType();
+		return getWorld().func_234923_W_();
 	}
 	
 	public static void addSoundMuffler( TileEntity tileEntity, SoundMuffler soundMuffler ) {

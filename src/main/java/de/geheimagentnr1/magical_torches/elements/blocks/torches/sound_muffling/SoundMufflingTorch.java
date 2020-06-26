@@ -3,6 +3,7 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -30,7 +31,7 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface, Blo
 	
 	public SoundMufflingTorch() {
 		
-		super( Block.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ) );
+		super( AbstractBlock.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	

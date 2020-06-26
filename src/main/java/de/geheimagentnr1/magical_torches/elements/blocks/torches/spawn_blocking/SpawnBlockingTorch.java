@@ -4,6 +4,7 @@ import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.PushReaction;
@@ -26,10 +27,10 @@ abstract class SpawnBlockingTorch extends Block implements BlockItemInterface {
 	private final ISpawnBlockFactory spawnBlockFactory;
 	
 	//package-private
-	SpawnBlockingTorch( Block.Properties properties, String registry_name, ResourceLocation spawn_block_registry_name,
-		ISpawnBlockFactory _spawnBlockFactory ) {
+	SpawnBlockingTorch( AbstractBlock.Properties properties, String registry_name,
+		ResourceLocation spawn_block_registry_name, ISpawnBlockFactory _spawnBlockFactory ) {
 		
-		super( properties.doesNotBlockMovement().lightValue( 15 ) );
+		super( properties.doesNotBlockMovement().func_235838_a_( value -> 15 ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );

@@ -3,10 +3,7 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.BatTorchSpawnBlocker;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.BlockItemUseContext;
@@ -41,7 +38,8 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	
 	public BatTorch() {
 		
-		super( Block.Properties.create( Material.IRON ).hardnessAndResistance( 3.5F ).sound( SoundType.LANTERN ),
+		super( AbstractBlock.Properties.create( Material.IRON ).hardnessAndResistance( 3.5F )
+				.sound( SoundType.LANTERN ),
 			registry_name, BatTorchSpawnBlocker.registry_name, BatTorchSpawnBlocker::new );
 		setDefaultState( stateContainer.getBaseState().with( BlockStateProperties.HANGING, Boolean.FALSE ) );
 	}

@@ -3,7 +3,7 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.AloneTorchSpawnBlocker;
-import net.minecraft.block.Block;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,7 +25,7 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	
 	public AloneTorch() {
 		
-		super( Block.Properties.create( Material.GLASS ).sound( SoundType.GLASS ), registry_name,
+		super( AbstractBlock.Properties.create( Material.GLASS ).sound( SoundType.GLASS ), registry_name,
 			AloneTorchSpawnBlocker.registry_name, AloneTorchSpawnBlocker::new );
 	}
 	

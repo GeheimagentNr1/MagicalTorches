@@ -7,6 +7,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.chicken_egg_blockers.ChickenEggTorchBlocker;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -35,7 +36,7 @@ public class ChickenEggTorch extends Block implements BlockItemInterface, BlockR
 	
 	public ChickenEggTorch() {
 		
-		super( Block.Properties.create( Material.WOOD ).doesNotBlockMovement().lightValue( 15 )
+		super( AbstractBlock.Properties.create( Material.WOOD ).doesNotBlockMovement().func_235838_a_( value -> 15 )
 			.hardnessAndResistance( 3 ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
