@@ -97,7 +97,7 @@ repositories {
         url = "https://modmaven.k-4u.nl"
     }
     maven {
-        url "http://tehnut.info/maven"
+        url "https://maven.tehnut.info"
     }
 }
 
