@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning;
 
-import de.geheimagentnr1.magical_torches.config.ModConfig;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
@@ -53,7 +53,7 @@ public class ChickenEggSpawningCapability implements ICapabilitySerializable<Lis
 					break;
 				}
 			}
-			if( ModConfig.getShouldInvertChickenEggBlocking() ) {
+			if( MainConfig.getShouldInvertChickenEggBlocking() ) {
 				block = !block;
 			}
 			return block;

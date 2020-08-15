@@ -13,8 +13,16 @@
 					"block.magical_torches.medium_torch": "Medium Torch",
 					"block.magical_torches.mega_torch": "Mega Torch",
 					"block.magical_torches.small_torch": "Small Torch",
+		"main_tooltips": "Tooltips",
+			"main_tooltips_chicken_egg_spawning": "Tooltips: Chicken Egg Spawning",
+				"tooltip.magical_torches.chicken_egg_spawning_blocking": "Blocks the spawning of chicken eggs in a range of %s blocks, if you drop or chickens lay them.",
+				"tooltip.magical_torches.chicken_egg_spawning_enable": "Enables the spawning of chicken eggs in a range of %s blocks, if you drop or chickens lay them.",
+			"main_tooltips_sound_muffling": "Tooltips: Sound Muffling",
+				"tooltip.magical_torches.sound_muffling": "Muffles sounds in a range of %s blocks (categories: %s).",
+			"main_tooltips_spawn_blocking": "Tooltips: Spawn Blocking",
+				"tooltip.magical_torches.spawn_blocking_all": "Blocks the spawning of all mobs in a range of %s blocks.",
+				"tooltip.magical_torches.spawn_blocking_bat": "Blocks the spawning of bats in a range of %s blocks.",
+				"tooltip.magical_torches.spawn_blocking_hostile": "Blocks the spawning of hostile mobs in a range of %s blocks.",
 		"main_item_groups": "Item Groups",
-			"itemGroup.magical_torches": "Magical Torches",
-	
-	"tooltip.magical_torches.chicken_egg_spawning": "Upgraded chunks: %s"
+			"itemGroup.magical_torches": "Magical Torches"
 }

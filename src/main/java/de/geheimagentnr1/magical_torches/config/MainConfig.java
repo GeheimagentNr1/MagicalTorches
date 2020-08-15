@@ -1,15 +1,15 @@
 package de.geheimagentnr1.magical_torches.config;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
-import de.geheimagentnr1.magical_torches.MagicalTorches;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class ModConfig {
+@Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
+public class MainConfig {
 	
 	
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -18,7 +18,7 @@ public class ModConfig {
 	
 	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	
-	private static final ForgeConfigSpec CONFIG;
+	public static final ForgeConfigSpec CONFIG;
 	
 	private static final ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
 	
@@ -69,14 +69,9 @@ public class ModConfig {
 		CONFIG = BUILDER.build();
 	}
 	
-	public static void load() {
-		
-		CommentedFileConfig configData = CommentedFileConfig.builder( FMLPaths.CONFIGDIR.get().resolve(
-			MagicalTorches.MODID + ".toml" ) ).sync().autosave().writingMode( WritingMode.REPLACE ).build();
+	private static void printConfig() {
 		
 		LOGGER.info( "Loading \"{}\" Config", mod_name );
-		configData.load();
-		CONFIG.setConfig( configData );
 		LOGGER.info( "Spawn Blockers" );
 		LOGGER.info( "{} = {}", ALONE_TORCH_RANGE.getPath(), ALONE_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", BAT_TORCH_RANGE.getPath(), BAT_TORCH_RANGE.get() );
@@ -86,7 +81,25 @@ public class ModConfig {
 		LOGGER.info( "{} = {}", MEGA_TORCH_RANGE.getPath(), MEGA_TORCH_RANGE.get() );
 		LOGGER.info( "Sound Mufflers" );
 		LOGGER.info( "{} = {}", SOUND_MUFFLING_TORCH_RANGE.getPath(), SOUND_MUFFLING_TORCH_RANGE.get() );
+		LOGGER.info( "Chicken Egg Spawning" );
+		LOGGER.info( "{} = {}", SHOULD_INVERT_CHICKEN_EGG_BLOCKING.getPath(),
+			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get() );
+		LOGGER.info( "{} = {}", CHICKEN_EGG_TORCH_RANGE.getPath(), CHICKEN_EGG_TORCH_RANGE.get() );
 		LOGGER.info( "\"{}\" Config loaded", mod_name );
+	}
+	
+	@SuppressWarnings( "unused" )
+	@SubscribeEvent
+	public static void onLoad( ModConfig.Loading configEvent) {
+		
+		printConfig();
+	}
+	
+	@SuppressWarnings( "unused" )
+	@SubscribeEvent
+	public static void onFileChange( ModConfig.ConfigReloading configEvent) {
+		
+		printConfig();
 	}
 	
 	public static int getAloneTorchRange() {

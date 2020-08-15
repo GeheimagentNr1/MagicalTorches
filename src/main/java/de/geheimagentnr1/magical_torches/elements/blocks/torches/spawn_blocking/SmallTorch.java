@@ -13,7 +13,7 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nonnull;
 
 
-public class SmallTorch extends WoodenSpawnBlockingTorch {
+public class SmallTorch extends HostileSpawnBlockingTorch {
 	
 	
 	public static final String registry_name = "small_torch";

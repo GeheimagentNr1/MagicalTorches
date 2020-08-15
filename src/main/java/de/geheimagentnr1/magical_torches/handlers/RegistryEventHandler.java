@@ -25,7 +25,7 @@ public class RegistryEventHandler {
 	
 	
 	@SubscribeEvent
-	public static void setup( FMLCommonSetupEvent event ) {
+	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
 		
 		CapabilityManager.INSTANCE.register( ChickenEggSpawningCapability.class,
 			new ChickenEggSpawningCapabilityStorage(), ChickenEggSpawningCapability::new );

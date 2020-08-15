@@ -1,7 +1,9 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.AloneTorchSpawnBlocker;
+import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -12,6 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nonnull;
@@ -41,6 +45,13 @@ public class AloneTorch extends SpawnBlockingTorch {
 	public BlockRenderLayer getRenderLayer() {
 		
 		return BlockRenderLayer.TRANSLUCENT;
+	}
+	
+	@Override
+	protected TextComponent getInformation() {
+		
+		return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_all" ),
+			MainConfig.getAloneTorchRange() );
 	}
 	
 	@Override
