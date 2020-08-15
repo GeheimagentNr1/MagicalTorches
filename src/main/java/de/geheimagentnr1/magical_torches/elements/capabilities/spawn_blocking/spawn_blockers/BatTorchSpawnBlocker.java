@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockPos;
 public class BatTorchSpawnBlocker extends SpawnBlocker {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
 	
 	public BatTorchSpawnBlocker( BlockPos _pos ) {
 		

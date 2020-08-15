@@ -28,13 +28,13 @@ import java.util.TreeSet;
 public class ChickenEggSpawningCapability implements ICapabilitySerializable<ListNBT> {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( "chicken_egg_spawing" );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( "chicken_egg_spawing" );
 	
 	private final LazyOptional<ChickenEggSpawningCapability> capability = LazyOptional.of( () -> this );
 	
 	private TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
 	
-	private final static TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
+	private static final TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
 	
 	public static void registerChickenEggBlocker( ResourceLocation _registry_name, ISpawnBlockFactory factory ) {
 		

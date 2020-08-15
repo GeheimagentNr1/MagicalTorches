@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 public class AloneTorch extends SpawnBlockingTorch {
 	
 	
-	public final static String registry_name = "alone_torch";
+	public static final String registry_name = "alone_torch";
 	
 	public AloneTorch() {
 		

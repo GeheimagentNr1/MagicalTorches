@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
 public class SoundMufflingTorch extends Block implements BlockItemInterface {
 	
 	
-	public final static String registry_name = "sound_muffling_torch";
+	public static final String registry_name = "sound_muffling_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
+	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
 	public SoundMufflingTorch() {
 		

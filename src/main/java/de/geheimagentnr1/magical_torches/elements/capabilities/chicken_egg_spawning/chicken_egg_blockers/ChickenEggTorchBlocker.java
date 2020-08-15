@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 public class ChickenEggTorchBlocker extends SpawnBlocker {
 	
 	
-	public final static ResourceLocation registry_name =
+	public static final ResourceLocation registry_name =
 		ResourceLocationBuilder.build( ChickenEggTorch.registry_name );
 	
 	public ChickenEggTorchBlocker( BlockPos _pos ) {

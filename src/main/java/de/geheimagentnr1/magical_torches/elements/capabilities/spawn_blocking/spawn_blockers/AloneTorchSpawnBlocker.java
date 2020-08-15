@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( AloneTorch.registry_name );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( AloneTorch.registry_name );
 	
 	public AloneTorchSpawnBlocker( BlockPos _pos ) {
 		

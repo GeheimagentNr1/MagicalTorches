@@ -14,9 +14,9 @@ import java.util.Arrays;
 public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	
 	
-	public final static ISoundMufflerFactory FACTORY = SoundMufflingTorchSoundMuffler::new;
+	public static final ISoundMufflerFactory FACTORY = SoundMufflingTorchSoundMuffler::new;
 	
-	private final static ArrayList<SoundCategory> toMuffleSounds = new ArrayList<>(
+	private static final ArrayList<SoundCategory> toMuffleSounds = new ArrayList<>(
 		Arrays.asList( SoundCategory.HOSTILE, SoundCategory.NEUTRAL, SoundCategory.BLOCKS ) );
 	
 	private SoundMufflingTorchSoundMuffler( BlockPos _pos ) {

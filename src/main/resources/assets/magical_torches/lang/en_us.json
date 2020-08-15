@@ -14,5 +14,7 @@
 					"block.magical_torches.mega_torch": "Mega Torch",
 					"block.magical_torches.small_torch": "Small Torch",
 		"main_item_groups": "Item Groups",
-			"itemGroup.magical_torches": "Magical Torches"
+			"itemGroup.magical_torches": "Magical Torches",
+	
+	"tooltip.magical_torches.chicken_egg_spawning": "Upgraded chunks: %s"
 }

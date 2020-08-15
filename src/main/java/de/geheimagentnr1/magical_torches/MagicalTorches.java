@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 public class MagicalTorches {
 	
 	
-	public final static String MODID = "magical_torches";
+	public static final String MODID = "magical_torches";
 	
-	public final static ModSetup setup = new ModSetup();
+	public static final ModSetup setup = new ModSetup();
 }

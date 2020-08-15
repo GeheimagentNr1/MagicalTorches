@@ -16,9 +16,9 @@ import javax.annotation.Nonnull;
 public class MediumTorch extends WoodenSpawnBlockingTorch {
 	
 	
-	public final static String registry_name = "medium_torch";
+	public static final String registry_name = "medium_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 11, 9.5 );
+	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 11, 9.5 );
 	
 	public MediumTorch() {
 		

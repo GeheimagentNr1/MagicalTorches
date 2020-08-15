@@ -16,9 +16,9 @@ import javax.annotation.Nonnull;
 public class MegaTorch extends WoodenSpawnBlockingTorch {
 	
 	
-	public final static String registry_name = "mega_torch";
+	public static final String registry_name = "mega_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 13, 10 );
+	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 13, 10 );
 	
 	public MegaTorch() {
 		

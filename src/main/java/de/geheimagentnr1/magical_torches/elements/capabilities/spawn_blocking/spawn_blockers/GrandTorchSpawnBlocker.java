@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 public class GrandTorchSpawnBlocker extends MobSpawnBlocker {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( GrandTorch.registry_name );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( GrandTorch.registry_name );
 	
 	public GrandTorchSpawnBlocker( BlockPos _pos ) {
 		

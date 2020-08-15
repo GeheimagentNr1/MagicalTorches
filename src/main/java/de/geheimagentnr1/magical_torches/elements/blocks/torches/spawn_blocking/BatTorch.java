@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 public class BatTorch extends SpawnBlockingTorch {
 	
 	
-	public final static String registry_name = "bat_torch";
+	public static final String registry_name = "bat_torch";
 	
 	private static final VoxelShape STANDING_SHAPE = VoxelShapes.or(
 		Block.makeCuboidShape( 5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D ),

@@ -14,10 +14,10 @@ import java.util.*;
 public class SoundMufflingClientCapability {
 	
 	
-	private final static TreeMap<DimensionType, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
+	private static final TreeMap<DimensionType, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
 		Comparator.comparingInt( DimensionType::getId ) );
 	
-	private final static ArrayList<SoundMufflerStorage> SOUND_MUFFLER_STORAGES = new ArrayList<>();
+	private static final ArrayList<SoundMufflerStorage> SOUND_MUFFLER_STORAGES = new ArrayList<>();
 	
 	public static void init() {
 		
@@ -61,7 +61,8 @@ public class SoundMufflingClientCapability {
 		return getWorld().getDimension().getType();
 	}
 	
-	public static void addSoundMuffler( TileEntity tileEntity, SoundMuffler soundMuffler ) {
+	//package-private
+	static void addSoundMuffler( TileEntity tileEntity, SoundMuffler soundMuffler ) {
 		
 		if( getWorld() == null ) {
 			SOUND_MUFFLER_STORAGES.add( new SoundMufflerStorage( tileEntity, soundMuffler ) );
@@ -70,7 +71,8 @@ public class SoundMufflingClientCapability {
 		}
 	}
 	
-	public static void removeSoundMuffler( SoundMuffler soundMuffler ) {
+	//package-private
+	static void removeSoundMuffler( SoundMuffler soundMuffler ) {
 		
 		soundMufflers.get( getDimension() ).remove( soundMuffler );
 	}

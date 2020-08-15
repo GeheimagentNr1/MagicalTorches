@@ -8,37 +8,35 @@ import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-
 
 public class ModConfig {
 	
 	
-	private final static Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 	
-	private final static String mod_name = "Magical Torches";
+	private static final String mod_name = "Magical Torches";
 	
-	private final static ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	
-	private final static ForgeConfigSpec CONFIG;
+	private static final ForgeConfigSpec CONFIG;
 	
-	private final static ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue SMALL_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue SMALL_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue MEDIUM_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue MEDIUM_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue GRAND_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue GRAND_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue MEGA_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue MEGA_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.BooleanValue SHOULD_INVERT_CHICKEN_EGG_BLOCKING;
+	private static final ForgeConfigSpec.BooleanValue SHOULD_INVERT_CHICKEN_EGG_BLOCKING;
 	
-	private final static ForgeConfigSpec.IntValue CHICKEN_EGG_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue CHICKEN_EGG_TORCH_RANGE;
 	
 	static {
 		
