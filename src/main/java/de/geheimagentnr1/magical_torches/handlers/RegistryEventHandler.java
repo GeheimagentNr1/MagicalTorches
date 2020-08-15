@@ -1,6 +1,7 @@
 package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
@@ -16,6 +17,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
@@ -23,6 +25,20 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
 public class RegistryEventHandler {
 	
+	
+	@SuppressWarnings( "unused" )
+	@SubscribeEvent
+	public static void onLoad( ModConfig.Loading configEvent) {
+		
+		MainConfig.printConfig();
+	}
+	
+	@SuppressWarnings( "unused" )
+	@SubscribeEvent
+	public static void onFileChange( ModConfig.ConfigReloading configEvent) {
+		
+		MainConfig.printConfig();
+	}
 	
 	@SubscribeEvent
 	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {

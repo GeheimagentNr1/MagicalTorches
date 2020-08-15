@@ -1,14 +1,10 @@
 package de.geheimagentnr1.magical_torches.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-@Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
 public class MainConfig {
 	
 	
@@ -69,7 +65,7 @@ public class MainConfig {
 		CONFIG = BUILDER.build();
 	}
 	
-	private static void printConfig() {
+	public static void printConfig() {
 		
 		LOGGER.info( "Loading \"{}\" Config", mod_name );
 		LOGGER.info( "Spawn Blockers" );
@@ -86,20 +82,6 @@ public class MainConfig {
 			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get() );
 		LOGGER.info( "{} = {}", CHICKEN_EGG_TORCH_RANGE.getPath(), CHICKEN_EGG_TORCH_RANGE.get() );
 		LOGGER.info( "\"{}\" Config loaded", mod_name );
-	}
-	
-	@SuppressWarnings( "unused" )
-	@SubscribeEvent
-	public static void onLoad( ModConfig.Loading configEvent) {
-		
-		printConfig();
-	}
-	
-	@SuppressWarnings( "unused" )
-	@SubscribeEvent
-	public static void onFileChange( ModConfig.ConfigReloading configEvent) {
-		
-		printConfig();
 	}
 	
 	public static int getAloneTorchRange() {
