@@ -36,7 +36,7 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handle( FMLClientSetupEvent event ) {
+	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
 		for( Block block : ModBlocks.BLOCKS ) {
 			if( block instanceof BlockRenderTypeInterface ) {
