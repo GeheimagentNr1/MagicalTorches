@@ -47,7 +47,7 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handleModConfigReloadingEvent( ModConfig.ConfigReloading event ) {
+	public static void handleModConfigReloadingEvent( ModConfig.Reloading event ) {
 		
 		MainConfig.printConfig();
 	}
