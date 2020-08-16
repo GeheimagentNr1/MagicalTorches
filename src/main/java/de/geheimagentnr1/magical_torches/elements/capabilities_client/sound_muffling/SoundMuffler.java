@@ -22,4 +22,6 @@ public abstract class SoundMuffler {
 	public abstract int getRange();
 	
 	public abstract boolean shouldMuffleSound( ISound sound );
+	
+	public abstract String getSoundCategroriesString();
 }

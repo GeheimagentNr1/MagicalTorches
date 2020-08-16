@@ -17,13 +17,13 @@ import java.util.TreeSet;
 public class SpawnBlockerNBTHelper {
 	
 	
-	private final static String registryNameName = "registry_name";
+	private static final String registryNameName = "registry_name";
 	
-	private final static String xName = "x";
+	private static final String xName = "x";
 	
-	private final static String yName = "y";
+	private static final String yName = "y";
 	
-	private final static String zName = "z";
+	private static final String zName = "z";
 	
 	public static ListNBT serializeSpawnBlockers( TreeSet<SpawnBlocker> spawnBlockers ) {
 		
@@ -42,7 +42,7 @@ public class SpawnBlockerNBTHelper {
 	}
 	
 	public static TreeSet<SpawnBlocker> deserializeSpawnBlockers( ListNBT nbt,
-		TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY ) {
+		TreeMap<ResourceLocation, ISpawnBlockFactory> spawnBlockingRegistery ) {
 		
 		TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
 		for( INBT inbt : nbt ) {
@@ -57,7 +57,7 @@ public class SpawnBlockerNBTHelper {
 						compoundNBT.contains( zName, Constants.NBT.TAG_INT ) ) {
 						BlockPos pos = new BlockPos( new BlockPos( compoundNBT.getInt( xName ),
 							compoundNBT.getInt( yName ), compoundNBT.getInt( zName ) ) );
-						ISpawnBlockFactory factory = SPAWN_BLOCKING_REGISTERY.get( registry_name );
+						ISpawnBlockFactory factory = spawnBlockingRegistery.get( registry_name );
 						if( factory != null ) {
 							spawnBlockers.add( factory.buildSpawnBlocker( pos ) );
 						}

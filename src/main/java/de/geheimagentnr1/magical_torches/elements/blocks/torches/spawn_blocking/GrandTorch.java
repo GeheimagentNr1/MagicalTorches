@@ -13,12 +13,12 @@ import net.minecraft.world.IBlockReader;
 import javax.annotation.Nonnull;
 
 
-public class GrandTorch extends WoodenSpawnBlockingTorch {
+public class GrandTorch extends HostileSpawnBlockingTorch {
 	
 	
-	public final static String registry_name = "grand_torch";
+	public static final String registry_name = "grand_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 12, 10 );
+	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 12, 10 );
 	
 	public GrandTorch() {
 		

@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.chicken_egg_blockers;
 
-import de.geheimagentnr1.magical_torches.config.ModConfig;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning.ChickenEggTorch;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.BlockPos;
 public class ChickenEggTorchBlocker extends SpawnBlocker {
 	
 	
-	public final static ResourceLocation registry_name =
+	public static final ResourceLocation registry_name =
 		ResourceLocationBuilder.build( ChickenEggTorch.registry_name );
 	
 	public ChickenEggTorchBlocker( BlockPos _pos ) {
@@ -31,7 +31,7 @@ public class ChickenEggTorchBlocker extends SpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return ModConfig.getChickenEggTorchRange();
+		return MainConfig.getChickenEggTorchRange();
 	}
 	
 	@Override

@@ -1,9 +1,13 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling;
 
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import net.minecraft.block.AbstractBlock;
+import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
+import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -16,22 +20,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public class SoundMufflingTorch extends Block implements BlockItemInterface, BlockRenderTypeInterface {
+public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	public final static String registry_name = "sound_muffling_torch";
+	public static final String registry_name = "sound_muffling_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
+	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
 	public SoundMufflingTorch() {
 		
-		super( AbstractBlock.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ) );
+		super( AbstractBlock.Properties.create( Material.WOOD ).doesNotBlockMovement().hardnessAndResistance( 3 )
+			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 	}
 	
@@ -97,6 +104,14 @@ public class SoundMufflingTorch extends Block implements BlockItemInterface, Blo
 	public PushReaction getPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
+	}
+	
+	@Override
+	public TextComponent getInformation() {
+		
+		return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey( "sound_muffling" ),
+			MainConfig.getSoundMufflingTorchRange(), SoundMufflingTorchSoundMuffler.FACTORY
+			.buildSoundMuffler( BlockPos.ZERO ).getSoundCategroriesString() );
 	}
 	
 	@Override

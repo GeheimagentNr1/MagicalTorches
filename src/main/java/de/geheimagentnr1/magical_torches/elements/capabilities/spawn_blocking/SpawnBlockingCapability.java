@@ -23,13 +23,13 @@ import java.util.TreeSet;
 public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT> {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( "spawn_blocking" );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( "spawn_blocking" );
 	
 	private final LazyOptional<SpawnBlockingCapability> capability = LazyOptional.of( () -> this );
 	
 	private TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
 	
-	private final static TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
+	private static final TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
 	
 	public static void registerSpawnBlocker( ResourceLocation _registry_name, ISpawnBlockFactory factory ) {
 		

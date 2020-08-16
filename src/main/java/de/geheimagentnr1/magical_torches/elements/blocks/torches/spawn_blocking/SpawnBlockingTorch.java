@@ -1,6 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
@@ -20,11 +21,11 @@ import javax.annotation.Nonnull;
 
 
 //package-private
-@SuppressWarnings( "AbstractClassExtendsConcreteClass" )
-abstract class SpawnBlockingTorch extends Block implements BlockItemInterface {
+abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemInterface {
 	
 	
-	private final ISpawnBlockFactory spawnBlockFactory;
+	//package-private
+	final ISpawnBlockFactory spawnBlockFactory;
 	
 	//package-private
 	SpawnBlockingTorch( AbstractBlock.Properties properties, String registry_name,

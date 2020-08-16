@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers;
 
-import de.geheimagentnr1.magical_torches.config.ModConfig;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.AloneTorch;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( AloneTorch.registry_name );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( AloneTorch.registry_name );
 	
 	public AloneTorchSpawnBlocker( BlockPos _pos ) {
 		
@@ -29,7 +29,7 @@ public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return ModConfig.getAloneTorchRange();
+		return MainConfig.getAloneTorchRange();
 	}
 	
 	@Override

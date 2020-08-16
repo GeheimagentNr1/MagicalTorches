@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning;
 
-import de.geheimagentnr1.magical_torches.config.ModConfig;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
@@ -28,13 +28,13 @@ import java.util.TreeSet;
 public class ChickenEggSpawningCapability implements ICapabilitySerializable<ListNBT> {
 	
 	
-	public final static ResourceLocation registry_name = ResourceLocationBuilder.build( "chicken_egg_spawing" );
+	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( "chicken_egg_spawing" );
 	
 	private final LazyOptional<ChickenEggSpawningCapability> capability = LazyOptional.of( () -> this );
 	
 	private TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
 	
-	private final static TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
+	private static final TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
 	
 	public static void registerChickenEggBlocker( ResourceLocation _registry_name, ISpawnBlockFactory factory ) {
 		
@@ -53,7 +53,7 @@ public class ChickenEggSpawningCapability implements ICapabilitySerializable<Lis
 					break;
 				}
 			}
-			if( ModConfig.getShouldInvertChickenEggBlocking() ) {
+			if( MainConfig.getShouldInvertChickenEggBlocking() ) {
 				block = !block;
 			}
 			return block;

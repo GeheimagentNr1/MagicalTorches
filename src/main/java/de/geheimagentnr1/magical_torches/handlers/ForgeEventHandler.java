@@ -1,6 +1,5 @@
 package de.geheimagentnr1.magical_torches.handlers;
 
-import de.geheimagentnr1.magical_torches.config.ModConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
@@ -21,19 +20,12 @@ import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 
 @SuppressWarnings( "unused" )
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.FORGE )
 public class ForgeEventHandler {
 	
-	
-	@SubscribeEvent
-	public static void handlerServerStartEvent( FMLServerStartingEvent event ) {
-		
-		ModConfig.load();
-	}
 	
 	@SubscribeEvent
 	public static void onWorldAttachCapabilityEvent( AttachCapabilitiesEvent<World> event ) {
