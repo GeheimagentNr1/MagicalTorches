@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderType;
 
 public interface BlockRenderTypeInterface {
 	
+	
 	//public
 	default RenderType getRenderType() {
 		
