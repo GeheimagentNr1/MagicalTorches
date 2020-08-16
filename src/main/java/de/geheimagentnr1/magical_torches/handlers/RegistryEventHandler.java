@@ -28,14 +28,14 @@ public class RegistryEventHandler {
 	
 	@SuppressWarnings( "unused" )
 	@SubscribeEvent
-	public static void onLoad( ModConfig.Loading configEvent) {
+	public static void handleModConfigLoadingEvent( ModConfig.Loading event ) {
 		
 		MainConfig.printConfig();
 	}
 	
 	@SuppressWarnings( "unused" )
 	@SubscribeEvent
-	public static void onFileChange( ModConfig.ConfigReloading configEvent) {
+	public static void handleModConfigReloadingEvent( ModConfig.ConfigReloading event ) {
 		
 		MainConfig.printConfig();
 	}
