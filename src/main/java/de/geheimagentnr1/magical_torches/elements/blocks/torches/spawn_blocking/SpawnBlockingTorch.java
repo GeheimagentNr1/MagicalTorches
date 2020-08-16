@@ -6,7 +6,6 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.util.ResourceLocation;
