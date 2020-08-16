@@ -30,7 +30,8 @@ public abstract class BlockWithTooltip extends Block {
 	public void addInformation( @Nonnull ItemStack stack, @Nullable IBlockReader worldIn,
 		@Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn ) {
 		
-		tooltip.add( getInformation().setStyle( new Style().setItalic( true ).setColor( TextFormatting.GRAY ) ) );
+		tooltip.add( getInformation().func_230530_a_( Style.field_240709_b_.func_240720_a_( TextFormatting.ITALIC,
+			TextFormatting.GRAY ) ) );
 	}
 	
 	protected abstract TextComponent getInformation();
