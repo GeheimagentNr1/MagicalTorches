@@ -1,42 +1,38 @@
 package de.geheimagentnr1.magical_torches.config;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
-import de.geheimagentnr1.magical_torches.MagicalTorches;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class ModConfig {
+public class MainConfig {
 	
 	
-	private final static Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 	
-	private final static String mod_name = "Magical Torches";
+	private static final String mod_name = "Magical Torches";
 	
-	private final static ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	
-	private final static ForgeConfigSpec CONFIG;
+	public static final ForgeConfigSpec CONFIG;
 	
-	private final static ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue SMALL_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue SMALL_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue MEDIUM_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue MEDIUM_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue GRAND_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue GRAND_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue MEGA_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue MEGA_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
 	
-	private final static ForgeConfigSpec.BooleanValue SHOULD_INVERT_CHICKEN_EGG_BLOCKING;
+	private static final ForgeConfigSpec.BooleanValue SHOULD_INVERT_CHICKEN_EGG_BLOCKING;
 	
-	private final static ForgeConfigSpec.IntValue CHICKEN_EGG_TORCH_RANGE;
+	private static final ForgeConfigSpec.IntValue CHICKEN_EGG_TORCH_RANGE;
 	
 	static {
 		
@@ -69,14 +65,9 @@ public class ModConfig {
 		CONFIG = BUILDER.build();
 	}
 	
-	public static void load() {
-		
-		CommentedFileConfig configData = CommentedFileConfig.builder( FMLPaths.CONFIGDIR.get().resolve(
-			MagicalTorches.MODID + ".toml" ) ).sync().autosave().writingMode( WritingMode.REPLACE ).build();
+	public static void printConfig() {
 		
 		LOGGER.info( "Loading \"{}\" Config", mod_name );
-		configData.load();
-		CONFIG.setConfig( configData );
 		LOGGER.info( "Spawn Blockers" );
 		LOGGER.info( "{} = {}", ALONE_TORCH_RANGE.getPath(), ALONE_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", BAT_TORCH_RANGE.getPath(), BAT_TORCH_RANGE.get() );
@@ -86,6 +77,10 @@ public class ModConfig {
 		LOGGER.info( "{} = {}", MEGA_TORCH_RANGE.getPath(), MEGA_TORCH_RANGE.get() );
 		LOGGER.info( "Sound Mufflers" );
 		LOGGER.info( "{} = {}", SOUND_MUFFLING_TORCH_RANGE.getPath(), SOUND_MUFFLING_TORCH_RANGE.get() );
+		LOGGER.info( "Chicken Egg Spawning" );
+		LOGGER.info( "{} = {}", SHOULD_INVERT_CHICKEN_EGG_BLOCKING.getPath(),
+			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get() );
+		LOGGER.info( "{} = {}", CHICKEN_EGG_TORCH_RANGE.getPath(), CHICKEN_EGG_TORCH_RANGE.get() );
 		LOGGER.info( "\"{}\" Config loaded", mod_name );
 	}
 	

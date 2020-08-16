@@ -1,6 +1,7 @@
 package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
@@ -19,13 +20,20 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
 @SuppressWarnings( "unused" )
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
-public class RegistryEventHandler {
+public class ModEventHandler {
 	
+	
+	@SubscribeEvent
+	public static void handleModConfigLoadingEvent( ModConfig.Loading event ) {
+		
+		MainConfig.printConfig();
+	}
 	
 	@SubscribeEvent
 	public static void handle( FMLClientSetupEvent event ) {
@@ -39,7 +47,13 @@ public class RegistryEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void setup( FMLCommonSetupEvent event ) {
+	public static void handleModConfigReloadingEvent( ModConfig.ConfigReloading event ) {
+		
+		MainConfig.printConfig();
+	}
+	
+	@SubscribeEvent
+	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
 		
 		CapabilityManager.INSTANCE.register( ChickenEggSpawningCapability.class,
 			new ChickenEggSpawningCapabilityStorage(), ChickenEggSpawningCapability::new );

@@ -1,12 +1,15 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning;
 
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
+import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.chicken_egg_blockers.ChickenEggTorchBlocker;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
+import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
@@ -18,25 +21,27 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
 
-public class ChickenEggTorch extends Block implements BlockItemInterface, BlockRenderTypeInterface {
+public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterface, BlockRenderTypeInterface {
 	
 	
-	public final static String registry_name = "chicken_egg_torch";
+	public static final String registry_name = "chicken_egg_torch";
 	
-	private final static VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
+	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
 	private final ISpawnBlockFactory spawnBlockFactory;
 	
 	public ChickenEggTorch() {
 		
-		super( Block.Properties.create( Material.WOOD ).doesNotBlockMovement().lightValue( 15 )
-			.hardnessAndResistance( 3 ).sound( SoundType.WOOD ) );
+		super( Block.Properties.create( Material.WOOD ).doesNotBlockMovement().hardnessAndResistance( 3 )
+			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
 		ChickenEggSpawningCapability.registerChickenEggBlocker( ChickenEggTorchBlocker.registry_name,
@@ -73,6 +78,18 @@ public class ChickenEggTorch extends Block implements BlockItemInterface, BlockR
 	public PushReaction getPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
+	}
+	
+	@Override
+	public TextComponent getInformation() {
+		
+		if( MainConfig.getShouldInvertChickenEggBlocking() ) {
+			return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey(
+				"chicken_egg_spawning_enable" ), MainConfig.getChickenEggTorchRange() );
+		} else {
+			return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey(
+				"chicken_egg_spawning_blocking" ), MainConfig.getChickenEggTorchRange() );
+		}
 	}
 	
 	@SuppressWarnings( "deprecation" )

@@ -1,8 +1,10 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
+import de.geheimagentnr1.magical_torches.config.MainConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.BatTorchSpawnBlocker;
+import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,6 +20,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -29,7 +33,7 @@ import javax.annotation.Nullable;
 public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInterface {
 	
 	
-	public final static String registry_name = "bat_torch";
+	public static final String registry_name = "bat_torch";
 	
 	private static final VoxelShape STANDING_SHAPE = VoxelShapes.or(
 		Block.makeCuboidShape( 5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D ),
@@ -59,6 +63,13 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 		@Nonnull ISelectionContext context ) {
 		
 		return state.get( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
+	}
+	
+	@Override
+	protected TextComponent getInformation() {
+		
+		return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_bat" ),
+			MainConfig.getAloneTorchRange() );
 	}
 	
 	private static Direction hangingToDirection( BlockState state ) {
