@@ -26,14 +26,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class RegistryEventHandler {
 	
 	
-	@SuppressWarnings( "unused" )
 	@SubscribeEvent
 	public static void handleModConfigLoadingEvent( ModConfig.Loading event ) {
 		
 		MainConfig.printConfig();
 	}
 	
-	@SuppressWarnings( "unused" )
 	@SubscribeEvent
 	public static void handleModConfigReloadingEvent( ModConfig.ConfigReloading event ) {
 		
