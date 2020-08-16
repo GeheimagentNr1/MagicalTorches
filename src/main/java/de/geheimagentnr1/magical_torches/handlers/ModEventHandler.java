@@ -36,6 +36,12 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
+	public static void handleModConfigReloadingEvent( ModConfig.Reloading event ) {
+		
+		MainConfig.printConfig();
+	}
+	
+	@SubscribeEvent
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
 		for( Block block : ModBlocks.BLOCKS ) {
@@ -44,12 +50,6 @@ public class ModEventHandler {
 				RenderTypeLookup.setRenderLayer( block, blockRenderType.getRenderType() );
 			}
 		}
-	}
-	
-	@SubscribeEvent
-	public static void handleModConfigReloadingEvent( ModConfig.Reloading event ) {
-		
-		MainConfig.printConfig();
 	}
 	
 	@SubscribeEvent
