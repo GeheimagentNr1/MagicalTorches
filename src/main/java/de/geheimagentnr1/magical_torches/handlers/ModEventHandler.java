@@ -23,7 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @SuppressWarnings( "unused" )
 @Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.MOD )
-public class RegistryEventHandler {
+public class ModEventHandler {
 	
 	
 	@SubscribeEvent
