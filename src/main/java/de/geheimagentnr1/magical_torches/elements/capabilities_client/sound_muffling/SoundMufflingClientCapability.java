@@ -14,17 +14,12 @@ import java.util.*;
 public class SoundMufflingClientCapability {
 	
 	
+	private static final Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
+	
 	private static final TreeMap<DimensionType, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
 		Comparator.comparingInt( DimensionType::getId ) );
 	
 	private static final ArrayList<SoundMufflerStorage> SOUND_MUFFLER_STORAGES = new ArrayList<>();
-	
-	public static void init() {
-		
-		Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
-		DimensionType.getAll().forEach(
-			dimensionType -> soundMufflers.put( dimensionType, new TreeSet<>( comparator ) ) );
-	}
 	
 	public static void clear() {
 		
@@ -36,8 +31,10 @@ public class SoundMufflingClientCapability {
 		
 		if( !SOUND_MUFFLER_STORAGES.isEmpty() ) {
 			for( SoundMufflerStorage soundMufflerStorage : SOUND_MUFFLER_STORAGES ) {
-				soundMufflers.get( Objects.requireNonNull( soundMufflerStorage.getTileEntity().getWorld() )
-					.getDimension().getType() ).add( soundMufflerStorage.getSoundMuffler() );
+				TreeSet<SoundMuffler> dimensionSoundMufflers = soundMufflers.computeIfAbsent(
+					Objects.requireNonNull( soundMufflerStorage.getTileEntity().getWorld() ).getDimension().getType(),
+					dimensionType -> new TreeSet<>( comparator ) );
+				dimensionSoundMufflers.add( soundMufflerStorage.getSoundMuffler() );
 			}
 			SOUND_MUFFLER_STORAGES.clear();
 		}
