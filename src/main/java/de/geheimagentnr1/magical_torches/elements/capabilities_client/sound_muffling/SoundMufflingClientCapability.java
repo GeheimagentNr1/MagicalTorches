@@ -27,19 +27,22 @@ public class SoundMufflingClientCapability {
 		SOUND_MUFFLER_STORAGES.clear();
 	}
 	
+	private static TreeSet<SoundMuffler> getDimensionSoundMufflers() {
+	
+		return soundMufflers.computeIfAbsent( getDimension(),
+			dimensionType -> new TreeSet<>( comparator ) );
+	}
+	
 	public static boolean shouldMuffleSound( ISound sound ) {
 		
 		if( !SOUND_MUFFLER_STORAGES.isEmpty() ) {
 			for( SoundMufflerStorage soundMufflerStorage : SOUND_MUFFLER_STORAGES ) {
-				TreeSet<SoundMuffler> dimensionSoundMufflers = soundMufflers.computeIfAbsent(
-					Objects.requireNonNull( soundMufflerStorage.getTileEntity().getWorld() ).getDimension().getType(),
-					dimensionType -> new TreeSet<>( comparator ) );
-				dimensionSoundMufflers.add( soundMufflerStorage.getSoundMuffler() );
+				getDimensionSoundMufflers().add( soundMufflerStorage.getSoundMuffler() );
 			}
 			SOUND_MUFFLER_STORAGES.clear();
 		}
 		BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-		for( SoundMuffler soundMuffler : soundMufflers.get( getDimension() ) ) {
+		for( SoundMuffler soundMuffler : getDimensionSoundMufflers() ) {
 			if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock( sound_pos,
 				soundMuffler.getPos(), soundMuffler.getRange() ) ) {
 				return true;
@@ -71,11 +74,11 @@ public class SoundMufflingClientCapability {
 	//package-private
 	static void removeSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		soundMufflers.get( getDimension() ).remove( soundMuffler );
+		getDimensionSoundMufflers().remove( soundMuffler );
 	}
 	
 	private static void addSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		soundMufflers.get( getDimension() ).add( soundMuffler );
+		getDimensionSoundMufflers().add( soundMuffler );
 	}
 }
