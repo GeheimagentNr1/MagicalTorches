@@ -14,17 +14,12 @@ import java.util.*;
 public class SoundMufflingClientCapability {
 	
 	
+	private static final Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
+	
 	private static final TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
 		Comparator.comparing( RegistryKey::func_240901_a_ ) );
 	
 	private static final ArrayList<SoundMufflerStorage> SOUND_MUFFLER_STORAGES = new ArrayList<>();
-	
-	public static void init() {
-		
-		Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
-		Objects.requireNonNull( Minecraft.getInstance().getConnection() ).func_239164_m_().forEach(
-			dimension -> soundMufflers.put( dimension, new TreeSet<>( comparator ) ) );
-	}
 	
 	public static void clear() {
 		
@@ -32,17 +27,22 @@ public class SoundMufflingClientCapability {
 		SOUND_MUFFLER_STORAGES.clear();
 	}
 	
+	private static TreeSet<SoundMuffler> getDimensionSoundMufflers() {
+	
+		return soundMufflers.computeIfAbsent( getDimension(),
+			dimensionType -> new TreeSet<>( comparator ) );
+	}
+	
 	public static boolean shouldMuffleSound( ISound sound ) {
 		
 		if( !SOUND_MUFFLER_STORAGES.isEmpty() ) {
 			for( SoundMufflerStorage soundMufflerStorage : SOUND_MUFFLER_STORAGES ) {
-				soundMufflers.get( Objects.requireNonNull( soundMufflerStorage.getTileEntity().getWorld() )
-					.func_234923_W_() ).add( soundMufflerStorage.getSoundMuffler() );
+				getDimensionSoundMufflers().add( soundMufflerStorage.getSoundMuffler() );
 			}
 			SOUND_MUFFLER_STORAGES.clear();
 		}
 		BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-		for( SoundMuffler soundMuffler : soundMufflers.get( getDimension() ) ) {
+		for( SoundMuffler soundMuffler : getDimensionSoundMufflers() ) {
 			if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock( sound_pos,
 				soundMuffler.getPos(), soundMuffler.getRange() ) ) {
 				return true;
@@ -74,11 +74,11 @@ public class SoundMufflingClientCapability {
 	//package-private
 	static void removeSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		soundMufflers.get( getDimension() ).remove( soundMuffler );
+		getDimensionSoundMufflers().remove( soundMuffler );
 	}
 	
 	private static void addSoundMuffler( SoundMuffler soundMuffler ) {
 		
-		soundMufflers.get( getDimension() ).add( soundMuffler );
+		getDimensionSoundMufflers().add( soundMuffler );
 	}
 }
