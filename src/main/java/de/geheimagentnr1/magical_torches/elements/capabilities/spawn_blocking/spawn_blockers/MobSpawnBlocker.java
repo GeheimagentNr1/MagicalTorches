@@ -3,6 +3,7 @@ package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.s
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.math.BlockPos;
 
 
@@ -18,6 +19,6 @@ public abstract class MobSpawnBlocker extends SpawnBlocker {
 	@Override
 	public boolean shouldBlockEntity( Entity entity ) {
 		
-		return entity instanceof MonsterEntity;
+		return entity instanceof MonsterEntity || entity instanceof SlimeEntity;
 	}
 }

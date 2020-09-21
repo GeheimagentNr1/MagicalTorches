@@ -97,13 +97,6 @@ public class ForgeEventHandler {
 	
 	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
-	public static void handleLoginEvent( ClientPlayerNetworkEvent.LoggedInEvent event ) {
-		
-		SoundMufflingClientCapability.init();
-	}
-	
-	@OnlyIn( Dist.CLIENT )
-	@SubscribeEvent
 	public static void handleLogoutEvent( ClientPlayerNetworkEvent.LoggedOutEvent event ) {
 		
 		SoundMufflingClientCapability.clear();
