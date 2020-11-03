@@ -17,7 +17,7 @@ public class SoundMufflingClientCapability {
 	private static final Comparator<SoundMuffler> comparator = Comparator.comparing( SoundMuffler::getPos );
 	
 	private static final TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> soundMufflers = new TreeMap<>(
-		Comparator.comparing( RegistryKey::func_240901_a_ ) );
+		Comparator.comparing( RegistryKey::getLocation ) );
 	
 	private static final ArrayList<SoundMufflerStorage> SOUND_MUFFLER_STORAGES = new ArrayList<>();
 	
@@ -58,7 +58,7 @@ public class SoundMufflingClientCapability {
 	
 	private static RegistryKey<World> getDimension() {
 		
-		return getWorld().func_234923_W_();
+		return getWorld().getDimensionKey();
 	}
 	
 	//package-private

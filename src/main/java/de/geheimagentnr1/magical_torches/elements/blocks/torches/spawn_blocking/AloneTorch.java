@@ -54,6 +54,7 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 			MainConfig.getAloneTorchRange() );
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		

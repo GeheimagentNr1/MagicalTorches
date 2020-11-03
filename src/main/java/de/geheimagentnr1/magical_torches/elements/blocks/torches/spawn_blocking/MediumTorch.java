@@ -34,6 +34,7 @@ public class MediumTorch extends HostileSpawnBlockingTorch {
 		return SHAPE;
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		

@@ -25,12 +25,13 @@ public class SoundMufflingTorchTile extends TileEntity {
 		super( _type );
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
-	public void setWorldAndPos( @Nonnull World _world, @Nonnull BlockPos _pos ) {
+	public void setWorldAndPos( @Nonnull World world, @Nonnull BlockPos pos ) {
 		
-		super.setWorldAndPos( _world, _pos );
+		super.setWorldAndPos( world, pos );
 		SoundMufflingClientCapabilityHelper.addSoundMuffler( this,
-			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( pos ) );
+			SoundMufflingTorchSoundMuffler.FACTORY.buildSoundMuffler( this.pos ) );
 	}
 	
 	@Override

@@ -20,6 +20,7 @@ import java.util.List;
 public abstract class BlockWithTooltip extends Block {
 	
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	protected BlockWithTooltip( Properties properties ) {
 		
 		super( properties );
@@ -30,7 +31,7 @@ public abstract class BlockWithTooltip extends Block {
 	public void addInformation( @Nonnull ItemStack stack, @Nullable IBlockReader worldIn,
 		@Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn ) {
 		
-		tooltip.add( getInformation().func_230530_a_( Style.field_240709_b_.func_240720_a_( TextFormatting.ITALIC,
+		tooltip.add( getInformation().setStyle( Style.EMPTY.createStyleFromFormattings( TextFormatting.ITALIC,
 			TextFormatting.GRAY ) ) );
 	}
 	

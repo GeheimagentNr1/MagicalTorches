@@ -118,6 +118,7 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 		builder.add( BlockStateProperties.HANGING );
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		

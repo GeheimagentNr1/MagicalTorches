@@ -34,6 +34,7 @@ public class MegaTorch extends HostileSpawnBlockingTorch {
 		return SHAPE;
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		

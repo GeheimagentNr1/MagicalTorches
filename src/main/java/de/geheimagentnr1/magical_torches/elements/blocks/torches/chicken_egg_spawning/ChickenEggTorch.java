@@ -112,6 +112,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 		super.onReplaced( state, worldIn, pos, newState, isMoving );
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		

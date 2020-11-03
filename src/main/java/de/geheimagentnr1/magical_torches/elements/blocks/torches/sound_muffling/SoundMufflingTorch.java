@@ -114,6 +114,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 			.buildSoundMuffler( BlockPos.ZERO ).getSoundCategroriesString() );
 	}
 	
+	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
