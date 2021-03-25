@@ -1,13 +1,13 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning;
 
-import de.geheimagentnr1.magical_torches.config.MainConfig;
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.chicken_egg_blockers.ChickenEggTorchBlocker;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -35,7 +35,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
-	private final ISpawnBlockFactory spawnBlockFactory;
+	private final ISpawnBlockerFactory spawnBlockFactory;
 	
 	public ChickenEggTorch() {
 		
@@ -43,8 +43,10 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
-		ChickenEggSpawningCapability.registerChickenEggBlocker( ChickenEggTorchBlocker.registry_name,
-			spawnBlockFactory );
+		ChickenEggSpawningCapability.registerChickenEggBlocker(
+			ChickenEggTorchBlocker.registry_name,
+			spawnBlockFactory
+		);
 	}
 	
 	@Nonnull
@@ -57,7 +59,8 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
@@ -66,7 +69,8 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
+	public VoxelShape getCollisionShape(
+		@Nonnull BlockState state, @Nonnull IBlockReader worldIn,
 		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
@@ -83,31 +87,37 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public TextComponent getInformation() {
 		
-		if( MainConfig.getShouldInvertChickenEggBlocking() ) {
-			return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey(
-				"chicken_egg_spawning_enable" ), MainConfig.getChickenEggTorchRange() );
+		if( ServerConfig.getShouldInvertChickenEggBlocking() ) {
+			return new TranslationTextComponent(
+				TranslationKeyHelper.buildTooltipTranslationKey( "chicken_egg_spawning_enable" ),
+				ServerConfig.getChickenEggTorchRange()
+			);
 		} else {
-			return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey(
-				"chicken_egg_spawning_blocking" ), MainConfig.getChickenEggTorchRange() );
+			return new TranslationTextComponent(
+				TranslationKeyHelper.buildTooltipTranslationKey( "chicken_egg_spawning_blocking" ),
+				ServerConfig.getChickenEggTorchRange()
+			);
 		}
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
+	public void onBlockAdded(
+		@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
 		@Nonnull BlockState oldState, boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent(
-			capability -> capability.addSpawnBlocker( spawnBlockFactory.buildSpawnBlocker( pos ) ) );
+			capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
+	public void onReplaced(
+		@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
 		@Nonnull BlockState newState, boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent(
-			capability -> capability.removeSpawnBlocker( spawnBlockFactory.buildSpawnBlocker( pos ) ) );
+		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
+			.ifPresent( capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 		super.onReplaced( state, worldIn, pos, newState, isMoving );
 	}
 	

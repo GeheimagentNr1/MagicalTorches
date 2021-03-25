@@ -11,7 +11,8 @@ import javax.annotation.Nonnull;
 public class MagicalTorchesItemGroup extends ItemGroup {
 	
 	
-	public MagicalTorchesItemGroup() {
+	//package-private
+	MagicalTorchesItemGroup() {
 		
 		super( MagicalTorches.MODID );
 	}

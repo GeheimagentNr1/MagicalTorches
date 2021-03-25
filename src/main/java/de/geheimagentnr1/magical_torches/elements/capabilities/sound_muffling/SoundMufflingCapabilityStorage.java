@@ -1,4 +1,4 @@
-package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
+package de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling;
 
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -8,14 +8,14 @@ import net.minecraftforge.common.capabilities.Capability;
 import javax.annotation.Nullable;
 
 
-public class SpawnBlockingCapabilityStorage implements Capability.IStorage<SpawnBlockingCapability> {
+public class SoundMufflingCapabilityStorage implements Capability.IStorage<SoundMufflingCapability> {
 	
 	
 	@Nullable
 	@Override
 	public INBT writeNBT(
-		Capability<SpawnBlockingCapability> capability,
-		SpawnBlockingCapability instance,
+		Capability<SoundMufflingCapability> capability,
+		SoundMufflingCapability instance,
 		Direction side ) {
 		
 		return instance.serializeNBT();
@@ -23,8 +23,8 @@ public class SpawnBlockingCapabilityStorage implements Capability.IStorage<Spawn
 	
 	@Override
 	public void readNBT(
-		Capability<SpawnBlockingCapability> capability,
-		SpawnBlockingCapability instance,
+		Capability<SoundMufflingCapability> capability,
+		SoundMufflingCapability instance,
 		Direction side,
 		INBT nbt ) {
 		

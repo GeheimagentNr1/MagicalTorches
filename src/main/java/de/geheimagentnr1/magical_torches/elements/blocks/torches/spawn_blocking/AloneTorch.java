@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
-import de.geheimagentnr1.magical_torches.config.MainConfig;
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.AloneTorchSpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
@@ -28,13 +28,18 @@ public class AloneTorch extends SpawnBlockingTorch {
 	
 	public AloneTorch() {
 		
-		super( Block.Properties.create( Material.GLASS ).sound( SoundType.GLASS ), registry_name,
-			AloneTorchSpawnBlocker.registry_name, AloneTorchSpawnBlocker::new );
+		super(
+			Block.Properties.create( Material.GLASS ).sound( SoundType.GLASS ),
+			registry_name,
+			AloneTorchSpawnBlocker.registry_name,
+			AloneTorchSpawnBlocker::new
+		);
 	}
 	
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
+	public VoxelShape getCollisionShape(
+		@Nonnull BlockState state, @Nonnull IBlockReader worldIn,
 		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.fullCube();
@@ -50,8 +55,10 @@ public class AloneTorch extends SpawnBlockingTorch {
 	@Override
 	protected TextComponent getInformation() {
 		
-		return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_all" ),
-			MainConfig.getAloneTorchRange() );
+		return new TranslationTextComponent(
+			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_all" ),
+			ServerConfig.getAloneTorchRange()
+		);
 	}
 	
 	@Override

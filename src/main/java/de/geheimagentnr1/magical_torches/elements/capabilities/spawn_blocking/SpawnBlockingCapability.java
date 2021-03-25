@@ -1,9 +1,11 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
 
+import de.geheimagentnr1.magical_torches.elements.capabilities.ICapabilityDataFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
+import de.geheimagentnr1.magical_torches.helpers.NBTHelper;
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
-import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerNBTHelper;
+import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
@@ -15,7 +17,6 @@ import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Comparator;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -27,11 +28,12 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 	
 	private final LazyOptional<SpawnBlockingCapability> capability = LazyOptional.of( () -> this );
 	
-	private TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
+	private TreeSet<SpawnBlocker> spawnBlockers = SpawnBlockerHelper.buildSpawnBlockerTreeSet();
 	
-	private static final TreeMap<ResourceLocation, ISpawnBlockFactory> SPAWN_BLOCKING_REGISTERY = new TreeMap<>();
+	private static final TreeMap<ResourceLocation, ICapabilityDataFactory<SpawnBlocker>> SPAWN_BLOCKING_REGISTERY =
+		new TreeMap<>();
 	
-	public static void registerSpawnBlocker( ResourceLocation _registry_name, ISpawnBlockFactory factory ) {
+	public static void registerSpawnBlocker( ResourceLocation _registry_name, ISpawnBlockerFactory factory ) {
 		
 		SPAWN_BLOCKING_REGISTERY.put( _registry_name, factory );
 	}
@@ -41,7 +43,8 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 		BlockPos spawn_pos = entity.getPosition();
 		for( SpawnBlocker spawnBlocker : spawnBlockers ) {
 			if( spawnBlocker.shouldBlockEntity( entity ) && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,
-				spawnBlocker.getPos(), spawnBlocker.getRange() ) ) {
+				spawnBlocker.getPos(), spawnBlocker.getRange()
+			) ) {
 				return true;
 			}
 		}
@@ -61,13 +64,13 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 	@Override
 	public ListNBT serializeNBT() {
 		
-		return SpawnBlockerNBTHelper.serializeSpawnBlockers( spawnBlockers );
+		return NBTHelper.serialize( spawnBlockers );
 	}
 	
 	@Override
 	public void deserializeNBT( ListNBT nbt ) {
 		
-		spawnBlockers = SpawnBlockerNBTHelper.deserializeSpawnBlockers( nbt, SPAWN_BLOCKING_REGISTERY );
+		spawnBlockers = NBTHelper.deserialize( nbt, SPAWN_BLOCKING_REGISTERY );
 	}
 	
 	public void addSpawnBlocker( SpawnBlocker spawnBlocker ) {
