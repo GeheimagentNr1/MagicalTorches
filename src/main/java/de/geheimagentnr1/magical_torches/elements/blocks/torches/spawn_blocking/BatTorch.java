@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
-import de.geheimagentnr1.magical_torches.config.MainConfig;
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.BatTorchSpawnBlocker;
@@ -37,17 +37,23 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	
 	private static final VoxelShape STANDING_SHAPE = VoxelShapes.or(
 		Block.makeCuboidShape( 5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D ),
-		Block.makeCuboidShape( 6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D ) );
+		Block.makeCuboidShape( 6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D )
+	);
 	
 	private static final VoxelShape HANGING_SHAPE = VoxelShapes.or(
 		Block.makeCuboidShape( 5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D ),
-		Block.makeCuboidShape( 6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D ) );
+		Block.makeCuboidShape( 6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D )
+	);
 	
 	public BatTorch() {
 		
-		super( Block.Properties.create( Material.IRON ).hardnessAndResistance( 3.5F ).sound( SoundType.LANTERN ),
-			registry_name, BatTorchSpawnBlocker.registry_name, BatTorchSpawnBlocker::new );
-		setDefaultState( stateContainer.getBaseState().with( BlockStateProperties.HANGING, Boolean.FALSE ) );
+		super(
+			Block.Properties.create( Material.IRON ).hardnessAndResistance( 3.5F ).sound( SoundType.LANTERN ),
+			registry_name,
+			BatTorchSpawnBlocker.registry_name,
+			BatTorchSpawnBlocker::new
+		);
+		setDefaultState( stateContainer.getBaseState().with( BlockStateProperties.HANGING, false ) );
 	}
 	
 	@Override
@@ -59,7 +65,8 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return state.get( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
@@ -68,8 +75,10 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@Override
 	protected TextComponent getInformation() {
 		
-		return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_bat" ),
-			MainConfig.getAloneTorchRange() );
+		return new TranslationTextComponent(
+			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_bat" ),
+			ServerConfig.getAloneTorchRange()
+		);
 	}
 	
 	private static Direction hangingToDirection( BlockState state ) {
@@ -83,8 +92,10 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 		
 		for( Direction direction : context.getNearestLookingDirections() ) {
 			if( direction.getAxis() == Direction.Axis.Y ) {
-				BlockState blockstate = getDefaultState().with( BlockStateProperties.HANGING,
-					direction == Direction.UP );
+				BlockState blockstate = getDefaultState().with(
+					BlockStateProperties.HANGING,
+					direction == Direction.UP
+				);
 				if( blockstate.isValidPosition( context.getWorld(), context.getPos() ) ) {
 					return blockstate;
 				}
@@ -96,14 +107,18 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public BlockState updatePostPlacement( @Nonnull BlockState stateIn, @Nonnull Direction facing,
+	public BlockState updatePostPlacement(
+		@Nonnull BlockState stateIn, @Nonnull Direction facing,
 		@Nonnull BlockState facingState,
 		@Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos ) {
 		
-		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition( worldIn,
-			currentPos ) ?
+		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition(
+			worldIn,
+			currentPos
+		) ?
 			Blocks.AIR.getDefaultState() : super.updatePostPlacement( stateIn, facing, facingState, worldIn,
-			currentPos, facingPos );
+			currentPos, facingPos
+		);
 	}
 	
 	@SuppressWarnings( "deprecation" )
