@@ -163,7 +163,7 @@ public class ServerConfig {
 		boolean changed = false;
 		for( int i = 0; i < hostileBlockedEntitiesValue.size(); i++ ) {
 			ResourceLocation resourceLocation = ResourceLocation.tryCreate( hostileBlockedEntitiesValue.get( i ) );
-			if( resourceLocation == null || !Registry.ENTITY_TYPE.getValue( resourceLocation ).isPresent() ) {
+			if( resourceLocation == null || !Registry.ENTITY_TYPE.func_241873_b( resourceLocation ).isPresent() ) {
 				hostileBlockedEntitiesValue.remove( i );
 				i--;
 				changed = true;
