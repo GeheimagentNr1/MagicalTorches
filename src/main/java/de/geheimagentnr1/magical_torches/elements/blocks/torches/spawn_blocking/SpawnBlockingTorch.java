@@ -33,7 +33,7 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@Nonnull ResourceLocation spawn_block_registry_name,
 		@Nonnull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
-		super( properties.doesNotBlockMovement().func_235838_a_( value -> 15 ) );
+		super( properties.doesNotBlockMovement().setLightLevel( value -> 15 ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );

@@ -33,7 +33,7 @@ public abstract class BlockWithTooltip extends Block {
 		@Nonnull List<ITextComponent> tooltip,
 		@Nonnull ITooltipFlag flagIn ) {
 		
-		tooltip.add( getInformation().func_230530_a_( Style.field_240709_b_.func_240720_a_(
+		tooltip.add( getInformation().setStyle( Style.EMPTY.createStyleFromFormattings(
 			TextFormatting.ITALIC,
 			TextFormatting.GRAY
 		) ) );
