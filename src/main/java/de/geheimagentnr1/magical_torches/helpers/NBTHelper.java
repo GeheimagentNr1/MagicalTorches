@@ -1,7 +1,7 @@
 package de.geheimagentnr1.magical_torches.helpers;
 
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
+import de.geheimagentnr1.magical_torches.elements.capabilities.CapabilityData;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ICapabilityDataFactory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -14,7 +14,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SpawnBlockerNBTHelper {
+public class NBTHelper {
 	
 	
 	private static final String registryNameName = "registry_name";
@@ -25,14 +25,14 @@ public class SpawnBlockerNBTHelper {
 	
 	private static final String zName = "z";
 	
-	public static ListNBT serializeSpawnBlockers( TreeSet<SpawnBlocker> spawnBlockers ) {
+	public static <T extends CapabilityData> ListNBT serialize( TreeSet<T> capabilityDatas ) {
 		
 		ListNBT nbt = new ListNBT();
 		
-		for( SpawnBlocker spawnBlocker : spawnBlockers ) {
-			BlockPos pos = spawnBlocker.getPos();
+		for( T capabilityData : capabilityDatas ) {
+			BlockPos pos = capabilityData.getPos();
 			CompoundNBT compoundNBT = new CompoundNBT();
-			compoundNBT.putString( registryNameName, spawnBlocker.getRegistryName().toString() );
+			compoundNBT.putString( registryNameName, capabilityData.getRegistryName().toString() );
 			compoundNBT.putInt( xName, pos.getX() );
 			compoundNBT.putInt( yName, pos.getY() );
 			compoundNBT.putInt( zName, pos.getZ() );
@@ -41,10 +41,11 @@ public class SpawnBlockerNBTHelper {
 		return nbt;
 	}
 	
-	public static TreeSet<SpawnBlocker> deserializeSpawnBlockers( ListNBT nbt,
-		TreeMap<ResourceLocation, ISpawnBlockFactory> spawnBlockingRegistery ) {
+	public static <T extends CapabilityData> TreeSet<T> deserialize(
+		ListNBT nbt,
+		TreeMap<ResourceLocation, ICapabilityDataFactory<T>> capabilityDataRegistery ) {
 		
-		TreeSet<SpawnBlocker> spawnBlockers = new TreeSet<>( Comparator.comparing( SpawnBlocker::getPos ) );
+		TreeSet<T> capabilityDatas = new TreeSet<>( Comparator.comparing( T::getPos ) );
 		for( INBT inbt : nbt ) {
 			if( inbt instanceof CompoundNBT ) {
 				CompoundNBT compoundNBT = (CompoundNBT)inbt;
@@ -56,15 +57,16 @@ public class SpawnBlockerNBTHelper {
 						compoundNBT.contains( yName, Constants.NBT.TAG_INT ) &&
 						compoundNBT.contains( zName, Constants.NBT.TAG_INT ) ) {
 						BlockPos pos = new BlockPos( new BlockPos( compoundNBT.getInt( xName ),
-							compoundNBT.getInt( yName ), compoundNBT.getInt( zName ) ) );
-						ISpawnBlockFactory factory = spawnBlockingRegistery.get( registry_name );
+							compoundNBT.getInt( yName ), compoundNBT.getInt( zName )
+						) );
+						ICapabilityDataFactory<T> factory = capabilityDataRegistery.get( registry_name );
 						if( factory != null ) {
-							spawnBlockers.add( factory.buildSpawnBlocker( pos ) );
+							capabilityDatas.add( factory.build( pos ) );
 						}
 					}
 				}
 			}
 		}
-		return spawnBlockers;
+		return capabilityDatas;
 	}
 }

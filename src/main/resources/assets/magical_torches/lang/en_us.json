@@ -24,5 +24,12 @@
 				"tooltip.magical_torches.spawn_blocking_bat": "Blocks the spawning of bats in a range of %s blocks.",
 				"tooltip.magical_torches.spawn_blocking_hostile": "Blocks the spawning of hostile mobs in a range of %s blocks.",
 		"main_item_groups": "Item Groups",
-			"itemGroup.magical_torches": "Magical Torches"
+			"itemGroup.magical_torches": "Magical Torches",
+		"main_advancements": "Advancements",
+			"main_advancements_bat_torch": "Advancements: Bat Torch",
+				"advancements.magical_torches.bat_torch.title": "Nana Nana Nana Nana Bat Torch",
+				"advancements.magical_torches.bat_torch.description": "Construct a Bat Torch",
+			"main_advancements_root": "Advancements: Magical Torches",
+				"advancements.magical_torches.root.title": "Magical Torches",
+				"advancements.magical_torches.root.description": "Magical and powerful."
 }
