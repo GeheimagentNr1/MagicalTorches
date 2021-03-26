@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers;
 
-import de.geheimagentnr1.magical_torches.config.MainConfig;
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.MegaTorch;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.util.ResourceLocation;
@@ -26,6 +26,6 @@ public class MegaTorchSpawnBlocker extends MobSpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return MainConfig.getMegaTorchRange();
+		return ServerConfig.getMegaTorchRange();
 	}
 }

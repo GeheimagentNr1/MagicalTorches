@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers;
 
-import de.geheimagentnr1.magical_torches.config.MainConfig;
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.AloneTorch;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
@@ -29,7 +29,7 @@ public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return MainConfig.getAloneTorchRange();
+		return ServerConfig.getAloneTorchRange();
 	}
 	
 	@Override
