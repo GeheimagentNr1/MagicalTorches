@@ -110,7 +110,7 @@ public class ForgeEventHandler {
 		
 		if( world != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-			ClientConfigHolder.getDimensionSoundMufflers( world.getDimension().getType() )
+			ClientConfigHolder.getDimensionSoundMufflers( world.func_234923_W_() )
 				.ifPresent( soundMufflers -> {
 					for( SoundMuffler soundMuffler : soundMufflers ) {
 						if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock( sound_pos,

@@ -8,7 +8,9 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 
@@ -21,9 +23,9 @@ import java.util.function.Supplier;
 public class InitSoundMufflersMsg {
 	
 	
-	private final TreeMap<DimensionType, TreeSet<SoundMuffler>> soundMufflers;
+	private final TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> soundMufflers;
 	
-	private InitSoundMufflersMsg( TreeMap<DimensionType, TreeSet<SoundMuffler>> _soundMufflers ) {
+	private InitSoundMufflersMsg( TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> _soundMufflers ) {
 		
 		soundMufflers = _soundMufflers;
 	}
@@ -31,11 +33,14 @@ public class InitSoundMufflersMsg {
 	//package-private
 	static InitSoundMufflersMsg decode( PacketBuffer buffer ) {
 		
-		TreeMap<DimensionType, TreeSet<SoundMuffler>> dimensionSoundMufflers =
+		TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
 		int dimensionCount = buffer.readInt();
 		for( int i = 0; i < dimensionCount; i++ ) {
-			DimensionType dimension = DimensionType.byName( buffer.readResourceLocation() );
+			RegistryKey<World> dimension = RegistryKey.func_240903_a_(
+				Registry.field_239699_ae_,
+				buffer.readResourceLocation()
+			);
 			TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
 			dimensionSoundMufflers.put( dimension, soundMufflers );
 			int soundMufflersCount = buffer.readInt();
@@ -54,7 +59,7 @@ public class InitSoundMufflersMsg {
 		
 		buffer.writeInt( soundMufflers.size() );
 		soundMufflers.forEach( ( dimension, _soundMufflers ) -> {
-			buffer.writeResourceLocation( Objects.requireNonNull( dimension.getRegistryName() ) );
+			buffer.writeResourceLocation( Objects.requireNonNull( dimension.func_240901_a_() ) );
 			buffer.writeInt( _soundMufflers.size() );
 			_soundMufflers.forEach( soundMuffler -> {
 				buffer.writeResourceLocation( soundMuffler.getRegistryName() );
@@ -65,12 +70,12 @@ public class InitSoundMufflersMsg {
 	
 	public static void sendToPlayer( ServerPlayerEntity playerEntity ) {
 		
-		TreeMap<DimensionType, TreeSet<SoundMuffler>> dimensionSoundMufflers =
+		TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
 		Objects.requireNonNull( playerEntity.getServer() ).getWorlds().forEach(
 			serverWorld -> {
 				TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
-				dimensionSoundMufflers.put( serverWorld.getDimension().getType(), soundMufflers );
+				dimensionSoundMufflers.put( serverWorld.func_234923_W_(), soundMufflers );
 				serverWorld.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent(
 					soundMufflingCapability -> soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
 				);

@@ -108,7 +108,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		
 		worldIn.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent(
 			capability -> capability.addSoundMuffler(
-				worldIn.getDimension().getType(),
+				worldIn.func_234923_W_(),
 				new SoundMufflingTorchSoundMuffler( pos )
 			) );
 	}
@@ -123,7 +123,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent( capability -> capability.removeSoundMuffler(
-			worldIn.getDimension().getType(),
+			worldIn.func_234923_W_(),
 			new SoundMufflingTorchSoundMuffler( pos )
 		) );
 		super.onReplaced( state, worldIn, pos, newState, isMoving );

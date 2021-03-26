@@ -2,13 +2,10 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IWaterLoggable;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -33,7 +30,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super(
-			Block.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ),
+			AbstractBlock.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ),
 			registry_name,
 			spawn_block_registry_name,
 			_spawnBlockFactory
@@ -53,7 +50,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public IFluidState getFluidState( @Nonnull BlockState state ) {
+	public FluidState getFluidState( @Nonnull BlockState state ) {
 		
 		return state.get( BlockStateProperties.WATERLOGGED )
 			? Fluids.WATER.getStillFluidState( false )
@@ -68,8 +65,8 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		if( state.getBlock() == this ) {
 			return state.with( BlockStateProperties.WATERLOGGED, false );
 		} else {
-			IFluidState ifluidstate = context.getWorld().getFluidState( pos );
-			return getDefaultState().with( BlockStateProperties.WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER );
+			FluidState fluidState = context.getWorld().getFluidState( pos );
+			return getDefaultState().with( BlockStateProperties.WATERLOGGED, fluidState.getFluid() == Fluids.WATER );
 		}
 	}
 	

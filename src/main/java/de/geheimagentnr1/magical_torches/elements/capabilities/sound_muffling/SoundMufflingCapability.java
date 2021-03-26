@@ -9,9 +9,10 @@ import de.geheimagentnr1.magical_torches.network.AddSoundMufflerMsg;
 import de.geheimagentnr1.magical_torches.network.RemoveSoundMufflerMsg;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -66,16 +67,16 @@ public class SoundMufflingCapability implements ICapabilitySerializable<ListNBT>
 		soundMufflers = NBTHelper.deserialize( nbt, SOUND_MUFFLING_REGISTERY );
 	}
 	
-	public void addSoundMuffler( DimensionType dimension, SoundMuffler soundMuffler ) {
+	public void addSoundMuffler( RegistryKey<World> dimension, SoundMuffler soundMuffler ) {
 		
 		soundMufflers.add( soundMuffler );
-		AddSoundMufflerMsg.sendToAll( dimension.getRegistryName(), soundMuffler );
+		AddSoundMufflerMsg.sendToAll( dimension.func_240901_a_(), soundMuffler );
 	}
 	
-	public void removeSoundMuffler( DimensionType dimension, SoundMuffler soundMuffler ) {
+	public void removeSoundMuffler( RegistryKey<World> dimension, SoundMuffler soundMuffler ) {
 		
 		soundMufflers.remove( soundMuffler );
-		RemoveSoundMufflerMsg.sendToAll( dimension.getRegistryName(), soundMuffler );
+		RemoveSoundMufflerMsg.sendToAll( dimension.func_240901_a_(), soundMuffler );
 	}
 	
 	public TreeSet<SoundMuffler> getSoundMufflers() {
