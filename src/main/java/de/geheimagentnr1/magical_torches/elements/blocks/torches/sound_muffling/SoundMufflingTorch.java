@@ -1,11 +1,13 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling;
 
-import de.geheimagentnr1.magical_torches.config.MainConfig;
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
-import de.geheimagentnr1.magical_torches.elements.capabilities_client.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
+import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
+import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -15,7 +17,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -23,9 +24,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 
 public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInterface, BlockRenderTypeInterface {
@@ -37,41 +38,15 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	
 	public SoundMufflingTorch() {
 		
-		super( AbstractBlock.Properties.create( Material.WOOD ).doesNotBlockMovement().hardnessAndResistance( 3 )
+		super( AbstractBlock.Properties.create( Material.WOOD )
+			.doesNotBlockMovement()
+			.hardnessAndResistance( 3 )
 			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
-	}
-	
-	/**
-	 * Called throughout the code as a replacement for block instanceof BlockContainer
-	 * Moving this to the Block base class allows for mods that wish to extend vanilla
-	 * blocks, and also want to have a tile entity on that block, may.
-	 *
-	 * Return true from this function to specify this block has a tile entity.
-	 *
-	 * @param state State of the current block
-	 * @return True if block has a tile entity, false otherwise
-	 */
-	@Override
-	public boolean hasTileEntity( BlockState state ) {
-		
-		return true;
-	}
-	
-	/**
-	 * Called throughout the code as a replacement for ITileEntityProvider.createNewTileEntity
-	 * Return the same thing you would from that function.
-	 * This will fall back to ITileEntityProvider.createNewTileEntity(World) if this block is a ITileEntityProvider
-	 *
-	 * @param state The state of the current block
-	 * @param world The world to create the TE in
-	 * @return A instance of a class extending TileEntity
-	 */
-	@Nullable
-	@Override
-	public TileEntity createTileEntity( BlockState state, IBlockReader world ) {
-		
-		return new SoundMufflingTorchTile();
+		SoundMufflingCapability.registerSoundMufflers(
+			SoundMufflingTorchSoundMuffler.registry_name,
+			SoundMufflingTorchSoundMuffler::new
+		);
 	}
 	
 	@Override
@@ -83,7 +58,10 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;
@@ -92,8 +70,11 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
-		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
+	public VoxelShape getCollisionShape(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
 	}
@@ -109,9 +90,43 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@Override
 	public TextComponent getInformation() {
 		
-		return new TranslationTextComponent( TranslationKeyHelper.buildTooltipTranslationKey( "sound_muffling" ),
-			MainConfig.getSoundMufflingTorchRange(), SoundMufflingTorchSoundMuffler.FACTORY
-			.buildSoundMuffler( BlockPos.ZERO ).getSoundCategroriesString() );
+		return new TranslationTextComponent(
+			TranslationKeyHelper.buildTooltipTranslationKey( "sound_muffling" ),
+			ServerConfig.getSoundMufflingTorchRange(),
+			SoundMufflingTorchSoundMuffler.FACTORY.build( BlockPos.ZERO ).getSoundCategoriesString()
+		);
+	}
+	
+	@SuppressWarnings( "deprecation" )
+	@Override
+	public void onBlockAdded(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull BlockState oldState,
+		boolean isMoving ) {
+		
+		worldIn.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent(
+			capability -> capability.addSoundMuffler(
+				worldIn.getDimension().getType(),
+				new SoundMufflingTorchSoundMuffler( pos )
+			) );
+	}
+	
+	@SuppressWarnings( "deprecation" )
+	@Override
+	public void onReplaced(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull BlockState newState,
+		boolean isMoving ) {
+		
+		worldIn.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent( capability -> capability.removeSoundMuffler(
+			worldIn.getDimension().getType(),
+			new SoundMufflingTorchSoundMuffler( pos )
+		) );
+		super.onReplaced( state, worldIn, pos, newState, isMoving );
 	}
 	
 	@Override

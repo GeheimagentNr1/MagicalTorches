@@ -3,10 +3,8 @@ package de.geheimagentnr1.magical_torches.elements.blocks;
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning.ChickenEggTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
-import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorchTile;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.*;
 import net.minecraft.block.Block;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
 
@@ -47,9 +45,6 @@ public class ModBlocks {
 	
 	@ObjectHolder( MagicalTorches.MODID + ":" + SoundMufflingTorch.registry_name )
 	public static SoundMufflingTorch SOUND_MUFFLING_TORCH;
-	
-	@ObjectHolder( MagicalTorches.MODID + ":" + SoundMufflingTorch.registry_name )
-	public static TileEntityType<SoundMufflingTorchTile> SOUND_MUFFLING_TORCH_TILE;
 	
 	//Torches: Spawn Blocking
 	

@@ -27,8 +27,11 @@ public abstract class BlockWithTooltip extends Block {
 	
 	@OnlyIn( Dist.CLIENT )
 	@Override
-	public void addInformation( @Nonnull ItemStack stack, @Nullable IBlockReader worldIn,
-		@Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn ) {
+	public void addInformation(
+		@Nonnull ItemStack stack,
+		@Nullable IBlockReader worldIn,
+		@Nonnull List<ITextComponent> tooltip,
+		@Nonnull ITooltipFlag flagIn ) {
 		
 		tooltip.add( getInformation().func_230530_a_( Style.field_240709_b_.func_240720_a_( TextFormatting.ITALIC,
 			TextFormatting.GRAY ) ) );
