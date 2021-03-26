@@ -34,13 +34,13 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	
 	public static final String registry_name = "sound_muffling_torch";
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
+	private static final VoxelShape SHAPE = Block.box( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
 	public SoundMufflingTorch() {
 		
-		super( AbstractBlock.Properties.create( Material.WOOD )
-			.doesNotBlockMovement()
-			.hardnessAndResistance( 3 )
+		super( AbstractBlock.Properties.of( Material.WOOD )
+			.noCollission()
+			.strength( 3 )
 			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		SoundMufflingCapability.registerSoundMufflers(
@@ -52,7 +52,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -82,7 +82,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( @Nonnull BlockState state ) {
+	public PushReaction getPistonPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
 	}
@@ -99,7 +99,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded(
+	public void onPlace(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -108,14 +108,14 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		
 		worldIn.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent(
 			capability -> capability.addSoundMuffler(
-				worldIn.getDimensionKey(),
+				worldIn.dimension(),
 				new SoundMufflingTorchSoundMuffler( pos )
 			) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced(
+	public void onRemove(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -123,10 +123,10 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent( capability -> capability.removeSoundMuffler(
-			worldIn.getDimensionKey(),
+			worldIn.dimension(),
 			new SoundMufflingTorchSoundMuffler( pos )
 		) );
-		super.onReplaced( state, worldIn, pos, newState, isMoving );
+		super.onRemove( state, worldIn, pos, newState, isMoving );
 	}
 	
 	@SuppressWarnings( "ParameterHidesMemberVariable" )

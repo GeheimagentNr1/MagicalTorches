@@ -40,7 +40,7 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 	
 	public boolean shouldBlockEntitySpawn( Entity entity ) {
 		
-		BlockPos spawn_pos = entity.getPosition();
+		BlockPos spawn_pos = entity.blockPosition();
 		for( SpawnBlocker spawnBlocker : spawnBlockers ) {
 			if( spawnBlocker.shouldBlockEntity( entity ) && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,
 				spawnBlocker.getPos(), spawnBlocker.getRange()

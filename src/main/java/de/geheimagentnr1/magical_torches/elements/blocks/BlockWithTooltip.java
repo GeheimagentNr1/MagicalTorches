@@ -28,13 +28,13 @@ public abstract class BlockWithTooltip extends Block {
 	
 	@OnlyIn( Dist.CLIENT )
 	@Override
-	public void addInformation(
+	public void appendHoverText(
 		@Nonnull ItemStack stack,
 		@Nullable IBlockReader worldIn,
 		@Nonnull List<ITextComponent> tooltip,
 		@Nonnull ITooltipFlag flagIn ) {
 		
-		tooltip.add( getInformation().setStyle( Style.EMPTY.createStyleFromFormattings(
+		tooltip.add( getInformation().setStyle( Style.EMPTY.applyFormats(
 			TextFormatting.ITALIC,
 			TextFormatting.GRAY
 		) ) );

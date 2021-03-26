@@ -26,7 +26,7 @@ public class ClientConfigHolder {
 	
 	public static boolean doesSoundMufflingTorchToMuffleSoundsContainsSound( ISound sound ) {
 		
-		return SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS.contains( sound.getCategory() );
+		return SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS.contains( sound.getSource() );
 	}
 	
 	public static List<SoundCategory> getSoundMufflingTorchToMuffleSounds() {

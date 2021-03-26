@@ -65,8 +65,8 @@ public class AddSoundMufflerMsg {
 	//package-private
 	static void handle( AddSoundMufflerMsg addSoundMufflerMsg, Supplier<NetworkEvent.Context> contextSupplier ) {
 		
-		RegistryKey<World> dimension = RegistryKey.getOrCreateKey(
-			Registry.WORLD_KEY,
+		RegistryKey<World> dimension = RegistryKey.create(
+			Registry.DIMENSION_REGISTRY,
 			addSoundMufflerMsg.dimensionRegistryName
 		);
 		TreeSet<SoundMuffler> list = ClientConfigHolder.getDimensionSoundMufflers( dimension )

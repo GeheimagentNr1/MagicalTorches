@@ -30,12 +30,12 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super(
-			AbstractBlock.Properties.create( Material.WOOD ).hardnessAndResistance( 3 ).sound( SoundType.WOOD ),
+			AbstractBlock.Properties.of( Material.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
 			registry_name,
 			spawn_block_registry_name,
 			_spawnBlockFactory
 		);
-		setDefaultState( getDefaultState().with( BlockStateProperties.WATERLOGGED, false ) );
+		registerDefaultState( defaultBlockState().setValue( BlockStateProperties.WATERLOGGED, false ) );
 	}
 	
 	@Override
@@ -52,28 +52,31 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	@Override
 	public FluidState getFluidState( @Nonnull BlockState state ) {
 		
-		return state.get( BlockStateProperties.WATERLOGGED )
-			? Fluids.WATER.getStillFluidState( false )
+		return state.getValue( BlockStateProperties.WATERLOGGED )
+			? Fluids.WATER.getSource( false )
 			: super.getFluidState( state );
 	}
 	
 	@Nullable
 	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
 		
-		BlockPos pos = context.getPos();
-		BlockState state = context.getWorld().getBlockState( pos );
+		BlockPos pos = context.getClickedPos();
+		BlockState state = context.getLevel().getBlockState( pos );
 		if( state.getBlock() == this ) {
-			return state.with( BlockStateProperties.WATERLOGGED, false );
+			return state.setValue( BlockStateProperties.WATERLOGGED, false );
 		} else {
-			FluidState fluidState = context.getWorld().getFluidState( pos );
-			return getDefaultState().with( BlockStateProperties.WATERLOGGED, fluidState.getFluid() == Fluids.WATER );
+			FluidState fluidState = context.getLevel().getFluidState( pos );
+			return defaultBlockState().setValue(
+				BlockStateProperties.WATERLOGGED,
+				fluidState.getType() == Fluids.WATER
+			);
 		}
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public BlockState updatePostPlacement(
+	public BlockState updateShape(
 		@Nonnull BlockState stateIn,
 		@Nonnull Direction facing,
 		@Nonnull BlockState facingState,
@@ -81,18 +84,18 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		@Nonnull BlockPos currentPos,
 		@Nonnull BlockPos facingPos ) {
 		
-		if( stateIn.get( BlockStateProperties.WATERLOGGED ) ) {
-			worldIn.getPendingFluidTicks().scheduleTick(
+		if( stateIn.getValue( BlockStateProperties.WATERLOGGED ) ) {
+			worldIn.getLiquidTicks().scheduleTick(
 				currentPos,
 				Fluids.WATER,
-				Fluids.WATER.getTickRate( worldIn )
+				Fluids.WATER.getTickDelay( worldIn )
 			);
 		}
 		return stateIn;
 	}
 	
 	@Override
-	protected void fillStateContainer( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.WATERLOGGED );
 	}

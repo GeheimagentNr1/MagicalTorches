@@ -18,7 +18,7 @@ public class GrandTorch extends HostileSpawnBlockingTorch {
 	
 	public static final String registry_name = "grand_torch";
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 12, 10 );
+	private static final VoxelShape SHAPE = Block.box( 6, 0, 6, 10, 12, 10 );
 	
 	public GrandTorch() {
 		

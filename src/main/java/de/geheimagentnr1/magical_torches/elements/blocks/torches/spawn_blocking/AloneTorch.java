@@ -30,7 +30,7 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	public AloneTorch() {
 		
 		super(
-			AbstractBlock.Properties.create( Material.GLASS ).sound( SoundType.GLASS ),
+			AbstractBlock.Properties.of( Material.GLASS ).sound( SoundType.GLASS ),
 			registry_name,
 			AloneTorchSpawnBlocker.registry_name,
 			AloneTorchSpawnBlocker::new
@@ -43,13 +43,13 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 		@Nonnull BlockState state, @Nonnull IBlockReader worldIn,
 		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
 		
-		return VoxelShapes.fullCube();
+		return VoxelShapes.block();
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getTranslucent();
+		return RenderType.translucent();
 	}
 	
 	@Override

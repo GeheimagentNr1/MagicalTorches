@@ -46,7 +46,7 @@ public class ChickenEggSpawningCapability implements ICapabilitySerializable<Lis
 	public boolean shouldBlockChickenEggSpawn( Entity entity ) {
 		
 		if( entity instanceof ItemEntity && ( (ItemEntity)entity ).getItem().getItem() == Items.EGG ) {
-			BlockPos spawn_pos = entity.getPosition();
+			BlockPos spawn_pos = entity.blockPosition();
 			boolean block = false;
 			for( SpawnBlocker spawnBlocker : spawnBlockers ) {
 				if( spawnBlocker.shouldBlockEntity( entity ) && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,

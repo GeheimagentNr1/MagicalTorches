@@ -51,7 +51,7 @@ public class NBTHelper {
 				CompoundNBT compoundNBT = (CompoundNBT)inbt;
 				if( compoundNBT.contains( registryNameName, Constants.NBT.TAG_STRING ) ) {
 					String registry_name_string = compoundNBT.getString( registryNameName );
-					ResourceLocation registry_name = ResourceLocation.tryCreate( registry_name_string );
+					ResourceLocation registry_name = ResourceLocation.tryParse( registry_name_string );
 					if( registry_name != null &&
 						compoundNBT.contains( xName, Constants.NBT.TAG_INT ) &&
 						compoundNBT.contains( yName, Constants.NBT.TAG_INT ) &&

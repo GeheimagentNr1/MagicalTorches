@@ -35,13 +35,13 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	public static final String registry_name = "chicken_egg_torch";
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 10, 9.5 );
+	private static final VoxelShape SHAPE = Block.box( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
 	private final ISpawnBlockerFactory spawnBlockFactory;
 	
 	public ChickenEggTorch() {
 		
-		super( AbstractBlock.Properties.create( Material.WOOD ).doesNotBlockMovement().hardnessAndResistance( 3 )
+		super( AbstractBlock.Properties.of( Material.WOOD ).noCollission().strength( 3 )
 			.sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
@@ -54,7 +54,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -80,7 +80,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( @Nonnull BlockState state ) {
+	public PushReaction getPistonPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
 	}
@@ -103,7 +103,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded(
+	public void onPlace(
 		@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
 		@Nonnull BlockState oldState, boolean isMoving ) {
 		
@@ -113,13 +113,13 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced(
+	public void onRemove(
 		@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
 		@Nonnull BlockState newState, boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
 			.ifPresent( capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
-		super.onReplaced( state, worldIn, pos, newState, isMoving );
+		super.onRemove( state, worldIn, pos, newState, isMoving );
 	}
 	
 	@SuppressWarnings( "ParameterHidesMemberVariable" )

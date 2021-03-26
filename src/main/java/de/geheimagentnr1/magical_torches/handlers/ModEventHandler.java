@@ -83,7 +83,7 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleItemsRegistryEvent( RegistryEvent.Register<Item> itemRegistryEvent ) {
 		
-		Item.Properties properties = new Item.Properties().group( ModItemGroups.MAGICAL_TORCHES_ITEM_GROUP );
+		Item.Properties properties = new Item.Properties().tab( ModItemGroups.MAGICAL_TORCHES_ITEM_GROUP );
 		
 		for( Block block : ModBlocks.BLOCKS ) {
 			if( block instanceof BlockItemInterface ) {

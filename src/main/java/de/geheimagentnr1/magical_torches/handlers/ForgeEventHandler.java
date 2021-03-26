@@ -73,7 +73,7 @@ public class ForgeEventHandler {
 		if( entity instanceof PlayerEntity ) {
 			return;
 		}
-		blockSpawning( entity.getEntityWorld(), event, entity );
+		blockSpawning( entity.getCommandSenderWorld(), event, entity );
 	}
 	
 	@SubscribeEvent
@@ -106,11 +106,11 @@ public class ForgeEventHandler {
 			return;
 		}
 		ISound sound = event.getSound();
-		World world = Minecraft.getInstance().world;
+		World world = Minecraft.getInstance().level;
 		
 		if( world != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-			ClientConfigHolder.getDimensionSoundMufflers( world.getDimensionKey() )
+			ClientConfigHolder.getDimensionSoundMufflers( world.dimension() )
 				.ifPresent( soundMufflers -> {
 					for( SoundMuffler soundMuffler : soundMufflers ) {
 						if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock( sound_pos,

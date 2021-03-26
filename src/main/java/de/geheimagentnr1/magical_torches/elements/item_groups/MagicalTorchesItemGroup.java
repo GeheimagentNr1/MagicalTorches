@@ -19,7 +19,7 @@ public class MagicalTorchesItemGroup extends ItemGroup {
 	
 	@Nonnull
 	@Override
-	public ItemStack createIcon() {
+	public ItemStack makeIcon() {
 		
 		return new ItemStack( ModBlocks.MEGA_TORCH );
 	}

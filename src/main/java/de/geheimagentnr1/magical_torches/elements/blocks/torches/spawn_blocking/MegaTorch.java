@@ -18,7 +18,7 @@ public class MegaTorch extends HostileSpawnBlockingTorch {
 	
 	public static final String registry_name = "mega_torch";
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6, 0, 6, 10, 13, 10 );
+	private static final VoxelShape SHAPE = Block.box( 6, 0, 6, 10, 13, 10 );
 	
 	public MegaTorch() {
 		

@@ -33,30 +33,30 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	public static final String registry_name = "bat_torch";
 	
 	private static final VoxelShape STANDING_SHAPE = VoxelShapes.or(
-		Block.makeCuboidShape( 5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D ),
-		Block.makeCuboidShape( 6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D )
+		Block.box( 5.0D, 0.0D, 5.0D, 11.0D, 7.0D, 11.0D ),
+		Block.box( 6.0D, 7.0D, 6.0D, 10.0D, 9.0D, 10.0D )
 	);
 	
 	private static final VoxelShape HANGING_SHAPE = VoxelShapes.or(
-		Block.makeCuboidShape( 5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D ),
-		Block.makeCuboidShape( 6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D )
+		Block.box( 5.0D, 1.0D, 5.0D, 11.0D, 8.0D, 11.0D ),
+		Block.box( 6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D )
 	);
 	
 	public BatTorch() {
 		
 		super(
-			AbstractBlock.Properties.create( Material.IRON ).hardnessAndResistance( 3.5F ).sound( SoundType.LANTERN ),
+			AbstractBlock.Properties.of( Material.METAL ).strength( 3.5F ).sound( SoundType.LANTERN ),
 			registry_name,
 			BatTorchSpawnBlocker.registry_name,
 			BatTorchSpawnBlocker::new
 		);
-		setDefaultState( stateContainer.getBaseState().with( BlockStateProperties.HANGING, false ) );
+		registerDefaultState( defaultBlockState().setValue( BlockStateProperties.HANGING, false ) );
 	}
 	
 	@Override
 	public RenderType getRenderType() {
 		
-		return RenderType.getCutout();
+		return RenderType.cutout();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -66,7 +66,7 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 		BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
-		return state.get( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
+		return state.getValue( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
 	}
 	
 	@Override
@@ -80,7 +80,7 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	
 	private static Direction hangingToDirection( BlockState state ) {
 		
-		return state.get( BlockStateProperties.HANGING ) ? Direction.DOWN : Direction.UP;
+		return state.getValue( BlockStateProperties.HANGING ) ? Direction.DOWN : Direction.UP;
 	}
 	
 	@Nullable
@@ -89,11 +89,11 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 		
 		for( Direction direction : context.getNearestLookingDirections() ) {
 			if( direction.getAxis() == Direction.Axis.Y ) {
-				BlockState blockstate = getDefaultState().with(
+				BlockState blockstate = defaultBlockState().setValue(
 					BlockStateProperties.HANGING,
 					direction == Direction.UP
 				);
-				if( blockstate.isValidPosition( context.getWorld(), context.getPos() ) ) {
+				if( blockstate.canSurvive( context.getLevel(), context.getClickedPos() ) ) {
 					return blockstate;
 				}
 			}
@@ -104,30 +104,30 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public BlockState updatePostPlacement(
+	public BlockState updateShape(
 		@Nonnull BlockState stateIn, @Nonnull Direction facing,
 		@Nonnull BlockState facingState,
 		@Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos ) {
 		
-		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition(
+		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.canSurvive(
 			worldIn,
 			currentPos
 		) ?
-			Blocks.AIR.getDefaultState() : super.updatePostPlacement( stateIn, facing, facingState, worldIn,
+			Blocks.AIR.defaultBlockState() : super.updateShape( stateIn, facing, facingState, worldIn,
 			currentPos, facingPos
 		);
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public boolean isValidPosition( @Nonnull BlockState state, @Nonnull IWorldReader worldIn, BlockPos pos ) {
+	public boolean canSurvive( @Nonnull BlockState state, @Nonnull IWorldReader worldIn, BlockPos pos ) {
 		
 		Direction direction = hangingToDirection( state ).getOpposite();
-		return Block.hasEnoughSolidSide( worldIn, pos.offset( direction ), direction.getOpposite() );
+		return Block.canSupportCenter( worldIn, pos.relative( direction ), direction.getOpposite() );
 	}
 	
 	@Override
-	protected void fillStateContainer( StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( StateContainer.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.HANGING );
 	}

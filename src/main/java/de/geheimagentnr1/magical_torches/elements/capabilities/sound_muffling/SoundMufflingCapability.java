@@ -70,13 +70,13 @@ public class SoundMufflingCapability implements ICapabilitySerializable<ListNBT>
 	public void addSoundMuffler( RegistryKey<World> dimension, SoundMuffler soundMuffler ) {
 		
 		soundMufflers.add( soundMuffler );
-		AddSoundMufflerMsg.sendToAll( dimension.getLocation(), soundMuffler );
+		AddSoundMufflerMsg.sendToAll( dimension.location(), soundMuffler );
 	}
 	
 	public void removeSoundMuffler( RegistryKey<World> dimension, SoundMuffler soundMuffler ) {
 		
 		soundMufflers.remove( soundMuffler );
-		RemoveSoundMufflerMsg.sendToAll( dimension.getLocation(), soundMuffler );
+		RemoveSoundMufflerMsg.sendToAll( dimension.location(), soundMuffler );
 	}
 	
 	public TreeSet<SoundMuffler> getSoundMufflers() {

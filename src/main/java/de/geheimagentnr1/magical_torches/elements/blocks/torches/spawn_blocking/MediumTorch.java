@@ -18,7 +18,7 @@ public class MediumTorch extends HostileSpawnBlockingTorch {
 	
 	public static final String registry_name = "medium_torch";
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape( 6.5, 0, 6.5, 9.5, 11, 9.5 );
+	private static final VoxelShape SHAPE = Block.box( 6.5, 0, 6.5, 9.5, 11, 9.5 );
 	
 	public MediumTorch() {
 		

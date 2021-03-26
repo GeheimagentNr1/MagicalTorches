@@ -18,7 +18,7 @@ public class SmallTorch extends HostileSpawnBlockingTorch {
 	
 	public static final String registry_name = "small_torch";
 	
-	private static final VoxelShape SHAPE = Block.makeCuboidShape( 7, 0, 7, 9, 10, 9 );
+	private static final VoxelShape SHAPE = Block.box( 7, 0, 7, 9, 10, 9 );
 	
 	public SmallTorch() {
 		

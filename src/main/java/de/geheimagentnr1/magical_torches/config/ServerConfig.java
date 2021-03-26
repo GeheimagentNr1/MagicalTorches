@@ -117,7 +117,7 @@ public class ServerConfig {
 		
 		ArrayList<String> entities = new ArrayList<>();
 		Registry.ENTITY_TYPE.forEach( entityType -> {
-			if( entityType.getClassification() == EntityClassification.MONSTER ) {
+			if( entityType.getCategory() == EntityClassification.MONSTER ) {
 				entities.add( Objects.requireNonNull( entityType.getRegistryName() ).toString() );
 			}
 		} );
@@ -162,7 +162,7 @@ public class ServerConfig {
 		List<ResourceLocation> hostile_blocked_entities = new ArrayList<>();
 		boolean changed = false;
 		for( int i = 0; i < hostileBlockedEntitiesValue.size(); i++ ) {
-			ResourceLocation resourceLocation = ResourceLocation.tryCreate( hostileBlockedEntitiesValue.get( i ) );
+			ResourceLocation resourceLocation = ResourceLocation.tryParse( hostileBlockedEntitiesValue.get( i ) );
 			if( resourceLocation == null || !Registry.ENTITY_TYPE.getOptional( resourceLocation ).isPresent() ) {
 				hostileBlockedEntitiesValue.remove( i );
 				i--;

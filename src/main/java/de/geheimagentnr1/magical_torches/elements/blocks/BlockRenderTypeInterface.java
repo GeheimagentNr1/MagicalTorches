@@ -9,6 +9,6 @@ public interface BlockRenderTypeInterface {
 	//public
 	default RenderType getRenderType() {
 		
-		return RenderType.getSolid();
+		return RenderType.solid();
 	}
 }

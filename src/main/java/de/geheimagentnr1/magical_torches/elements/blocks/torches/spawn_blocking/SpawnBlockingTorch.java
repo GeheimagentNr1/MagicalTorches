@@ -34,7 +34,7 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@Nonnull ResourceLocation spawn_block_registry_name,
 		@Nonnull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
-		super( properties.doesNotBlockMovement().setLightLevel( value -> 15 ) );
+		super( properties.noCollission().lightLevel( value -> 15 ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );
@@ -55,14 +55,14 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public PushReaction getPushReaction( @Nonnull BlockState state ) {
+	public PushReaction getPistonPushReaction( @Nonnull BlockState state ) {
 		
 		return PushReaction.DESTROY;
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded(
+	public void onPlace(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -75,7 +75,7 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced(
+	public void onRemove(
 		@Nonnull BlockState state,
 		@Nonnull World worldIn,
 		@Nonnull BlockPos pos,
@@ -84,6 +84,6 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		
 		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(
 			capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
-		super.onReplaced( state, worldIn, pos, newState, isMoving );
+		super.onRemove( state, worldIn, pos, newState, isMoving );
 	}
 }
