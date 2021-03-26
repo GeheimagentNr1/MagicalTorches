@@ -3,7 +3,7 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -24,12 +24,15 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	
 	
 	//package-private
-	final ISpawnBlockFactory spawnBlockFactory;
+	final ISpawnBlockerFactory spawnBlockFactory;
 	
 	//package-private
 	@SuppressWarnings( "ParameterHidesMemberVariable" )
-	SpawnBlockingTorch( AbstractBlock.Properties properties, String registry_name,
-		ResourceLocation spawn_block_registry_name, ISpawnBlockFactory _spawnBlockFactory ) {
+	SpawnBlockingTorch(
+		@Nonnull AbstractBlock.Properties properties,
+		@Nonnull String registry_name,
+		@Nonnull ResourceLocation spawn_block_registry_name,
+		@Nonnull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super( properties.doesNotBlockMovement().setLightLevel( value -> 15 ) );
 		setRegistryName( registry_name );
@@ -40,8 +43,11 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn,
-		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
+	public VoxelShape getCollisionShape(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.empty();
 	}
@@ -56,20 +62,28 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onBlockAdded( @Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos,
-		@Nonnull BlockState oldState, boolean isMoving ) {
+	public void onBlockAdded(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull BlockState oldState,
+		boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(
-			capability -> capability.addSpawnBlocker( spawnBlockFactory.buildSpawnBlocker( pos ) ) );
+			capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
 	@Override
-	public void onReplaced( @Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos,
-		@Nonnull BlockState newState, boolean isMoving ) {
+	public void onReplaced(
+		@Nonnull BlockState state,
+		@Nonnull World worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull BlockState newState,
+		boolean isMoving ) {
 		
 		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(
-			capability -> capability.removeSpawnBlocker( spawnBlockFactory.buildSpawnBlocker( pos ) ) );
+			capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 		super.onReplaced( state, worldIn, pos, newState, isMoving );
 	}
 }

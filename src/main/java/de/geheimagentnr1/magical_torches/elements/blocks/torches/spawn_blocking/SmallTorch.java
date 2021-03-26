@@ -28,7 +28,10 @@ public class SmallTorch extends HostileSpawnBlockingTorch {
 	@SuppressWarnings( "deprecation" )
 	@Nonnull
 	@Override
-	public VoxelShape getShape( @Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+	public VoxelShape getShape(
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return SHAPE;

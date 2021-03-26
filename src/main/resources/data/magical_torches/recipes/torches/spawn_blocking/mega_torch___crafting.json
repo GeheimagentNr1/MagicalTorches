@@ -2,12 +2,12 @@
     "type": "minecraft:crafting_shaped",
     "pattern": [
         "CCC",
-        "BLB",
-        "BLB"
+        "BAB",
+        "BAB"
     ],
     "key": {
         "C": { "tag": "minecraft:coals" },
-        "L": { "tag": "minecraft:logs" },
+        "A": { "item": "minecraft:ancient_debris" },
         "B": { "tag": "forge:storage_blocks/emerald" }
     },
     "result": {

@@ -1,0 +1,35 @@
+{
+	"parent": "magical_torches:magical_torches/root",
+	"display": {
+		"icon": {
+			"item": "magical_torches:bat_torch"
+		},
+		"title": {
+			"translate": "advancements.magical_torches.bat_torch.title"
+		},
+		"description": {
+			"translate": "advancements.magical_torches.bat_torch.description"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": true
+	},
+	"criteria": {
+		"bat_torch": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "magical_torches:bat_torch"
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"bat_torch"
+		]
+	]
+}
