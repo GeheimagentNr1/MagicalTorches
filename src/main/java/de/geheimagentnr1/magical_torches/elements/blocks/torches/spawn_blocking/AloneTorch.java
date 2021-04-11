@@ -39,8 +39,10 @@ public class AloneTorch extends SpawnBlockingTorch {
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape(
-		@Nonnull BlockState state, @Nonnull IBlockReader worldIn,
-		@Nonnull BlockPos pos, @Nonnull ISelectionContext context ) {
+		@Nonnull BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
+		@Nonnull ISelectionContext context ) {
 		
 		return VoxelShapes.fullCube();
 	}

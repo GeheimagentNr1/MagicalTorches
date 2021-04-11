@@ -33,9 +33,9 @@ public class ClientConfigHolder {
 		return SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS;
 	}
 	
-	public static void setSoundMufflingTorchToMuffleSounds( List<SoundCategory> _soundMufflingTorchToMuffleSounds ) {
+	public static void setSoundMufflingTorchToMuffleSounds( List<SoundCategory> soundMufflingTorchToMuffleSounds ) {
 		
-		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = _soundMufflingTorchToMuffleSounds;
+		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = soundMufflingTorchToMuffleSounds;
 	}
 	
 	public static int getSoundMufflingTorchRange() {
