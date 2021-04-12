@@ -1,16 +1,16 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "CCC",
-        "BLB",
-        "BLB"
-    ],
-    "key": {
-        "C": { "tag": "minecraft:coals" },
-        "L": { "tag": "minecraft:logs" },
-        "B": { "tag": "forge:storage_blocks/quartz" }
-    },
-    "result": {
-        "item": "magical_torches:medium_torch"
-    }
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"BLB",
+		"BLB"
+	],
+	"key": {
+		"C": { "tag": "minecraft:coals" },
+		"L": { "tag": "minecraft:logs" },
+		"B": { "tag": "forge:storage_blocks/quartz" }
+	},
+	"result": {
+		"item": "magical_torches:medium_torch"
+	}
 }

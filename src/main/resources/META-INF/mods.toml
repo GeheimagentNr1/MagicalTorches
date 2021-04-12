@@ -24,7 +24,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/magical-torches" #optio
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="magical_torches.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for the textures, models and logo goes to Muse31 and thanks to MrCrayfish for MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)" #optional
+credits="Thanks for the textures, models and logo goes to Muse31" #optional
 # A text field displayed in the mod UI
 authors="GeheimagentNr1, Muse31" #optional
 # The description text for the mod (multi line!) (#mandatory)
