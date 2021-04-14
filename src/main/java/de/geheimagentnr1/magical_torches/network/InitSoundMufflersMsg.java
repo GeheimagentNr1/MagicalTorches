@@ -80,7 +80,9 @@ public class InitSoundMufflersMsg {
 					TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
 					dimensionSoundMufflers.put( serverWorld.func_234923_W_(), soundMufflers );
 					serverWorld.getCapability( ModCapabilities.SOUND_MUFFLING )
-						.ifPresent( soundMufflingCapability -> soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() ) );
+						.ifPresent( soundMufflingCapability ->
+							soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
+						);
 				}
 			);
 		Network.CHANNEL.send(
