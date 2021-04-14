@@ -85,11 +85,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		@Nonnull BlockPos facingPos ) {
 		
 		if( stateIn.getValue( BlockStateProperties.WATERLOGGED ) ) {
-			worldIn.getLiquidTicks().scheduleTick(
-				currentPos,
-				Fluids.WATER,
-				Fluids.WATER.getTickDelay( worldIn )
-			);
+			worldIn.getLiquidTicks().scheduleTick( currentPos, Fluids.WATER, Fluids.WATER.getTickDelay( worldIn ) );
 		}
 		return stateIn;
 	}

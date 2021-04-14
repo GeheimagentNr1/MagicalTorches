@@ -38,10 +38,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	
 	public SoundMufflingTorch() {
 		
-		super( AbstractBlock.Properties.of( Material.WOOD )
-			.noCollission()
-			.strength( 3 )
-			.sound( SoundType.WOOD ) );
+		super( AbstractBlock.Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		SoundMufflingCapability.registerSoundMufflers(
 			SoundMufflingTorchSoundMuffler.registry_name,

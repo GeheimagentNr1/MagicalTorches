@@ -41,11 +41,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	public ChickenEggTorch() {
 		
-		super(
-			AbstractBlock.Properties.of( Material.WOOD )
-				.noCollission().strength( 3 )
-				.sound( SoundType.WOOD )
-		);
+		super( AbstractBlock.Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
 		ChickenEggSpawningCapability.registerChickenEggBlocker(
