@@ -23,8 +23,10 @@ public class ChickenEggSpawningCapabilityStorage implements Capability.IStorage<
 	
 	@Override
 	public void readNBT(
-		Capability<ChickenEggSpawningCapability> capability, ChickenEggSpawningCapability instance,
-		Direction side, INBT nbt ) {
+		Capability<ChickenEggSpawningCapability> capability,
+		ChickenEggSpawningCapability instance,
+		Direction side,
+		INBT nbt ) {
 		
 		if( nbt instanceof ListNBT ) {
 			instance.deserializeNBT( (ListNBT)nbt );

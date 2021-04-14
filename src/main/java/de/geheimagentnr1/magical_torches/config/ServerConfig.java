@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class ServerConfig {
 	
 	
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger( ServerConfig.class );
 	
 	private static final String MOD_NAME = ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
 	
@@ -75,31 +75,30 @@ public class ServerConfig {
 			.define( "blocked_entities", buildBlockedEntities() );
 		BUILDER.pop();
 		BUILDER.pop();
-		BUILDER.comment( "Config for the sound muffling torches" ).push( "sound_mufflers" );
+		BUILDER.comment( "Config for the sound muffling torches" )
+			.push( "sound_mufflers" );
 		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
 			.defineInRange( "sound_muffling_torch_range", getDefaultSoundMufflingTorchRange(), 0, Integer.MAX_VALUE );
-		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = BUILDER
-			.comment( String.format(
-				"Sound categories that shall be muffled by the sound muffling torch%nAvailable Sound Categories: %s",
-				buildSoundCategories()
-			) )
-			.define(
-				"sound_muffling_torch_to_muffle_sounds",
-				getDefaultSoundMufflingTorchToMuffleSounds().stream()
-					.map( SoundCategory::name )
-					.collect( Collectors.toList() ),
-				o -> {
-					if( o instanceof String ) {
-						String value = (String)o;
-						for( SoundCategory soundCategory : SoundCategory.values() ) {
-							if( soundCategory.name().equals( value ) ) {
-								return true;
-							}
+		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = BUILDER.comment( String.format(
+			"Sound categories that shall be muffled by the sound muffling torch%nAvailable Sound Categories: %s",
+			buildSoundCategories()
+		) ).define(
+			"sound_muffling_torch_to_muffle_sounds",
+			getDefaultSoundMufflingTorchToMuffleSounds().stream()
+				.map( SoundCategory::name )
+				.collect( Collectors.toList() ),
+			o -> {
+				if( o instanceof String ) {
+					String value = (String)o;
+					for( SoundCategory soundCategory : SoundCategory.values() ) {
+						if( soundCategory.name().equals( value ) ) {
+							return true;
 						}
 					}
-					return false;
 				}
-			);
+				return false;
+			}
+		);
 		BUILDER.pop();
 		BUILDER.comment( "Config for the chicken egg torch" )
 			.push( "chicken_egg_torch" );

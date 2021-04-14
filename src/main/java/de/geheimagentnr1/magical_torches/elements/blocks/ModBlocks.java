@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraftforge.registries.ObjectHolder;
 
 
-@SuppressWarnings( { "PublicField", "PublicStaticArrayField", "StaticNonFinalField", "unused" } )
+@SuppressWarnings( { "PublicField", "PublicStaticArrayField", "StaticNonFinalField" } )
 public class ModBlocks {
 	
 	//TODO:
