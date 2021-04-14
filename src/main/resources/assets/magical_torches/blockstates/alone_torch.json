@@ -1,5 +1,5 @@
 {
-  "variants": {
-    "": { "model": "magical_torches:block/torches/spawn_blocking/alone_torch" }
-  }
+	"variants": {
+		"": { "model": "magical_torches:block/torches/spawn_blocking/alone_torch" }
+	}
 }

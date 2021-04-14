@@ -1,5 +1,6 @@
 package de.geheimagentnr1.magical_torches.handlers;
 
+import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.config.ClientConfigHolder;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
@@ -30,13 +31,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 
-@SuppressWarnings( "unused" )
-@Mod.EventBusSubscriber( bus = Mod.EventBusSubscriber.Bus.FORGE )
+@Mod.EventBusSubscriber( modid = MagicalTorches.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE )
 public class ForgeEventHandler {
 	
 	
 	@SubscribeEvent
-	public static void onPlayerLoggedInEvent( PlayerEvent.PlayerLoggedInEvent event ) {
+	public static void handlePlayerLoggedInEvent( PlayerEvent.PlayerLoggedInEvent event ) {
 		
 		PlayerEntity playerEntity = event.getPlayer();
 		if( playerEntity instanceof ServerPlayerEntity ) {
@@ -47,7 +47,7 @@ public class ForgeEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onWorldAttachCapabilityEvent( AttachCapabilitiesEvent<World> event ) {
+	public static void handleWorldAttachCapabilityEvent( AttachCapabilitiesEvent<World> event ) {
 		
 		event.addCapability( ChickenEggSpawningCapability.registry_name, new ChickenEggSpawningCapability() );
 		event.addCapability( SpawnBlockingCapability.registry_name, new SpawnBlockingCapability() );
@@ -64,7 +64,7 @@ public class ForgeEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void onCheckSpawn( LivingSpawnEvent.CheckSpawn event ) {
+	public static void handleCheckSpawn( LivingSpawnEvent.CheckSpawn event ) {
 		
 		if( event.getResult() == Event.Result.ALLOW || event.isSpawner() ) {
 			return;
@@ -111,16 +111,20 @@ public class ForgeEventHandler {
 		if( world != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
 			ClientConfigHolder.getDimensionSoundMufflers( world.dimension() )
-				.ifPresent( soundMufflers -> {
-					for( SoundMuffler soundMuffler : soundMufflers ) {
-						if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock( sound_pos,
-							soundMuffler.getPos(), soundMuffler.getRange()
-						) ) {
-							event.setResultSound( null );
-							event.setResult( Event.Result.DENY );
+				.ifPresent(
+					soundMufflers -> {
+						for( SoundMuffler soundMuffler : soundMufflers ) {
+							if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock(
+								sound_pos,
+								soundMuffler.getPos(),
+								soundMuffler.getRange()
+							) ) {
+								event.setResultSound( null );
+								event.setResult( Event.Result.DENY );
+							}
 						}
 					}
-				} );
+				);
 		}
 	}
 	

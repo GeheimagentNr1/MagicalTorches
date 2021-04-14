@@ -56,9 +56,11 @@ public class NBTHelper {
 						compoundNBT.contains( xName, Constants.NBT.TAG_INT ) &&
 						compoundNBT.contains( yName, Constants.NBT.TAG_INT ) &&
 						compoundNBT.contains( zName, Constants.NBT.TAG_INT ) ) {
-						BlockPos pos = new BlockPos( new BlockPos( compoundNBT.getInt( xName ),
-							compoundNBT.getInt( yName ), compoundNBT.getInt( zName )
-						) );
+						BlockPos pos = new BlockPos(
+							compoundNBT.getInt( xName ),
+							compoundNBT.getInt( yName ),
+							compoundNBT.getInt( zName )
+						);
 						ICapabilityDataFactory<T> factory = capabilityDataRegistery.get( registry_name );
 						if( factory != null ) {
 							capabilityDatas.add( factory.build( pos ) );
