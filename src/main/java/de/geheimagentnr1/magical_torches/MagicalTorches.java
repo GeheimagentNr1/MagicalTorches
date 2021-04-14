@@ -23,10 +23,7 @@ public class MagicalTorches {
 		ModLoadingContext.get().registerConfig( ModConfig.Type.SERVER, ServerConfig.CONFIG );
 		ModLoadingContext.get().registerExtensionPoint(
 			ExtensionPoint.DISPLAYTEST,
-			() -> Pair.of(
-				() -> FMLNetworkConstants.IGNORESERVERONLY,
-				( remote, isServer ) -> true
-			)
+			() -> Pair.of( () -> FMLNetworkConstants.IGNORESERVERONLY, ( remote, isServer ) -> true )
 		);
 	}
 }
