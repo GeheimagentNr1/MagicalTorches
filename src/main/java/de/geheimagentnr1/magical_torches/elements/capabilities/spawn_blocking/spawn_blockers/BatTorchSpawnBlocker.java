@@ -5,7 +5,7 @@ import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
@@ -35,6 +35,6 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public boolean shouldBlockEntity( Entity entity ) {
 		
-		return entity instanceof BatEntity;
+		return entity.getType() == EntityType.BAT;
 	}
 }

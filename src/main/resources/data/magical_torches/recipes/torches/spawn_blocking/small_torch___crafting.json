@@ -1,17 +1,17 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "CCC",
-        "MLM",
-        "BLB"
-    ],
-    "key": {
-        "C": { "tag": "minecraft:coals" },
-        "L": { "tag": "minecraft:logs" },
-        "M": { "tag": "forge:ingots/gold" },
-        "B": { "tag": "forge:storage_blocks/gold" }
-    },
-    "result": {
-        "item": "magical_torches:small_torch"
-    }
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"MLM",
+		"BLB"
+	],
+	"key": {
+		"C": { "tag": "minecraft:coals" },
+		"L": { "tag": "minecraft:logs" },
+		"M": { "tag": "forge:ingots/gold" },
+		"B": { "tag": "forge:storage_blocks/gold" }
+	},
+	"result": {
+		"item": "magical_torches:small_torch"
+	}
 }

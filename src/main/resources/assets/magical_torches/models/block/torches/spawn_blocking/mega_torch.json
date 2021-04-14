@@ -1,214 +1,207 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-    "textures": {
-        "particle": "minecraft:block/torch",
-        "emerald_block": "minecraft:block/emerald_block",
-        "torch": "minecraft:block/torch"
-    },
-    "display": {
-        "gui": {
-            "rotation": [ 30, 45, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 0.625, 0.625, 0.625 ]
-        },
-        "ground": {
-            "rotation": [ 0, 0, 0 ],
-            "translation": [ 0, 3, 0 ],
-            "scale": [ 0.25, 0.25, 0.25 ]
-        },
-        "fixed": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        },
-        "head": {
-            "rotation": [ 0, 180, 0 ],
-            "translation": [ 0, 0, 0 ],
-            "scale": [ 1, 1, 1 ]
-        },
-        "firstperson_righthand": {
-            "rotation": [ 0, 315, 0 ],
-            "translation": [ 0, 2.5, 0 ],
-            "scale": [ 0.4, 0.4, 0.4 ]
-        },
-        "thirdperson_righthand": {
-            "rotation": [ 0, 315, 0 ],
-            "translation": [ 0, 2.5, 0 ],
-            "scale": [ 0.375, 0.375, 0.375 ]
-        }
-    },
-    "elements": [
-        {
-            "name": "Wood",
-            "from": [ 6, 2, 6 ], 
-            "to": [ 7, 9, 7 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 8, 9, 9, 16 ] },
-                "west": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 7, 2, 6 ], 
-            "to": [ 8, 9, 7 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 8, 8, 9, 15 ] },
-                "south": { "texture": "#torch", "uv": [ 8, 10, 9, 16 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 8, 2, 6 ], 
-            "to": [ 9, 9, 7 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 7, 9, 8, 16 ] },
-                "south": { "texture": "#torch", "uv": [ 8, 11, 9, 15 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 9, 2, 6 ], 
-            "to": [ 10, 9, 7 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "east": { "texture": "#torch", "uv": [ 8, 9, 9, 16 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 9, 2, 7 ], 
-            "to": [ 10, 9, 8 ], 
-            "faces": {
-                "east": { "texture": "#torch", "uv": [ 8, 8, 9, 15 ] },
-                "west": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 9, 2, 8 ], 
-            "to": [ 10, 9, 9 ], 
-            "faces": {
-                "east": { "texture": "#torch", "uv": [ 7, 9, 8, 16 ] },
-                "west": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 9, 2, 9 ], 
-            "to": [ 10, 9, 10 ], 
-            "faces": {
-                "east": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "south": { "texture": "#torch", "uv": [ 8, 9, 9, 16 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 8, 2, 9 ], 
-            "to": [ 9, 9, 10 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "south": { "texture": "#torch", "uv": [ 8, 8, 9, 15 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 7, 2, 9 ], 
-            "to": [ 8, 9, 10 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "south": { "texture": "#torch", "uv": [ 7, 9, 8, 16 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 6, 2, 9 ], 
-            "to": [ 7, 9, 10 ], 
-            "faces": {
-                "south": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "west": { "texture": "#torch", "uv": [ 8, 9, 9, 16 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 6, 2, 8 ], 
-            "to": [ 7, 9, 9 ], 
-            "faces": {
-                "east": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "west": { "texture": "#torch", "uv": [ 8, 8, 9, 15 ] }
-            }
-        },
-        {
-            "name": "Wood",
-            "from": [ 6, 2, 7 ], 
-            "to": [ 7, 9, 8 ], 
-            "faces": {
-                "east": { "texture": "#torch", "uv": [ 7, 8, 8, 15 ] },
-                "west": { "texture": "#torch", "uv": [ 7, 9, 8, 16 ] }
-            }
-        },
-        {
-            "name": "emerald",
-            "from": [ 6, 0, 6 ], 
-            "to": [ 10, 2, 10 ], 
-            "faces": {
-                "north": { "texture": "#emerald_block", "uv": [ 5, 9, 9, 12 ] },
-                "east": { "texture": "#emerald_block", "uv": [ 7, 9, 11, 11 ] },
-                "south": { "texture": "#emerald_block", "uv": [ 5, 9, 9, 11 ] },
-                "west": { "texture": "#emerald_block", "uv": [ 7, 9, 11, 11 ] },
-                "down": { "texture": "#emerald_block", "uv": [ 6, 6, 10, 10 ], "cullface": "down" }
-            }
-        },
-        {
-            "name": "Fire",
-            "from": [ 6, 11, 6 ], 
-            "to": [ 8, 13, 8 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "west": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] }
-            }
-        },
-        {
-            "name": "Fire",
-            "from": [ 8, 11, 6 ], 
-            "to": [ 10, 13, 8 ], 
-            "faces": {
-                "north": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "east": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] }
-            }
-        },
-        {
-            "name": "Fire",
-            "from": [ 8, 11, 8 ], 
-            "to": [ 10, 13, 10 ], 
-            "faces": {
-                "east": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "south": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] }
-            }
-        },
-        {
-            "name": "Fire",
-            "from": [ 6, 11, 8 ], 
-            "to": [ 8, 13, 10 ], 
-            "faces": {
-                "south": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "west": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] },
-                "up": { "texture": "#torch", "uv": [ 7, 6, 9, 8 ] }
-            }
-        },
-        {
-            "name": "emerald",
-            "from": [ 6, 9, 6 ], 
-            "to": [ 10, 11, 10 ], 
-            "faces": {
-                "north": { "texture": "#emerald_block", "uv": [ 7, 5, 11, 7 ] },
-                "east": { "texture": "#emerald_block", "uv": [ 5, 5, 9, 7 ] },
-                "south": { "texture": "#emerald_block", "uv": [ 5, 5, 9, 7 ] },
-                "west": { "texture": "#emerald_block", "uv": [ 7, 5, 11, 7 ] },
-                "down": { "texture": "#emerald_block", "uv": [ 6, 6, 10, 10 ] }
-            }
-        }
-    ]
+	"textures": {
+		"emerald_block": "minecraft:block/emerald_block",
+		"particle": "minecraft:block/torch",
+		"torch": "minecraft:block/torch"
+	},
+	"elements": [
+		{
+			"name": "Wood",
+			"from": [ 6, 2, 6 ],
+			"to": [ 7, 9, 7 ],
+			"faces": {
+				"north": { "uv": [ 8, 9, 9, 16 ], "texture": "#torch" },
+				"west": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 7, 2, 6 ],
+			"to": [ 8, 9, 7 ],
+			"faces": {
+				"north": { "uv": [ 8, 8, 9, 15 ], "texture": "#torch" },
+				"south": { "uv": [ 8, 10, 9, 16 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 8, 2, 6 ],
+			"to": [ 9, 9, 7 ],
+			"faces": {
+				"north": { "uv": [ 7, 9, 8, 16 ], "texture": "#torch" },
+				"south": { "uv": [ 8, 11, 9, 15 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 9, 2, 6 ],
+			"to": [ 10, 9, 7 ],
+			"faces": {
+				"north": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"east": { "uv": [ 8, 9, 9, 16 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 9, 2, 7 ],
+			"to": [ 10, 9, 8 ],
+			"faces": {
+				"east": { "uv": [ 8, 8, 9, 15 ], "texture": "#torch" },
+				"west": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 9, 2, 8 ],
+			"to": [ 10, 9, 9 ],
+			"faces": {
+				"east": { "uv": [ 7, 9, 8, 16 ], "texture": "#torch" },
+				"west": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 9, 2, 9 ],
+			"to": [ 10, 9, 10 ],
+			"faces": {
+				"east": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"south": { "uv": [ 8, 9, 9, 16 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 8, 2, 9 ],
+			"to": [ 9, 9, 10 ],
+			"faces": {
+				"north": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"south": { "uv": [ 8, 8, 9, 15 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 7, 2, 9 ],
+			"to": [ 8, 9, 10 ],
+			"faces": {
+				"north": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"south": { "uv": [ 7, 9, 8, 16 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 6, 2, 9 ],
+			"to": [ 7, 9, 10 ],
+			"faces": {
+				"south": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"west": { "uv": [ 8, 9, 9, 16 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 6, 2, 8 ],
+			"to": [ 7, 9, 9 ],
+			"faces": {
+				"east": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"west": { "uv": [ 8, 8, 9, 15 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Wood",
+			"from": [ 6, 2, 7 ],
+			"to": [ 7, 9, 8 ],
+			"faces": {
+				"east": { "uv": [ 7, 8, 8, 15 ], "texture": "#torch" },
+				"west": { "uv": [ 7, 9, 8, 16 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "emerald",
+			"from": [ 6, 0, 6 ],
+			"to": [ 10, 2, 10 ],
+			"faces": {
+				"north": { "uv": [ 5, 9, 9, 12 ], "texture": "#emerald_block" },
+				"east": { "uv": [ 7, 9, 11, 11 ], "texture": "#emerald_block" },
+				"south": { "uv": [ 5, 9, 9, 11 ], "texture": "#emerald_block" },
+				"west": { "uv": [ 7, 9, 11, 11 ], "texture": "#emerald_block" },
+				"down": { "uv": [ 6, 6, 10, 10 ], "texture": "#emerald_block", "cullface": "down" }
+			}
+		},
+		{
+			"name": "Fire",
+			"from": [ 6, 11, 6 ],
+			"to": [ 8, 13, 8 ],
+			"faces": {
+				"north": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"west": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"up": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Fire",
+			"from": [ 8, 11, 6 ],
+			"to": [ 10, 13, 8 ],
+			"faces": {
+				"north": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"east": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"up": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Fire",
+			"from": [ 8, 11, 8 ],
+			"to": [ 10, 13, 10 ],
+			"faces": {
+				"east": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"south": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"up": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "Fire",
+			"from": [ 6, 11, 8 ],
+			"to": [ 8, 13, 10 ],
+			"faces": {
+				"south": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"west": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" },
+				"up": { "uv": [ 7, 6, 9, 8 ], "texture": "#torch" }
+			}
+		},
+		{
+			"name": "emerald",
+			"from": [ 6, 9, 6 ],
+			"to": [ 10, 11, 10 ],
+			"faces": {
+				"north": { "uv": [ 7, 5, 11, 7 ], "texture": "#emerald_block" },
+				"east": { "uv": [ 5, 5, 9, 7 ], "texture": "#emerald_block" },
+				"south": { "uv": [ 5, 5, 9, 7 ], "texture": "#emerald_block" },
+				"west": { "uv": [ 7, 5, 11, 7 ], "texture": "#emerald_block" },
+				"down": { "uv": [ 6, 6, 10, 10 ], "texture": "#emerald_block" }
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [ 0, 315, 0 ],
+			"translation": [ 0, 2.5, 0 ],
+			"scale": [ 0.375, 0.375, 0.375 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 0, 315, 0 ],
+			"translation": [ 0, 2.5, 0 ],
+			"scale": [ 0.4, 0.4, 0.4 ]
+		},
+		"ground": {
+			"translation": [ 0, 3, 0 ],
+			"scale": [ 0.25, 0.25, 0.25 ]
+		},
+		"gui": {
+			"rotation": [ 30, 45, 0 ],
+			"scale": [ 0.625, 0.625, 0.625 ]
+		},
+		"head": {
+			"rotation": [ 0, 180, 0 ]
+		},
+		"fixed": {
+			"rotation": [ 0, 180, 0 ]
+		}
+	}
 }

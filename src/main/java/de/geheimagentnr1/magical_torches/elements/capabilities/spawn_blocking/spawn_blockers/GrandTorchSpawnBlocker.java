@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 
-public class GrandTorchSpawnBlocker extends MobSpawnBlocker {
+public class GrandTorchSpawnBlocker extends HostileMobSpawnBlocker {
 	
 	
 	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( GrandTorch.registry_name );
