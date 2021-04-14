@@ -1,16 +1,16 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "FFF",
-        "FWF",
-        "FHF"
-    ],
-    "key": {
-        "F": { "item": "minecraft:feather" },
-        "W": { "tag": "minecraft:wool" },
-        "H": { "item": "minecraft:hay_block" }
-    },
-    "result": {
-        "item": "magical_torches:chicken_egg_torch"
-    }
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"FFF",
+		"FWF",
+		"FHF"
+	],
+	"key": {
+		"F": { "item": "minecraft:feather" },
+		"W": { "tag": "minecraft:wool" },
+		"H": { "item": "minecraft:hay_block" }
+	},
+	"result": {
+		"item": "magical_torches:chicken_egg_torch"
+	}
 }

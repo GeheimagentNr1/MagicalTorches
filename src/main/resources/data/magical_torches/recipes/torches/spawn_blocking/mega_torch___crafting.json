@@ -1,16 +1,16 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "CCC",
-        "BAB",
-        "BAB"
-    ],
-    "key": {
-        "C": { "tag": "minecraft:coals" },
-        "A": { "item": "minecraft:ancient_debris" },
-        "B": { "tag": "forge:storage_blocks/emerald" }
-    },
-    "result": {
-        "item": "magical_torches:mega_torch"
-    }
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"CCC",
+		"BAB",
+		"BAB"
+	],
+	"key": {
+		"C": { "tag": "minecraft:coals" },
+		"A": { "item": "minecraft:ancient_debris" },
+		"B": { "tag": "forge:storage_blocks/emerald" }
+	},
+	"result": {
+		"item": "magical_torches:mega_torch"
+	}
 }

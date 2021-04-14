@@ -68,8 +68,8 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@Nonnull BlockState oldState,
 		boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(
-			capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
+		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING )
+			.ifPresent( capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -81,8 +81,8 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@Nonnull BlockState newState,
 		boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent(
-			capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
+		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING )
+			.ifPresent( capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 		super.onReplaced( state, worldIn, pos, newState, isMoving );
 	}
 }
