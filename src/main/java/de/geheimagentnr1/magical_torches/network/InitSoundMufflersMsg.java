@@ -58,29 +58,33 @@ public class InitSoundMufflersMsg {
 	void encode( PacketBuffer buffer ) {
 		
 		buffer.writeInt( soundMufflers.size() );
-		soundMufflers.forEach( ( dimension, _soundMufflers ) -> {
-			buffer.writeResourceLocation( Objects.requireNonNull( dimension.getLocation() ) );
-			buffer.writeInt( _soundMufflers.size() );
-			_soundMufflers.forEach( soundMuffler -> {
-				buffer.writeResourceLocation( soundMuffler.getRegistryName() );
-				buffer.writeBlockPos( soundMuffler.getPos() );
-			} );
-		} );
+		soundMufflers.forEach(
+			( dimension, soundMufflersSet ) -> {
+				buffer.writeResourceLocation( Objects.requireNonNull( dimension.getLocation() ) );
+				buffer.writeInt( soundMufflersSet.size() );
+				soundMufflersSet.forEach( soundMuffler -> {
+					buffer.writeResourceLocation( soundMuffler.getRegistryName() );
+					buffer.writeBlockPos( soundMuffler.getPos() );
+				} );
+			}
+		);
 	}
 	
 	public static void sendToPlayer( ServerPlayerEntity playerEntity ) {
 		
 		TreeMap<RegistryKey<World>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
-		Objects.requireNonNull( playerEntity.getServer() ).getWorlds().forEach(
-			serverWorld -> {
-				TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
-				dimensionSoundMufflers.put( serverWorld.getDimensionKey(), soundMufflers );
-				serverWorld.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent(
-					soundMufflingCapability -> soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
-				);
-			}
-		);
+		Objects.requireNonNull( playerEntity.getServer() ).getWorlds()
+			.forEach(
+				serverWorld -> {
+					TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
+					dimensionSoundMufflers.put( serverWorld.getDimensionKey(), soundMufflers );
+					serverWorld.getCapability( ModCapabilities.SOUND_MUFFLING )
+						.ifPresent( soundMufflingCapability ->
+							soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
+						);
+				}
+			);
 		Network.CHANNEL.send(
 			PacketDistributor.PLAYER.with( () -> playerEntity ),
 			new InitSoundMufflersMsg( dimensionSoundMufflers )

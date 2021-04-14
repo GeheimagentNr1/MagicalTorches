@@ -7,11 +7,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 
-public abstract class MobSpawnBlocker extends SpawnBlocker {
+public abstract class HostileMobSpawnBlocker extends SpawnBlocker {
 	
 	
 	//package-private
-	MobSpawnBlocker( BlockPos _pos ) {
+	HostileMobSpawnBlocker( BlockPos _pos ) {
 		
 		super( _pos );
 	}

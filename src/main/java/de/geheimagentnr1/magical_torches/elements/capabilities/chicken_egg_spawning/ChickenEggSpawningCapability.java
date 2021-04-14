@@ -49,9 +49,8 @@ public class ChickenEggSpawningCapability implements ICapabilitySerializable<Lis
 			BlockPos spawn_pos = entity.getPosition();
 			boolean block = false;
 			for( SpawnBlocker spawnBlocker : spawnBlockers ) {
-				if( spawnBlocker.shouldBlockEntity( entity ) && RadiusHelper.isEventInRadiusOfBlock( spawn_pos,
-					spawnBlocker.getPos(), spawnBlocker.getRange()
-				) ) {
+				if( spawnBlocker.shouldBlockEntity( entity ) &&
+					RadiusHelper.isEventInRadiusOfBlock( spawn_pos, spawnBlocker.getPos(), spawnBlocker.getRange() ) ) {
 					block = true;
 					break;
 				}

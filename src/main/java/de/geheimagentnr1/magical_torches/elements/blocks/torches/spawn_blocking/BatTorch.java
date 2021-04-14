@@ -63,7 +63,9 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@Nonnull
 	@Override
 	public VoxelShape getShape(
-		BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+		BlockState state,
+		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockPos pos,
 		@Nonnull ISelectionContext context ) {
 		
 		return state.get( BlockStateProperties.HANGING ) ? HANGING_SHAPE : STANDING_SHAPE;
@@ -105,17 +107,16 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@Nonnull
 	@Override
 	public BlockState updatePostPlacement(
-		@Nonnull BlockState stateIn, @Nonnull Direction facing,
+		@Nonnull BlockState stateIn,
+		@Nonnull Direction facing,
 		@Nonnull BlockState facingState,
-		@Nonnull IWorld worldIn, @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos ) {
+		@Nonnull IWorld worldIn,
+		@Nonnull BlockPos currentPos,
+		@Nonnull BlockPos facingPos ) {
 		
-		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition(
-			worldIn,
-			currentPos
-		) ?
-			Blocks.AIR.getDefaultState() : super.updatePostPlacement( stateIn, facing, facingState, worldIn,
-			currentPos, facingPos
-		);
+		return hangingToDirection( stateIn ).getOpposite() == facing && !stateIn.isValidPosition( worldIn, currentPos )
+			? Blocks.AIR.getDefaultState()
+			: super.updatePostPlacement( stateIn, facing, facingState, worldIn, currentPos, facingPos );
 	}
 	
 	@SuppressWarnings( "deprecation" )

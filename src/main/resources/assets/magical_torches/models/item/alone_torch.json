@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "magical_torches:item/torches/spawn_blocking/alone_torch"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "magical_torches:item/torches/spawn_blocking/alone_torch"
+	}
 }
