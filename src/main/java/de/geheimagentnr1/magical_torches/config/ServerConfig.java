@@ -186,7 +186,7 @@ public class ServerConfig {
 	
 	private static void printConfig() {
 		
-		LOGGER.info( "Loading \"{}\" Config", MOD_NAME );
+		LOGGER.info( "Loading \"{}\" Server Config", MOD_NAME );
 		LOGGER.info( "{} = {}", ALONE_TORCH_RANGE.getPath(), ALONE_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", BAT_TORCH_RANGE.getPath(), BAT_TORCH_RANGE.get() );
 		LOGGER.info( "{} = {}", SMALL_TORCH_RANGE.getPath(), SMALL_TORCH_RANGE.get() );
@@ -206,7 +206,7 @@ public class ServerConfig {
 			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.getPath(),
 			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get()
 		);
-		LOGGER.info( "\"{}\" Config loaded", MOD_NAME );
+		LOGGER.info( "\"{}\" Server Config loaded", MOD_NAME );
 	}
 	
 	public static int getAloneTorchRange() {
