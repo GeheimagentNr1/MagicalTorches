@@ -11,7 +11,6 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapabilityStorage;
 import de.geheimagentnr1.magical_torches.elements.item_groups.ModItemGroups;
-import de.geheimagentnr1.magical_torches.network.UpdateConfigMsg;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -30,14 +29,12 @@ public class ModEventHandler {
 	public static void handleModConfigLoadingEvent( ModConfig.Loading event ) {
 		
 		ServerConfig.analyseAndPrintConfig();
-		UpdateConfigMsg.sendToAll();
 	}
 	
 	@SubscribeEvent
 	public static void handleModConfigReloadingEvent( ModConfig.ConfigReloading event ) {
 		
 		ServerConfig.analyseAndPrintConfig();
-		UpdateConfigMsg.sendToAll();
 	}
 	
 	@SubscribeEvent
