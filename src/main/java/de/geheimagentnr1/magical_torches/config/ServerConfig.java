@@ -22,9 +22,6 @@ public class ServerConfig {
 	
 	private static final Logger LOGGER = LogManager.getLogger( ServerConfig.class );
 	
-	@SuppressWarnings( "HardcodedLineSeparator" )
-	private static final String NEWLINE = "\n";
-	
 	private static final String MOD_NAME = ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
 	
 	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -84,8 +81,8 @@ public class ServerConfig {
 		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
 			.defineInRange( "sound_muffling_torch_range", 64, 0, Integer.MAX_VALUE );
 		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = BUILDER.comment(
-			"Sound categories that shall be muffled by the sound muffling torch" + NEWLINE +
-				"Available Sound Categories: " + buildSoundCategories()
+			"Sound categories that shall be muffled by the sound muffling torch",
+			"Available Sound Categories: " + buildSoundCategories()
 		).define(
 			"sound_muffling_torch_to_muffle_sounds",
 			Stream.of(
@@ -117,8 +114,8 @@ public class ServerConfig {
 		CHICKEN_EGG_TORCH_RANGE = BUILDER.comment( "Range of the chicken egg torch." )
 			.defineInRange( "range", 16, 0, Integer.MAX_VALUE );
 		SHOULD_INVERT_CHICKEN_EGG_BLOCKING = BUILDER.comment(
-			"If 'false' chicken egg spawning is allowed and is blocked by chicken egg torches." + NEWLINE +
-				"If 'true' chicken egg spawning is disabled and is enabled by chicken egg torches."
+			"If 'false' chicken egg spawning is allowed and is blocked by chicken egg torches.",
+			"If 'true' chicken egg spawning is disabled and is enabled by chicken egg torches."
 		).define( "should_invert_chicken_egg_blocking", false );
 		BUILDER.pop();
 		CONFIG = BUILDER.build();
