@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.network;
 
-import de.geheimagentnr1.magical_torches.config.ClientConfigHolder;
+import de.geheimagentnr1.magical_torches.config.SoundMufflersHolder;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
@@ -64,13 +64,13 @@ public class RemoveSoundMufflerMsg {
 	static void handle( RemoveSoundMufflerMsg removeSoundMufflerMsg, Supplier<NetworkEvent.Context> contextSupplier ) {
 		
 		DimensionType dimension = DimensionType.byName( removeSoundMufflerMsg.dimensionRegistryName );
-		TreeSet<SoundMuffler> list = ClientConfigHolder.getDimensionSoundMufflers( dimension )
+		TreeSet<SoundMuffler> list = SoundMufflersHolder.getDimensionSoundMufflers( dimension )
 			.orElse( SoundMufflerHelper.buildSoundMufflersTreeSet() );
 		list.remove( SoundMufflingCapability.buildSoundMuffler(
 			removeSoundMufflerMsg.soundMufflerRegistryName,
 			removeSoundMufflerMsg.pos
 		) );
-		ClientConfigHolder.getDimensionSoundMufflers().put( dimension, list );
+		SoundMufflersHolder.getDimensionSoundMufflers().put( dimension, list );
 		contextSupplier.get().setPacketHandled( true );
 	}
 }
