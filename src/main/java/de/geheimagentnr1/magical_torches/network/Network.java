@@ -23,27 +23,20 @@ public class Network {
 		
 		CHANNEL.registerMessage(
 			0,
-			UpdateConfigMsg.class,
-			UpdateConfigMsg::encode,
-			UpdateConfigMsg::decode,
-			UpdateConfigMsg::handle
-		);
-		CHANNEL.registerMessage(
-			1,
 			InitSoundMufflersMsg.class,
 			InitSoundMufflersMsg::encode,
 			InitSoundMufflersMsg::decode,
 			InitSoundMufflersMsg::handle
 		);
 		CHANNEL.registerMessage(
-			2,
+			1,
 			AddSoundMufflerMsg.class,
 			AddSoundMufflerMsg::encode,
 			AddSoundMufflerMsg::decode,
 			AddSoundMufflerMsg::handle
 		);
 		CHANNEL.registerMessage(
-			3,
+			2,
 			RemoveSoundMufflerMsg.class,
 			RemoveSoundMufflerMsg::encode,
 			RemoveSoundMufflerMsg::decode,
