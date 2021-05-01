@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class ServerConfig {
@@ -78,23 +79,31 @@ public class ServerConfig {
 		BUILDER.comment( "Config for the sound muffling torches" )
 			.push( "sound_mufflers" );
 		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
-			.defineInRange( "sound_muffling_torch_range", getDefaultSoundMufflingTorchRange(), 0, Integer.MAX_VALUE );
-		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = BUILDER.comment( String.format(
-			"Sound categories that shall be muffled by the sound muffling torch%nAvailable Sound Categories: %s",
-			buildSoundCategories()
-		) ).define(
+			.defineInRange( "sound_muffling_torch_range", 64, 0, Integer.MAX_VALUE );
+		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = BUILDER.comment(
+			"Sound categories that shall be muffled by the sound muffling torch",
+			"Available Sound Categories: " + buildSoundCategories()
+		).define(
 			"sound_muffling_torch_to_muffle_sounds",
-			getDefaultSoundMufflingTorchToMuffleSounds().stream()
-				.map( SoundCategory::name )
+			Stream.of(
+				SoundCategory.HOSTILE,
+				SoundCategory.NEUTRAL,
+				SoundCategory.BLOCKS,
+				SoundCategory.RECORDS
+			).map( SoundCategory::name )
 				.collect( Collectors.toList() ),
 			o -> {
-				if( o instanceof String ) {
-					String value = (String)o;
-					for( SoundCategory soundCategory : SoundCategory.values() ) {
-						if( soundCategory.name().equals( value ) ) {
-							return true;
+				if( o instanceof List<?> ) {
+					List<?> values = (List<?>)o;
+					List<String> avaiableValues = Arrays.stream( SoundCategory.values() )
+						.map( Enum::name )
+						.collect( Collectors.toList() );
+					for( Object value : values ) {
+						if( !( value instanceof String ) || !avaiableValues.contains( (String)value ) ) {
+							return false;
 						}
 					}
+					return true;
 				}
 				return false;
 			}
@@ -104,10 +113,10 @@ public class ServerConfig {
 			.push( "chicken_egg_torch" );
 		CHICKEN_EGG_TORCH_RANGE = BUILDER.comment( "Range of the chicken egg torch." )
 			.defineInRange( "range", 16, 0, Integer.MAX_VALUE );
-		SHOULD_INVERT_CHICKEN_EGG_BLOCKING = BUILDER.comment( String.format(
-			"If 'false' chicken egg spawning is allowed and is blocked by chicken egg torches.%n" +
-				"If 'true' chicken egg spawning is disabled and is enabled by chicken egg torches." ) )
-			.define( "should_invert_chicken_egg_blocking", false );
+		SHOULD_INVERT_CHICKEN_EGG_BLOCKING = BUILDER.comment(
+			"If 'false' chicken egg spawning is allowed and is blocked by chicken egg torches.",
+			"If 'true' chicken egg spawning is disabled and is enabled by chicken egg torches."
+		).define( "should_invert_chicken_egg_blocking", false );
 		BUILDER.pop();
 		CONFIG = BUILDER.build();
 	}
@@ -121,24 +130,6 @@ public class ServerConfig {
 			}
 		} );
 		return entities;
-	}
-	
-	//package-private
-	static List<SoundCategory> getDefaultSoundMufflingTorchToMuffleSounds() {
-		
-		return Arrays.asList(
-			SoundCategory.HOSTILE,
-			SoundCategory.NEUTRAL,
-			SoundCategory.BLOCKS,
-			SoundCategory.RECORDS
-		);
-	}
-	
-	//package-private
-	@SuppressWarnings( "SameReturnValue" )
-	static int getDefaultSoundMufflingTorchRange() {
-		
-		return 64;
 	}
 	
 	private static String buildSoundCategories() {

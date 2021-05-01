@@ -1,7 +1,7 @@
 package de.geheimagentnr1.magical_torches.network;
 
 
-import de.geheimagentnr1.magical_torches.config.ClientConfigHolder;
+import de.geheimagentnr1.magical_torches.config.SoundMufflersHolder;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
@@ -94,7 +94,7 @@ public class InitSoundMufflersMsg {
 	//package-private
 	static void handle( InitSoundMufflersMsg initSoundMufflersMsg, Supplier<NetworkEvent.Context> contextSupplier ) {
 		
-		ClientConfigHolder.setDimensionSoundMufflers( initSoundMufflersMsg.soundMufflers );
+		SoundMufflersHolder.setDimensionSoundMufflers( initSoundMufflersMsg.soundMufflers );
 		contextSupplier.get().setPacketHandled( true );
 	}
 }

@@ -1,7 +1,7 @@
 package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
-import de.geheimagentnr1.magical_torches.config.ClientConfigHolder;
+import de.geheimagentnr1.magical_torches.config.SoundMufflersHolder;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
@@ -9,7 +9,6 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.network.InitSoundMufflersMsg;
-import de.geheimagentnr1.magical_torches.network.UpdateConfigMsg;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.entity.Entity;
@@ -41,7 +40,6 @@ public class ForgeEventHandler {
 		PlayerEntity playerEntity = event.getPlayer();
 		if( playerEntity instanceof ServerPlayerEntity ) {
 			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)playerEntity;
-			UpdateConfigMsg.sendToPlayer( serverPlayerEntity );
 			InitSoundMufflersMsg.sendToPlayer( serverPlayerEntity );
 		}
 	}
@@ -110,7 +108,7 @@ public class ForgeEventHandler {
 		
 		if( world != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-			ClientConfigHolder.getDimensionSoundMufflers( world.func_234923_W_() )
+			SoundMufflersHolder.getDimensionSoundMufflers( world.func_234923_W_() )
 				.ifPresent(
 					soundMufflers -> {
 						for( SoundMuffler soundMuffler : soundMufflers ) {
@@ -132,6 +130,6 @@ public class ForgeEventHandler {
 	@SubscribeEvent
 	public static void handleLogoutEvent( ClientPlayerNetworkEvent.LoggedOutEvent event ) {
 		
-		ClientConfigHolder.clear();
+		SoundMufflersHolder.clear();
 	}
 }
