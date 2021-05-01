@@ -39,7 +39,7 @@ public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	@Override
 	public boolean shouldMuffleSound( ISound sound ) {
 		
-		return ServerConfig.getSoundMufflingTorchToMuffleSounds().contains( sound.getCategory() );
+		return ServerConfig.getSoundMufflingTorchToMuffleSounds().contains( sound.getSource() );
 	}
 	
 	@Override
