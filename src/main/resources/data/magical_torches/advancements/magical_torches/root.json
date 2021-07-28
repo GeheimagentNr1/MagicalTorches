@@ -21,7 +21,9 @@
 			"conditions": {
 				"items": [
 					{
-						"item": "magical_torches:bat_torch"
+						"items": [
+							"magical_torches:bat_torch"
+						]
 					}
 				]
 			}
