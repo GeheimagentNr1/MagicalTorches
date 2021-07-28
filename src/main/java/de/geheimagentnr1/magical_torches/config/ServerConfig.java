@@ -1,9 +1,9 @@
 package de.geheimagentnr1.magical_torches.config;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +52,7 @@ public class ServerConfig {
 	
 	private static List<ResourceLocation> hostileBlockedEntities = new ArrayList<>();
 	
-	private static List<SoundCategory> soundMufflingTorchToMuffleSounds = new ArrayList<>();
+	private static List<SoundSource> soundMufflingTorchToMuffleSounds = new ArrayList<>();
 	
 	static {
 		
@@ -86,16 +86,15 @@ public class ServerConfig {
 		).define(
 			"sound_muffling_torch_to_muffle_sounds",
 			Stream.of(
-				SoundCategory.HOSTILE,
-				SoundCategory.NEUTRAL,
-				SoundCategory.BLOCKS,
-				SoundCategory.RECORDS
-			).map( SoundCategory::name )
+				SoundSource.HOSTILE,
+				SoundSource.NEUTRAL,
+				SoundSource.BLOCKS,
+				SoundSource.RECORDS
+			).map( SoundSource::name )
 				.collect( Collectors.toList() ),
 			o -> {
-				if( o instanceof List<?> ) {
-					List<?> values = (List<?>)o;
-					List<String> avaiableValues = Arrays.stream( SoundCategory.values() )
+				if( o instanceof List<?> values ) {
+					List<String> avaiableValues = Arrays.stream( SoundSource.values() )
 						.map( Enum::name )
 						.collect( Collectors.toList() );
 					for( Object value : values ) {
@@ -125,7 +124,7 @@ public class ServerConfig {
 		
 		ArrayList<String> entities = new ArrayList<>();
 		Registry.ENTITY_TYPE.forEach( entityType -> {
-			if( entityType.getCategory() == EntityClassification.MONSTER ) {
+			if( entityType.getCategory() == MobCategory.MONSTER ) {
 				entities.add( Objects.requireNonNull( entityType.getRegistryName() ).toString() );
 			}
 		} );
@@ -134,7 +133,7 @@ public class ServerConfig {
 	
 	private static String buildSoundCategories() {
 		
-		return Arrays.stream( SoundCategory.values() )
+		return Arrays.stream( SoundSource.values() )
 			.map( Enum::name )
 			.collect( Collectors.joining( ", " ) );
 	}
@@ -153,7 +152,7 @@ public class ServerConfig {
 		boolean changed = false;
 		for( int i = 0; i < hostileBlockedEntitiesValue.size(); i++ ) {
 			ResourceLocation resourceLocation = ResourceLocation.tryParse( hostileBlockedEntitiesValue.get( i ) );
-			if( resourceLocation == null || !Registry.ENTITY_TYPE.getOptional( resourceLocation ).isPresent() ) {
+			if( resourceLocation == null || Registry.ENTITY_TYPE.getOptional( resourceLocation ).isEmpty() ) {
 				hostileBlockedEntitiesValue.remove( i );
 				i--;
 				changed = true;
@@ -171,7 +170,7 @@ public class ServerConfig {
 		
 		soundMufflingTorchToMuffleSounds = SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS.get()
 			.stream()
-			.map( SoundCategory::valueOf )
+			.map( SoundSource::valueOf )
 			.collect( Collectors.toList() );
 	}
 	
@@ -240,7 +239,7 @@ public class ServerConfig {
 		return SOUND_MUFFLING_TORCH_RANGE.get();
 	}
 	
-	public static List<SoundCategory> getSoundMufflingTorchToMuffleSounds() {
+	public static List<SoundSource> getSoundMufflingTorchToMuffleSounds() {
 		
 		return soundMufflingTorchToMuffleSounds;
 	}

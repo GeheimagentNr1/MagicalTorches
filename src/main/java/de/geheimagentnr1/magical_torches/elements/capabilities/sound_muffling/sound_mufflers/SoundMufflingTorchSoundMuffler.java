@@ -5,10 +5,9 @@ import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.ISoundMufflerFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 
 
 public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
@@ -37,22 +36,8 @@ public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	}
 	
 	@Override
-	public boolean shouldMuffleSound( ISound sound ) {
+	public boolean shouldMuffleSound( SoundInstance sound ) {
 		
 		return ServerConfig.getSoundMufflingTorchToMuffleSounds().contains( sound.getSource() );
-	}
-	
-	@Override
-	public String getSoundCategoriesString() {
-		
-		StringBuilder stringBuilder = new StringBuilder();
-		
-		if( !ServerConfig.getSoundMufflingTorchToMuffleSounds().isEmpty() ) {
-			stringBuilder.append( ServerConfig.getSoundMufflingTorchToMuffleSounds().get( 0 ).getName() );
-			for( SoundCategory soundCategory : ServerConfig.getSoundMufflingTorchToMuffleSounds() ) {
-				stringBuilder.append( ", " ).append( soundCategory.getName() );
-			}
-		}
-		return stringBuilder.toString();
 	}
 }

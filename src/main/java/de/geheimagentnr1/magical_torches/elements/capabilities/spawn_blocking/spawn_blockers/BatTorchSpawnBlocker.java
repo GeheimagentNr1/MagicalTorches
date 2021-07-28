@@ -4,10 +4,10 @@ import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.BatTorch;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 
 
 public class BatTorchSpawnBlocker extends SpawnBlocker {

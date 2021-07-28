@@ -1,7 +1,8 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 
 
 public abstract class CapabilityData {

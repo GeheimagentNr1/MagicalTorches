@@ -10,22 +10,21 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawn
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.chicken_egg_blockers.ChickenEggTorchBlocker;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.item.Item;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 
@@ -41,7 +40,7 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	public ChickenEggTorch() {
 		
-		super( AbstractBlock.Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
+		super( Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
 		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
 		ChickenEggSpawningCapability.registerChickenEggBlocker(
@@ -61,9 +60,9 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public VoxelShape getShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
 		return SHAPE;
 	}
@@ -73,11 +72,11 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public VoxelShape getCollisionShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
-		return VoxelShapes.empty();
+		return Shapes.empty();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -89,15 +88,15 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	}
 	
 	@Override
-	public TextComponent getInformation() {
+	public MutableComponent getInformation() {
 		
 		if( ServerConfig.getShouldInvertChickenEggBlocking() ) {
-			return new TranslationTextComponent(
+			return new TranslatableComponent(
 				TranslationKeyHelper.buildTooltipTranslationKey( "chicken_egg_spawning_enable" ),
 				ServerConfig.getChickenEggTorchRange()
 			);
 		} else {
-			return new TranslationTextComponent(
+			return new TranslatableComponent(
 				TranslationKeyHelper.buildTooltipTranslationKey( "chicken_egg_spawning_blocking" ),
 				ServerConfig.getChickenEggTorchRange()
 			);
@@ -108,12 +107,12 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public void onPlace(
 		@Nonnull BlockState state,
-		World worldIn,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
 		@Nonnull BlockState oldState,
 		boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
+		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
 			.ifPresent( capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 	}
 	
@@ -121,14 +120,14 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public void onRemove(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
 		@Nonnull BlockState newState,
 		boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
+		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
 			.ifPresent( capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
-		super.onRemove( state, worldIn, pos, newState, isMoving );
+		super.onRemove( state, level, pos, newState, isMoving );
 	}
 	
 	@SuppressWarnings( "ParameterHidesMemberVariable" )

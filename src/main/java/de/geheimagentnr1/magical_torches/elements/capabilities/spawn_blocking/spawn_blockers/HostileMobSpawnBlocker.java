@@ -2,9 +2,9 @@ package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.s
 
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 
 public abstract class HostileMobSpawnBlocker extends SpawnBlocker {

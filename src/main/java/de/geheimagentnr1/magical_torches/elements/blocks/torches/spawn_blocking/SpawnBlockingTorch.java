@@ -5,16 +5,15 @@ import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +28,7 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	//package-private
 	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	SpawnBlockingTorch(
-		@Nonnull AbstractBlock.Properties properties,
+		@Nonnull Properties properties,
 		@Nonnull String registry_name,
 		@Nonnull ResourceLocation spawn_block_registry_name,
 		@Nonnull ISpawnBlockerFactory _spawnBlockFactory ) {
@@ -45,11 +44,11 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	@Override
 	public VoxelShape getCollisionShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
-		return VoxelShapes.empty();
+		return Shapes.empty();
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -64,12 +63,12 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	@Override
 	public void onPlace(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
 		@Nonnull BlockState oldState,
 		boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING )
+		level.getCapability( ModCapabilities.SPAWN_BLOCKING )
 			.ifPresent( capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
 	}
 	
@@ -77,13 +76,13 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	@Override
 	public void onRemove(
 		@Nonnull BlockState state,
-		@Nonnull World worldIn,
+		@Nonnull Level level,
 		@Nonnull BlockPos pos,
 		@Nonnull BlockState newState,
 		boolean isMoving ) {
 		
-		worldIn.getCapability( ModCapabilities.SPAWN_BLOCKING )
+		level.getCapability( ModCapabilities.SPAWN_BLOCKING )
 			.ifPresent( capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
-		super.onRemove( state, worldIn, pos, newState, isMoving );
+		super.onRemove( state, level, pos, newState, isMoving );
 	}
 }

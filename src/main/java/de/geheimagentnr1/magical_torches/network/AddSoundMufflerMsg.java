@@ -4,14 +4,14 @@ import de.geheimagentnr1.magical_torches.config.SoundMufflersHolder;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 import java.util.TreeSet;
 import java.util.function.Supplier;
@@ -37,7 +37,7 @@ public class AddSoundMufflerMsg {
 	}
 	
 	//package-private
-	static AddSoundMufflerMsg decode( PacketBuffer buffer ) {
+	static AddSoundMufflerMsg decode( FriendlyByteBuf buffer ) {
 		
 		return new AddSoundMufflerMsg(
 			buffer.readResourceLocation(),
@@ -47,7 +47,7 @@ public class AddSoundMufflerMsg {
 	}
 	
 	//package-private
-	void encode( PacketBuffer buffer ) {
+	void encode( FriendlyByteBuf buffer ) {
 		
 		buffer.writeResourceLocation( dimensionRegistryName );
 		buffer.writeResourceLocation( soundMufflerRegistryName );
@@ -65,7 +65,7 @@ public class AddSoundMufflerMsg {
 	//package-private
 	static void handle( AddSoundMufflerMsg addSoundMufflerMsg, Supplier<NetworkEvent.Context> contextSupplier ) {
 		
-		RegistryKey<World> dimension = RegistryKey.create(
+		ResourceKey<Level> dimension = ResourceKey.create(
 			Registry.DIMENSION_REGISTRY,
 			addSoundMufflerMsg.dimensionRegistryName
 		);

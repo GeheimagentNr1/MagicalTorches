@@ -1,6 +1,7 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities;
 
-import net.minecraft.util.math.BlockPos;
+
+import net.minecraft.core.BlockPos;
 
 
 @FunctionalInterface

@@ -6,11 +6,11 @@ import de.geheimagentnr1.magical_torches.helpers.NBTHelper;
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -21,7 +21,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT> {
+public class SpawnBlockingCapability implements ICapabilitySerializable<ListTag> {
 	
 	
 	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( "spawn_blocking" );
@@ -61,13 +61,13 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListNBT>
 	}
 	
 	@Override
-	public ListNBT serializeNBT() {
+	public ListTag serializeNBT() {
 		
 		return NBTHelper.serialize( spawnBlockers );
 	}
 	
 	@Override
-	public void deserializeNBT( ListNBT nbt ) {
+	public void deserializeNBT( ListTag nbt ) {
 		
 		spawnBlockers = NBTHelper.deserialize( nbt, SPAWN_BLOCKING_REGISTERY );
 	}

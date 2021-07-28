@@ -6,20 +6,17 @@ import de.geheimagentnr1.magical_torches.elements.blocks.BlockItemInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
-import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapabilityStorage;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
-import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapabilityStorage;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
-import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapabilityStorage;
 import de.geheimagentnr1.magical_torches.elements.item_groups.ModItemGroups;
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -29,13 +26,13 @@ public class ModEventHandler {
 	
 	
 	@SubscribeEvent
-	public static void handleModConfigLoadingEvent( ModConfig.Loading event ) {
+	public static void handleModConfigLoadingEvent( ModConfigEvent.Loading event ) {
 		
 		ServerConfig.analyseAndPrintConfig();
 	}
 	
 	@SubscribeEvent
-	public static void handleModConfigReloadingEvent( ModConfig.Reloading event ) {
+	public static void handleModConfigReloadingEvent( ModConfigEvent.Reloading event ) {
 		
 		ServerConfig.analyseAndPrintConfig();
 	}
@@ -44,9 +41,8 @@ public class ModEventHandler {
 	public static void handleClientSetupEvent( FMLClientSetupEvent event ) {
 		
 		for( Block block : ModBlocks.BLOCKS ) {
-			if( block instanceof BlockRenderTypeInterface ) {
-				BlockRenderTypeInterface blockRenderType = (BlockRenderTypeInterface)block;
-				RenderTypeLookup.setRenderLayer( block, blockRenderType.getRenderType() );
+			if( block instanceof BlockRenderTypeInterface blockRenderType ) {
+				ItemBlockRenderTypes.setRenderLayer( block, blockRenderType.getRenderType() );
 			}
 		}
 	}
@@ -54,21 +50,9 @@ public class ModEventHandler {
 	@SubscribeEvent
 	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
 		
-		CapabilityManager.INSTANCE.register(
-			ChickenEggSpawningCapability.class,
-			new ChickenEggSpawningCapabilityStorage(),
-			ChickenEggSpawningCapability::new
-		);
-		CapabilityManager.INSTANCE.register(
-			SpawnBlockingCapability.class,
-			new SpawnBlockingCapabilityStorage(),
-			SpawnBlockingCapability::new
-		);
-		CapabilityManager.INSTANCE.register(
-			SoundMufflingCapability.class,
-			new SoundMufflingCapabilityStorage(),
-			SoundMufflingCapability::new
-		);
+		CapabilityManager.INSTANCE.register( ChickenEggSpawningCapability.class );
+		CapabilityManager.INSTANCE.register( SpawnBlockingCapability.class );
+		CapabilityManager.INSTANCE.register( SoundMufflingCapability.class );
 	}
 	
 	@SubscribeEvent
@@ -83,8 +67,7 @@ public class ModEventHandler {
 		Item.Properties properties = new Item.Properties().tab( ModItemGroups.MAGICAL_TORCHES_ITEM_GROUP );
 		
 		for( Block block : ModBlocks.BLOCKS ) {
-			if( block instanceof BlockItemInterface ) {
-				BlockItemInterface blockItem = (BlockItemInterface)block;
+			if( block instanceof BlockItemInterface blockItem ) {
 				itemRegistryEvent.getRegistry().register( blockItem.getBlockItem( properties ) );
 			}
 		}

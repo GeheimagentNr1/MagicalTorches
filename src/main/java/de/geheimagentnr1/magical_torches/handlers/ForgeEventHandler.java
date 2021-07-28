@@ -10,12 +10,12 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.Sp
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.network.InitSoundMufflersMsg;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
@@ -37,22 +37,21 @@ public class ForgeEventHandler {
 	@SubscribeEvent
 	public static void handlePlayerLoggedInEvent( PlayerEvent.PlayerLoggedInEvent event ) {
 		
-		PlayerEntity playerEntity = event.getPlayer();
-		if( playerEntity instanceof ServerPlayerEntity ) {
-			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)playerEntity;
-			InitSoundMufflersMsg.sendToPlayer( serverPlayerEntity );
+		Player player = event.getPlayer();
+		if( player instanceof ServerPlayer serverPlayer ) {
+			InitSoundMufflersMsg.sendToPlayer( serverPlayer );
 		}
 	}
 	
 	@SubscribeEvent
-	public static void handleWorldAttachCapabilityEvent( AttachCapabilitiesEvent<World> event ) {
+	public static void handleWorldAttachCapabilityEvent( AttachCapabilitiesEvent<Level> event ) {
 		
 		event.addCapability( ChickenEggSpawningCapability.registry_name, new ChickenEggSpawningCapability() );
 		event.addCapability( SpawnBlockingCapability.registry_name, new SpawnBlockingCapability() );
 		event.addCapability( SoundMufflingCapability.registry_name, new SoundMufflingCapability() );
 	}
 	
-	private static void blockSpawning( World world, EntityEvent event, Entity entity ) {
+	private static void blockSpawning( Level world, EntityEvent event, Entity entity ) {
 		
 		world.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent( capability -> {
 			if( capability.shouldBlockEntitySpawn( entity ) ) {
@@ -68,7 +67,7 @@ public class ForgeEventHandler {
 			return;
 		}
 		Entity entity = event.getEntity();
-		if( entity instanceof PlayerEntity ) {
+		if( entity instanceof Player ) {
 			return;
 		}
 		blockSpawning( entity.getCommandSenderWorld(), event, entity );
@@ -81,18 +80,18 @@ public class ForgeEventHandler {
 			return;
 		}
 		Entity entity = event.getEntity();
-		if( entity instanceof PlayerEntity ) {
+		if( entity instanceof Player ) {
 			return;
 		}
-		World world = event.getWorld();
+		Level level = event.getWorld();
 		
-		world.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {
+		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {
 			if( capability.shouldBlockChickenEggSpawn( entity ) ) {
 				event.setCanceled( true );
 			}
 		} );
 		if( !event.isCanceled() ) {
-			blockSpawning( world, event, entity );
+			blockSpawning( level, event, entity );
 		}
 	}
 	
@@ -103,12 +102,12 @@ public class ForgeEventHandler {
 		if( event.getResult() == Event.Result.ALLOW ) {
 			return;
 		}
-		ISound sound = event.getSound();
-		World world = Minecraft.getInstance().level;
+		SoundInstance sound = event.getSound();
+		Level level = Minecraft.getInstance().level;
 		
-		if( world != null ) {
+		if( level != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-			SoundMufflersHolder.getDimensionSoundMufflers( world.dimension() )
+			SoundMufflersHolder.getDimensionSoundMufflers( level.dimension() )
 				.ifPresent(
 					soundMufflers -> {
 						for( SoundMuffler soundMuffler : soundMufflers ) {

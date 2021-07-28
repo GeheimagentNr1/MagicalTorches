@@ -5,19 +5,18 @@ import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterfac
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.AloneTorchSpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.item.Item;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +29,7 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	public AloneTorch() {
 		
 		super(
-			AbstractBlock.Properties.of( Material.GLASS ).sound( SoundType.GLASS ),
+			Properties.of( Material.GLASS ).sound( SoundType.GLASS ),
 			registry_name,
 			AloneTorchSpawnBlocker.registry_name,
 			AloneTorchSpawnBlocker::new
@@ -41,11 +40,11 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	@Override
 	public VoxelShape getCollisionShape(
 		@Nonnull BlockState state,
-		@Nonnull IBlockReader worldIn,
+		@Nonnull BlockGetter level,
 		@Nonnull BlockPos pos,
-		@Nonnull ISelectionContext context ) {
+		@Nonnull CollisionContext context ) {
 		
-		return VoxelShapes.block();
+		return Shapes.block();
 	}
 	
 	@Override
@@ -55,9 +54,9 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	}
 	
 	@Override
-	protected TextComponent getInformation() {
+	protected MutableComponent getInformation() {
 		
-		return new TranslationTextComponent(
+		return new TranslatableComponent(
 			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_all" ),
 			ServerConfig.getAloneTorchRange()
 		);

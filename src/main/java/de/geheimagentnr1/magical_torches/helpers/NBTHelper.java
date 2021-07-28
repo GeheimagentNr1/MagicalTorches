@@ -2,11 +2,11 @@ package de.geheimagentnr1.magical_torches.helpers;
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.CapabilityData;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ICapabilityDataFactory;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.Comparator;
@@ -25,13 +25,13 @@ public class NBTHelper {
 	
 	private static final String zName = "z";
 	
-	public static <T extends CapabilityData> ListNBT serialize( TreeSet<T> capabilityDatas ) {
+	public static <T extends CapabilityData> ListTag serialize( TreeSet<T> capabilityDatas ) {
 		
-		ListNBT nbt = new ListNBT();
+		ListTag nbt = new ListTag();
 		
 		for( T capabilityData : capabilityDatas ) {
 			BlockPos pos = capabilityData.getPos();
-			CompoundNBT compoundNBT = new CompoundNBT();
+			CompoundTag compoundNBT = new CompoundTag();
 			compoundNBT.putString( registryNameName, capabilityData.getRegistryName().toString() );
 			compoundNBT.putInt( xName, pos.getX() );
 			compoundNBT.putInt( yName, pos.getY() );
@@ -42,13 +42,12 @@ public class NBTHelper {
 	}
 	
 	public static <T extends CapabilityData> TreeSet<T> deserialize(
-		ListNBT nbt,
+		ListTag nbt,
 		TreeMap<ResourceLocation, ICapabilityDataFactory<T>> capabilityDataRegistery ) {
 		
 		TreeSet<T> capabilityDatas = new TreeSet<>( Comparator.comparing( T::getPos ) );
-		for( INBT inbt : nbt ) {
-			if( inbt instanceof CompoundNBT ) {
-				CompoundNBT compoundNBT = (CompoundNBT)inbt;
+		for( Tag inbt : nbt ) {
+			if( inbt instanceof CompoundTag compoundNBT ) {
 				if( compoundNBT.contains( registryNameName, Constants.NBT.TAG_STRING ) ) {
 					String registry_name_string = compoundNBT.getString( registryNameName );
 					ResourceLocation registry_name = ResourceLocation.tryParse( registry_name_string );

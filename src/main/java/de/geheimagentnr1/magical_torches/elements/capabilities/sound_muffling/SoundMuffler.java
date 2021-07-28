@@ -1,8 +1,12 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling;
 
+import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.CapabilityData;
-import net.minecraft.client.audio.ISound;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+
+import java.util.stream.Collectors;
 
 
 public abstract class SoundMuffler extends CapabilityData {
@@ -15,7 +19,16 @@ public abstract class SoundMuffler extends CapabilityData {
 	
 	public abstract int getRange();
 	
-	public abstract boolean shouldMuffleSound( ISound sound );
+	public abstract boolean shouldMuffleSound( SoundInstance sound );
 	
-	public abstract String getSoundCategoriesString();
+	public String getSoundCategoriesString() {
+		
+		if( ServerConfig.getSoundMufflingTorchToMuffleSounds().isEmpty() ) {
+			return "";
+		}
+		return ServerConfig.getSoundMufflingTorchToMuffleSounds()
+			.stream()
+			.map( SoundSource::getName )
+			.collect( Collectors.joining(", ") );
+	}
 }

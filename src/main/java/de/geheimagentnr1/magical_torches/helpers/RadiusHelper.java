@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.helpers;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
 
 
 public class RadiusHelper {

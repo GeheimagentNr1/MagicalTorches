@@ -7,12 +7,12 @@ import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
 import de.geheimagentnr1.magical_torches.network.AddSoundMufflerMsg;
 import de.geheimagentnr1.magical_torches.network.RemoveSoundMufflerMsg;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -23,7 +23,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SoundMufflingCapability implements ICapabilitySerializable<ListNBT> {
+public class SoundMufflingCapability implements ICapabilitySerializable<ListTag> {
 	
 	
 	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( "sound_muffling" );
@@ -56,24 +56,24 @@ public class SoundMufflingCapability implements ICapabilitySerializable<ListNBT>
 	}
 	
 	@Override
-	public ListNBT serializeNBT() {
+	public ListTag serializeNBT() {
 		
 		return NBTHelper.serialize( soundMufflers );
 	}
 	
 	@Override
-	public void deserializeNBT( ListNBT nbt ) {
+	public void deserializeNBT( ListTag nbt ) {
 		
 		soundMufflers = NBTHelper.deserialize( nbt, SOUND_MUFFLING_REGISTERY );
 	}
 	
-	public void addSoundMuffler( RegistryKey<World> dimension, SoundMuffler soundMuffler ) {
+	public void addSoundMuffler( ResourceKey<Level> dimension, SoundMuffler soundMuffler ) {
 		
 		soundMufflers.add( soundMuffler );
 		AddSoundMufflerMsg.sendToAll( dimension.location(), soundMuffler );
 	}
 	
-	public void removeSoundMuffler( RegistryKey<World> dimension, SoundMuffler soundMuffler ) {
+	public void removeSoundMuffler( ResourceKey<Level> dimension, SoundMuffler soundMuffler ) {
 		
 		soundMufflers.remove( soundMuffler );
 		RemoveSoundMufflerMsg.sendToAll( dimension.location(), soundMuffler );

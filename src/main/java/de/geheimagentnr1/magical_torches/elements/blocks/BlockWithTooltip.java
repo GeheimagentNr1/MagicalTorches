@@ -1,15 +1,13 @@
 package de.geheimagentnr1.magical_torches.elements.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,19 +24,14 @@ public abstract class BlockWithTooltip extends Block {
 		super( properties );
 	}
 	
-	@OnlyIn( Dist.CLIENT )
 	@Override
 	public void appendHoverText(
-		@Nonnull ItemStack stack,
-		@Nullable IBlockReader worldIn,
-		@Nonnull List<ITextComponent> tooltip,
-		@Nonnull ITooltipFlag flagIn ) {
+		@Nonnull ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, @Nonnull TooltipFlag flag ) {
 		
-		tooltip.add( getInformation().setStyle( Style.EMPTY.applyFormats(
-			TextFormatting.ITALIC,
-			TextFormatting.GRAY
-		) ) );
+		tooltip.add( getInformation().setStyle(
+			Style.EMPTY.applyFormats( ChatFormatting.ITALIC, ChatFormatting.GRAY )
+		) );
 	}
 	
-	protected abstract TextComponent getInformation();
+	protected abstract MutableComponent getInformation();
 }

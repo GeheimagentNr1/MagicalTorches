@@ -2,25 +2,28 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.Material;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 
-public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch implements IWaterLoggable {
+public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch implements SimpleWaterloggedBlock {
 	
 	
 	//package-private
@@ -30,7 +33,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super(
-			AbstractBlock.Properties.of( Material.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
+			Properties.of( Material.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
 			registry_name,
 			spawn_block_registry_name,
 			_spawnBlockFactory
@@ -39,9 +42,9 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	}
 	
 	@Override
-	protected TextComponent getInformation() {
+	protected MutableComponent getInformation() {
 		
-		return new TranslationTextComponent(
+		return new TranslatableComponent(
 			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_hostile" ),
 			spawnBlockFactory.build( BlockPos.ZERO ).getRange()
 		);
@@ -58,7 +61,8 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	}
 	
 	@Nullable
-	public BlockState getStateForPlacement( @Nonnull BlockItemUseContext context ) {
+	@Override
+	public BlockState getStateForPlacement( @Nonnull BlockPlaceContext context ) {
 		
 		BlockPos pos = context.getClickedPos();
 		BlockState state = context.getLevel().getBlockState( pos );
@@ -77,21 +81,21 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	@Nonnull
 	@Override
 	public BlockState updateShape(
-		@Nonnull BlockState stateIn,
+		@Nonnull BlockState state,
 		@Nonnull Direction facing,
 		@Nonnull BlockState facingState,
-		@Nonnull IWorld worldIn,
+		@Nonnull LevelAccessor level,
 		@Nonnull BlockPos currentPos,
 		@Nonnull BlockPos facingPos ) {
 		
-		if( stateIn.getValue( BlockStateProperties.WATERLOGGED ) ) {
-			worldIn.getLiquidTicks().scheduleTick( currentPos, Fluids.WATER, Fluids.WATER.getTickDelay( worldIn ) );
+		if( state.getValue( BlockStateProperties.WATERLOGGED ) ) {
+			level.getLiquidTicks().scheduleTick( currentPos, Fluids.WATER, Fluids.WATER.getTickDelay( level ) );
 		}
-		return stateIn;
+		return state;
 	}
 	
 	@Override
-	protected void createBlockStateDefinition( @Nonnull StateContainer.Builder<Block, BlockState> builder ) {
+	protected void createBlockStateDefinition( @Nonnull StateDefinition.Builder<Block, BlockState> builder ) {
 		
 		builder.add( BlockStateProperties.WATERLOGGED );
 	}
