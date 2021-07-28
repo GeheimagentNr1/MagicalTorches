@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		"GGG",
 		"GBG",
 		"GGG"
 	],
-	"key": {
+	"key":     {
 		"B": {
 			"item": "minecraft:beacon"
 		},
@@ -13,7 +13,7 @@
 			"item": "minecraft:black_stained_glass"
 		}
 	},
-	"result": {
+	"result":  {
 		"item": "magical_torches:alone_torch"
 	}
 }

@@ -1,11 +1,11 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		"CCC",
 		"CLC",
 		"CCC"
 	],
-	"key": {
+	"key":     {
 		"C": {
 			"tag": "minecraft:coals"
 		},
@@ -13,7 +13,7 @@
 			"item": "minecraft:lantern"
 		}
 	},
-	"result": {
+	"result":  {
 		"item": "magical_torches:bat_torch"
 	}
 }

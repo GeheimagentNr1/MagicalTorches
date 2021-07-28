@@ -1,17 +1,17 @@
 {
-	"type": "minecraft:crafting_shaped",
+	"type":    "minecraft:crafting_shaped",
 	"pattern": [
 		"CCC",
 		"MLM",
 		"BLB"
 	],
-	"key": {
+	"key":     {
 		"C": { "tag": "minecraft:coals" },
 		"L": { "tag": "minecraft:logs" },
 		"M": { "tag": "forge:gems/diamond" },
 		"B": { "tag": "forge:storage_blocks/diamond" }
 	},
-	"result": {
+	"result":  {
 		"item": "magical_torches:grand_torch"
 	}
 }

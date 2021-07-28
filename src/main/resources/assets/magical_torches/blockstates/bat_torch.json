@@ -1,6 +1,6 @@
 {
 	"variants": {
-		"hanging=true": { "model": "magical_torches:block/torches/spawn_blocking/bat_torch/bat_torch_hanging" },
+		"hanging=true":  { "model": "magical_torches:block/torches/spawn_blocking/bat_torch/bat_torch_hanging" },
 		"hanging=false": { "model": "magical_torches:block/torches/spawn_blocking/bat_torch/bat_torch" }
 	}
 }

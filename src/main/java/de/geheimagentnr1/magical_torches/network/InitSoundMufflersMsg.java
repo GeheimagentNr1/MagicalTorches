@@ -58,33 +58,29 @@ public class InitSoundMufflersMsg {
 	void encode( FriendlyByteBuf buffer ) {
 		
 		buffer.writeInt( soundMufflers.size() );
-		soundMufflers.forEach(
-			( dimension, soundMufflersSet ) -> {
-				buffer.writeResourceLocation( Objects.requireNonNull( dimension.location() ) );
-				buffer.writeInt( soundMufflersSet.size() );
-				soundMufflersSet.forEach( soundMuffler -> {
-					buffer.writeResourceLocation( soundMuffler.getRegistryName() );
-					buffer.writeBlockPos( soundMuffler.getPos() );
-				} );
-			}
-		);
+		soundMufflers.forEach( ( dimension, soundMufflersSet ) -> {
+			buffer.writeResourceLocation( Objects.requireNonNull( dimension.location() ) );
+			buffer.writeInt( soundMufflersSet.size() );
+			soundMufflersSet.forEach( soundMuffler -> {
+				buffer.writeResourceLocation( soundMuffler.getRegistryName() );
+				buffer.writeBlockPos( soundMuffler.getPos() );
+			} );
+		} );
 	}
 	
 	public static void sendToPlayer( ServerPlayer player ) {
 		
 		TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
-		Objects.requireNonNull( player.getServer() ).getAllLevels()
-			.forEach(
-				serverLevel -> {
-					TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
-					dimensionSoundMufflers.put( serverLevel.dimension(), soundMufflers );
-					serverLevel.getCapability( ModCapabilities.SOUND_MUFFLING )
-						.ifPresent( soundMufflingCapability ->
-							soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
-						);
-				}
-			);
+		Objects.requireNonNull( player.getServer() )
+			.getAllLevels()
+			.forEach( serverLevel -> {
+				TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
+				dimensionSoundMufflers.put( serverLevel.dimension(), soundMufflers );
+				serverLevel.getCapability( ModCapabilities.SOUND_MUFFLING ).ifPresent(
+					soundMufflingCapability -> soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
+				);
+			} );
 		Network.CHANNEL.send(
 			PacketDistributor.PLAYER.with( () -> player ),
 			new InitSoundMufflersMsg( dimensionSoundMufflers )

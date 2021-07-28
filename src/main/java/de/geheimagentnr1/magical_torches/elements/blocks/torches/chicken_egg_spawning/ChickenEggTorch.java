@@ -112,8 +112,9 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 		@Nonnull BlockState oldState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING )
-			.ifPresent( capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) ) );
+		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent(
+			capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) )
+		);
 	}
 	
 	@SuppressWarnings( "deprecation" )

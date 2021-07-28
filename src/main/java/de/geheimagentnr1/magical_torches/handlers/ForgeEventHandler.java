@@ -107,21 +107,18 @@ public class ForgeEventHandler {
 		
 		if( level != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
-			SoundMufflersHolder.getDimensionSoundMufflers( level.dimension() )
-				.ifPresent(
-					soundMufflers -> {
-						for( SoundMuffler soundMuffler : soundMufflers ) {
-							if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock(
-								sound_pos,
-								soundMuffler.getPos(),
-								soundMuffler.getRange()
-							) ) {
-								event.setResultSound( null );
-								event.setResult( Event.Result.DENY );
-							}
-						}
+			SoundMufflersHolder.getDimensionSoundMufflers( level.dimension() ).ifPresent( soundMufflers -> {
+				for( SoundMuffler soundMuffler : soundMufflers ) {
+					if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock(
+						sound_pos,
+						soundMuffler.getPos(),
+						soundMuffler.getRange()
+					) ) {
+						event.setResultSound( null );
+						event.setResult( Event.Result.DENY );
 					}
-				);
+				}
+			} );
 		}
 	}
 	

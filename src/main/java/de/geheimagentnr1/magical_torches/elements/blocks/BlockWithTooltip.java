@@ -26,7 +26,10 @@ public abstract class BlockWithTooltip extends Block {
 	
 	@Override
 	public void appendHoverText(
-		@Nonnull ItemStack stack, @Nullable BlockGetter level, List<Component> tooltip, @Nonnull TooltipFlag flag ) {
+		@Nonnull ItemStack stack,
+		@Nullable BlockGetter level,
+		List<Component> tooltip,
+		@Nonnull TooltipFlag flag ) {
 		
 		tooltip.add( getInformation().setStyle(
 			Style.EMPTY.applyFormats( ChatFormatting.ITALIC, ChatFormatting.GRAY )

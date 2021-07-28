@@ -29,6 +29,6 @@ public abstract class SoundMuffler extends CapabilityData {
 		return ServerConfig.getSoundMufflingTorchToMuffleSounds()
 			.stream()
 			.map( SoundSource::getName )
-			.collect( Collectors.joining(", ") );
+			.collect( Collectors.joining( ", " ) );
 	}
 }
