@@ -12,13 +12,12 @@ import de.geheimagentnr1.magical_torches.elements.item_groups.ModItemGroups;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
 @Mod.EventBusSubscriber( modid = MagicalTorches.MODID, bus = Mod.EventBusSubscriber.Bus.MOD )
@@ -48,11 +47,11 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handleCommonSetupEvent( FMLCommonSetupEvent event ) {
+	public static void handleRegisterCapabilitiesEvent( RegisterCapabilitiesEvent event ) {
 		
-		CapabilityManager.INSTANCE.register( ChickenEggSpawningCapability.class );
-		CapabilityManager.INSTANCE.register( SpawnBlockingCapability.class );
-		CapabilityManager.INSTANCE.register( SoundMufflingCapability.class );
+		event.register( ChickenEggSpawningCapability.class );
+		event.register( SpawnBlockingCapability.class );
+		event.register( SoundMufflingCapability.class );
 	}
 	
 	@SubscribeEvent

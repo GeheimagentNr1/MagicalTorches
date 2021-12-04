@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
 
 import java.util.Comparator;
 import java.util.TreeMap;
@@ -48,13 +47,13 @@ public class NBTHelper {
 		TreeSet<T> capabilityDatas = new TreeSet<>( Comparator.comparing( T::getPos ) );
 		for( Tag inbt : nbt ) {
 			if( inbt instanceof CompoundTag compoundNBT ) {
-				if( compoundNBT.contains( registryNameName, Constants.NBT.TAG_STRING ) ) {
+				if( compoundNBT.contains( registryNameName, Tag.TAG_STRING ) ) {
 					String registry_name_string = compoundNBT.getString( registryNameName );
 					ResourceLocation registry_name = ResourceLocation.tryParse( registry_name_string );
 					if( registry_name != null &&
-						compoundNBT.contains( xName, Constants.NBT.TAG_INT ) &&
-						compoundNBT.contains( yName, Constants.NBT.TAG_INT ) &&
-						compoundNBT.contains( zName, Constants.NBT.TAG_INT ) ) {
+						compoundNBT.contains( xName, Tag.TAG_INT ) &&
+						compoundNBT.contains( yName, Tag.TAG_INT ) &&
+						compoundNBT.contains( zName, Tag.TAG_INT ) ) {
 						BlockPos pos = new BlockPos(
 							compoundNBT.getInt( xName ),
 							compoundNBT.getInt( yName ),

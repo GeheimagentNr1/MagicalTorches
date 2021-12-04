@@ -114,7 +114,7 @@ public class ForgeEventHandler {
 						soundMuffler.getPos(),
 						soundMuffler.getRange()
 					) ) {
-						event.setResultSound( null );
+						event.setSound( null );
 						event.setResult( Event.Result.DENY );
 					}
 				}
