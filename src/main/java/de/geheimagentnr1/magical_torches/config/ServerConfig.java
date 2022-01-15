@@ -86,11 +86,11 @@ public class ServerConfig {
 		).define(
 			"sound_muffling_torch_to_muffle_sounds",
 			Stream.of(
-				SoundSource.HOSTILE,
-				SoundSource.NEUTRAL,
-				SoundSource.BLOCKS,
-				SoundSource.RECORDS
-			).map( SoundSource::name )
+					SoundSource.HOSTILE,
+					SoundSource.NEUTRAL,
+					SoundSource.BLOCKS,
+					SoundSource.RECORDS
+				).map( SoundSource::name )
 				.collect( Collectors.toList() ),
 			o -> {
 				if( o instanceof List<?> values ) {

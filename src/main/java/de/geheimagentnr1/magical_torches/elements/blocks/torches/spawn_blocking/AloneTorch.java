@@ -29,7 +29,7 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	public AloneTorch() {
 		
 		super(
-			Properties.of( Material.GLASS ).sound( SoundType.GLASS ),
+			Properties.of( Material.GLASS ).strength( 3.5F ).requiresCorrectToolForDrops().sound( SoundType.GLASS ),
 			registry_name,
 			AloneTorchSpawnBlocker.registry_name,
 			AloneTorchSpawnBlocker::new
