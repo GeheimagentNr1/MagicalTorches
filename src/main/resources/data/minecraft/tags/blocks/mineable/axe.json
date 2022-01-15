@@ -1,0 +1,11 @@
+{
+	"replace": false,
+	"values":  [
+		"magical_torches:chicken_egg_torch",
+		"magical_torches:grand_torch",
+		"magical_torches:medium_torch",
+		"magical_torches:mega_torch",
+		"magical_torches:small_torch",
+		"magical_torches:sound_muffling_torch"
+	]
+}

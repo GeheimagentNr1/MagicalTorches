@@ -48,7 +48,7 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	public BatTorch() {
 		
 		super(
-			Properties.of( Material.METAL ).strength( 3.5F ).sound( SoundType.LANTERN ),
+			Properties.of( Material.METAL ).strength( 3.5F ).requiresCorrectToolForDrops().sound( SoundType.LANTERN ),
 			registry_name,
 			BatTorchSpawnBlocker.registry_name,
 			BatTorchSpawnBlocker::new
