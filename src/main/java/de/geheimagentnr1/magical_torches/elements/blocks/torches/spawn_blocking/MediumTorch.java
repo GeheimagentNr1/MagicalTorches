@@ -41,6 +41,6 @@ public class MediumTorch extends HostileSpawnBlockingTorch {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.MEDIUM_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.MEDIUM_TORCH, properties );
 	}
 }

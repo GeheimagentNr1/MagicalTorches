@@ -8,8 +8,8 @@ import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -49,7 +49,6 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 		
 		super(
 			Properties.of( Material.METAL ).strength( 3.5F ).requiresCorrectToolForDrops().sound( SoundType.LANTERN ),
-			registry_name,
 			BatTorchSpawnBlocker.registry_name,
 			BatTorchSpawnBlocker::new
 		);
@@ -77,7 +76,7 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@Override
 	protected MutableComponent getInformation() {
 		
-		return new TranslatableComponent(
+		return Component.translatable(
 			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_bat" ),
 			ServerConfig.getAloneTorchRange()
 		);
@@ -140,6 +139,6 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.BAT_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.BAT_TORCH, properties );
 	}
 }

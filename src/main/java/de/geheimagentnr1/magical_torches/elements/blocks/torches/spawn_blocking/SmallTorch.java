@@ -41,6 +41,6 @@ public class SmallTorch extends HostileSpawnBlockingTorch {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.SMALL_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.SMALL_TORCH, properties );
 	}
 }

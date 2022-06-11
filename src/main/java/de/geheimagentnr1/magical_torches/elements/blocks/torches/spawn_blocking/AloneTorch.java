@@ -7,8 +7,8 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.sp
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
@@ -30,7 +30,6 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 		
 		super(
 			Properties.of( Material.GLASS ).strength( 3.5F ).requiresCorrectToolForDrops().sound( SoundType.GLASS ),
-			registry_name,
 			AloneTorchSpawnBlocker.registry_name,
 			AloneTorchSpawnBlocker::new
 		);
@@ -56,7 +55,7 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	@Override
 	protected MutableComponent getInformation() {
 		
-		return new TranslatableComponent(
+		return Component.translatable(
 			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_all" ),
 			ServerConfig.getAloneTorchRange()
 		);
@@ -66,6 +65,6 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.ALONE_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.ALONE_TORCH, properties );
 	}
 }

@@ -11,8 +11,8 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.so
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -38,7 +38,6 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	public SoundMufflingTorch() {
 		
 		super( Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
-		setRegistryName( registry_name );
 		SoundMufflingCapability.registerSoundMufflers(
 			SoundMufflingTorchSoundMuffler.registry_name,
 			SoundMufflingTorchSoundMuffler::new
@@ -86,7 +85,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@Override
 	public MutableComponent getInformation() {
 		
-		return new TranslatableComponent(
+		return Component.translatable(
 			TranslationKeyHelper.buildTooltipTranslationKey( "sound_muffling" ),
 			ServerConfig.getSoundMufflingTorchRange(),
 			SoundMufflingTorchSoundMuffler.FACTORY.build( BlockPos.ZERO ).getSoundCategoriesString()
@@ -126,6 +125,6 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.SOUND_MUFFLING_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.SOUND_MUFFLING_TORCH, properties );
 	}
 }

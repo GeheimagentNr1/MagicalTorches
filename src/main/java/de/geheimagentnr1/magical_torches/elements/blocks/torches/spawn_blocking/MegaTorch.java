@@ -41,6 +41,6 @@ public class MegaTorch extends HostileSpawnBlockingTorch {
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.MEGA_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.MEGA_TORCH, properties );
 	}
 }

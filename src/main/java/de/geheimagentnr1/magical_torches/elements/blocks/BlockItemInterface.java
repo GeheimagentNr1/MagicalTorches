@@ -13,8 +13,8 @@ public interface BlockItemInterface {
 	Item getBlockItem( Item.Properties properties );
 	
 	//public
-	default Item createBlockItem( Block block, Item.Properties properties, String registry_name ) {
+	default Item createBlockItem( Block block, Item.Properties properties ) {
 		
-		return new BlockItem( block, properties ).setRegistryName( registry_name );
+		return new BlockItem( block, properties );
 	}
 }

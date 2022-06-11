@@ -4,8 +4,8 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.IS
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelAccessor;
@@ -34,7 +34,6 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		
 		super(
 			Properties.of( Material.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
-			registry_name,
 			spawn_block_registry_name,
 			_spawnBlockFactory
 		);
@@ -44,7 +43,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	@Override
 	protected MutableComponent getInformation() {
 		
-		return new TranslatableComponent(
+		return Component.translatable(
 			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_hostile" ),
 			spawnBlockFactory.build( BlockPos.ZERO ).getRange()
 		);

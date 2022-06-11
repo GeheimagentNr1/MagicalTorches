@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -125,7 +124,7 @@ public class ServerConfig {
 		ArrayList<String> entities = new ArrayList<>();
 		Registry.ENTITY_TYPE.forEach( entityType -> {
 			if( entityType.getCategory() == MobCategory.MONSTER ) {
-				entities.add( Objects.requireNonNull( entityType.getRegistryName() ).toString() );
+				entities.add( Registry.ENTITY_TYPE.getKey( entityType ).toString() );
 			}
 		} );
 		return entities;

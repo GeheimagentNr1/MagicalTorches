@@ -12,8 +12,8 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.IS
 import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,6 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	public ChickenEggTorch() {
 		
 		super( Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
-		setRegistryName( registry_name );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
 		ChickenEggSpawningCapability.registerChickenEggBlocker(
 			ChickenEggTorchBlocker.registry_name,
@@ -91,12 +90,12 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	public MutableComponent getInformation() {
 		
 		if( ServerConfig.getShouldInvertChickenEggBlocking() ) {
-			return new TranslatableComponent(
+			return Component.translatable(
 				TranslationKeyHelper.buildTooltipTranslationKey( "chicken_egg_spawning_enable" ),
 				ServerConfig.getChickenEggTorchRange()
 			);
 		} else {
-			return new TranslatableComponent(
+			return Component.translatable(
 				TranslationKeyHelper.buildTooltipTranslationKey( "chicken_egg_spawning_blocking" ),
 				ServerConfig.getChickenEggTorchRange()
 			);
@@ -135,6 +134,6 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	@Override
 	public Item getBlockItem( Item.Properties properties ) {
 		
-		return createBlockItem( ModBlocks.CHICKEN_EGG_TORCH, properties, registry_name );
+		return createBlockItem( ModBlocks.CHICKEN_EGG_TORCH, properties );
 	}
 }

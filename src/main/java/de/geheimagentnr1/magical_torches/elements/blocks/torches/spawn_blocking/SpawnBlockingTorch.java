@@ -29,12 +29,10 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	SpawnBlockingTorch(
 		@Nonnull Properties properties,
-		@Nonnull String registry_name,
 		@Nonnull ResourceLocation spawn_block_registry_name,
 		@Nonnull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super( properties.noCollission().lightLevel( value -> 15 ) );
-		setRegistryName( registry_name );
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );
 	}
