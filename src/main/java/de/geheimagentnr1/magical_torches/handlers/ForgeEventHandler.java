@@ -22,7 +22,7 @@ import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -37,7 +37,7 @@ public class ForgeEventHandler {
 	@SubscribeEvent
 	public static void handlePlayerLoggedInEvent( PlayerEvent.PlayerLoggedInEvent event ) {
 		
-		Player player = event.getPlayer();
+		Player player = event.getEntity();
 		if( player instanceof ServerPlayer serverPlayer ) {
 			InitSoundMufflersMsg.sendToPlayer( serverPlayer );
 		}
@@ -67,14 +67,11 @@ public class ForgeEventHandler {
 			return;
 		}
 		Entity entity = event.getEntity();
-		if( entity instanceof Player ) {
-			return;
-		}
 		blockSpawning( entity.getCommandSenderWorld(), event, entity );
 	}
 	
 	@SubscribeEvent
-	public static void handleEntityJoinWorldEvent( EntityJoinWorldEvent event ) {
+	public static void handleEntityJoinLevelEvent( EntityJoinLevelEvent event ) {
 		
 		if( event.getResult() == Event.Result.ALLOW ) {
 			return;
@@ -83,7 +80,7 @@ public class ForgeEventHandler {
 		if( entity instanceof Player ) {
 			return;
 		}
-		Level level = event.getWorld();
+		Level level = event.getLevel();
 		
 		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {
 			if( capability.shouldBlockChickenEggSpawn( entity ) ) {
@@ -105,7 +102,7 @@ public class ForgeEventHandler {
 		SoundInstance sound = event.getSound();
 		Level level = Minecraft.getInstance().level;
 		
-		if( level != null ) {
+		if( sound != null && level != null ) {
 			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
 			SoundMufflersHolder.getDimensionSoundMufflers( level.dimension() ).ifPresent( soundMufflers -> {
 				for( SoundMuffler soundMuffler : soundMufflers ) {
@@ -124,7 +121,7 @@ public class ForgeEventHandler {
 	
 	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
-	public static void handleLogoutEvent( ClientPlayerNetworkEvent.LoggedOutEvent event ) {
+	public static void handleLoggingOutEvent( ClientPlayerNetworkEvent.LoggingOut event ) {
 		
 		SoundMufflersHolder.clear();
 	}
