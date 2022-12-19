@@ -5,7 +5,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -66,7 +66,7 @@ public class AddSoundMufflerMsg {
 	static void handle( AddSoundMufflerMsg addSoundMufflerMsg, Supplier<NetworkEvent.Context> contextSupplier ) {
 		
 		ResourceKey<Level> dimension = ResourceKey.create(
-			Registry.DIMENSION_REGISTRY,
+			Registries.DIMENSION,
 			addSoundMufflerMsg.dimensionRegistryName
 		);
 		TreeSet<SoundMuffler> list = SoundMufflersHolder.getDimensionSoundMufflers( dimension )

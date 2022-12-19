@@ -1,6 +1,6 @@
 package de.geheimagentnr1.magical_torches.config;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.MobCategory;
@@ -122,9 +122,9 @@ public class ServerConfig {
 	private static List<String> buildBlockedEntities() {
 		
 		ArrayList<String> entities = new ArrayList<>();
-		Registry.ENTITY_TYPE.forEach( entityType -> {
+		BuiltInRegistries.ENTITY_TYPE.forEach( entityType -> {
 			if( entityType.getCategory() == MobCategory.MONSTER ) {
-				entities.add( Registry.ENTITY_TYPE.getKey( entityType ).toString() );
+				entities.add( BuiltInRegistries.ENTITY_TYPE.getKey( entityType ).toString() );
 			}
 		} );
 		return entities;
@@ -151,7 +151,7 @@ public class ServerConfig {
 		boolean changed = false;
 		for( int i = 0; i < hostileBlockedEntitiesValue.size(); i++ ) {
 			ResourceLocation resourceLocation = ResourceLocation.tryParse( hostileBlockedEntitiesValue.get( i ) );
-			if( resourceLocation == null || Registry.ENTITY_TYPE.getOptional( resourceLocation ).isEmpty() ) {
+			if( resourceLocation == null || BuiltInRegistries.ENTITY_TYPE.getOptional( resourceLocation ).isEmpty() ) {
 				hostileBlockedEntitiesValue.remove( i );
 				i--;
 				changed = true;

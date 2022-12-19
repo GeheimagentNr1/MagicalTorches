@@ -8,11 +8,12 @@ import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
-import de.geheimagentnr1.magical_torches.elements.item_groups.ModItemGroups;
+import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeTabs;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -74,7 +75,7 @@ public class ModEventHandler {
 	public static void handleItemsRegistryEvent( RegisterEvent event ) {
 		
 		if( event.getRegistryKey().equals( ForgeRegistries.Keys.ITEMS ) ) {
-			Item.Properties properties = new Item.Properties().tab( ModItemGroups.MAGICAL_TORCHES_ITEM_GROUP );
+			Item.Properties properties = new Item.Properties();
 			event.register(
 				ForgeRegistries.Keys.ITEMS,
 				registerHelper -> ModBlocks.BLOCKS.forEach( registryEntry -> {
@@ -87,5 +88,12 @@ public class ModEventHandler {
 				} )
 			);
 		}
+	}
+	
+	@SubscribeEvent
+	public static void handleCreativeModeTabRegisterEvent( CreativeModeTabEvent.Register event ) {
+		
+		ModCreativeTabs.CREATIVE_TAB_FACTORIES.forEach( creativeModeTabFactory ->
+			event.registerCreativeModeTab( creativeModeTabFactory.getName(), creativeModeTabFactory ) );
 	}
 }

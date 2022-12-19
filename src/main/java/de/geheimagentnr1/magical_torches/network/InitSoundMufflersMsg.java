@@ -6,7 +6,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilities;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,7 +38,7 @@ public class InitSoundMufflersMsg {
 		int dimensionCount = buffer.readInt();
 		for( int i = 0; i < dimensionCount; i++ ) {
 			ResourceKey<Level> dimension = ResourceKey.create(
-				Registry.DIMENSION_REGISTRY,
+				Registries.DIMENSION,
 				buffer.readResourceLocation()
 			);
 			TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
