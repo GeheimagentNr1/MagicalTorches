@@ -7,6 +7,7 @@ import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 
 
 public class AloneTorchSpawnBlocker extends SpawnBlocker {
@@ -35,6 +36,6 @@ public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public boolean shouldBlockEntity( Entity entity ) {
 		
-		return true;
+		return entity instanceof Mob;
 	}
 }

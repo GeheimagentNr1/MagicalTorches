@@ -14,6 +14,7 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,18 +22,29 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
+
 
 @Mod.EventBusSubscriber( modid = MagicalTorches.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE )
 public class ForgeEventHandler {
 	
+	
+	private static final String BLOCK_SPAWNING_TAG = MagicalTorches.MODID + ":block_spawning";
+	
+	private static final List<MobSpawnType> CHECK_SPAWN_NON_BLOCKED_TYPES = List.of(
+		MobSpawnType.BUCKET,
+		MobSpawnType.SPAWN_EGG,
+		MobSpawnType.COMMAND,
+		MobSpawnType.DISPENSER,
+		MobSpawnType.SPAWNER
+	);
 	
 	@SubscribeEvent
 	public static void handlePlayerLoggedInEvent( PlayerEvent.PlayerLoggedInEvent event ) {
@@ -51,23 +63,23 @@ public class ForgeEventHandler {
 		event.addCapability( SoundMufflingCapability.registry_name, new SoundMufflingCapability() );
 	}
 	
-	private static void blockSpawning( Level world, EntityEvent event, Entity entity ) {
+	private static void blockSpawning( Level world, Entity entity ) {
 		
 		world.getCapability( ModCapabilities.SPAWN_BLOCKING ).ifPresent( capability -> {
 			if( capability.shouldBlockEntitySpawn( entity ) ) {
-				event.setResult( Event.Result.DENY );
+				entity.addTag( BLOCK_SPAWNING_TAG );
 			}
 		} );
 	}
 	
 	@SubscribeEvent
-	public static void handleCheckSpawn( LivingSpawnEvent.CheckSpawn event ) {
+	public static void handleCheckSpawn( MobSpawnEvent.FinalizeSpawn event ) {
 		
-		if( event.getResult() == Event.Result.ALLOW || event.isSpawner() ) {
+		if( event.getResult() == Event.Result.ALLOW || CHECK_SPAWN_NON_BLOCKED_TYPES.contains( event.getSpawnType() ) ) {
 			return;
 		}
 		Entity entity = event.getEntity();
-		blockSpawning( entity.getCommandSenderWorld(), event, entity );
+		blockSpawning( entity.getCommandSenderWorld(), entity );
 	}
 	
 	@SubscribeEvent
@@ -80,6 +92,9 @@ public class ForgeEventHandler {
 		if( entity instanceof Player ) {
 			return;
 		}
+		if( entity.getTags().contains( BLOCK_SPAWNING_TAG ) ) {
+			event.setCanceled( true );
+		}
 		Level level = event.getLevel();
 		
 		level.getCapability( ModCapabilities.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {
@@ -87,9 +102,6 @@ public class ForgeEventHandler {
 				event.setCanceled( true );
 			}
 		} );
-		if( !event.isCanceled() ) {
-			blockSpawning( level, event, entity );
-		}
 	}
 	
 	@OnlyIn( Dist.CLIENT )
@@ -103,7 +115,7 @@ public class ForgeEventHandler {
 		Level level = Minecraft.getInstance().level;
 		
 		if( sound != null && level != null ) {
-			BlockPos sound_pos = new BlockPos( sound.getX(), sound.getY(), sound.getZ() );
+			BlockPos sound_pos = BlockPos.containing( sound.getX(), sound.getY(), sound.getZ() );
 			SoundMufflersHolder.getDimensionSoundMufflers( level.dimension() ).ifPresent( soundMufflers -> {
 				for( SoundMuffler soundMuffler : soundMufflers ) {
 					if( soundMuffler.shouldMuffleSound( sound ) && RadiusHelper.isEventInRadiusOfBlock(
