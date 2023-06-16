@@ -17,7 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +33,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 		ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super(
-			Properties.of( Material.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
+			Properties.of().mapColor( MapColor.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
 			spawn_block_registry_name,
 			_spawnBlockFactory
 		);

@@ -75,7 +75,8 @@ public class ForgeEventHandler {
 	@SubscribeEvent
 	public static void handleCheckSpawn( MobSpawnEvent.FinalizeSpawn event ) {
 		
-		if( event.getResult() == Event.Result.ALLOW || CHECK_SPAWN_NON_BLOCKED_TYPES.contains( event.getSpawnType() ) ) {
+		if( event.getResult() == Event.Result.ALLOW ||
+			CHECK_SPAWN_NON_BLOCKED_TYPES.contains( event.getSpawnType() ) ) {
 			return;
 		}
 		Entity entity = event.getEntity();

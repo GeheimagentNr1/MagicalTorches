@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -40,7 +40,12 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 	
 	public ChickenEggTorch() {
 		
-		super( Properties.of( Material.WOOD ).noCollission().strength( 3 ).sound( SoundType.WOOD ) );
+		super( Properties.of()
+			.mapColor( MapColor.WOOD )
+			.noCollission()
+			.pushReaction( PushReaction.DESTROY )
+			.strength( 3 )
+			.sound( SoundType.WOOD ) );
 		spawnBlockFactory = ChickenEggTorchBlocker::new;
 		ChickenEggSpawningCapability.registerChickenEggBlocker(
 			ChickenEggTorchBlocker.registry_name,
@@ -76,14 +81,6 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 		@Nonnull CollisionContext context ) {
 		
 		return Shapes.empty();
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Nonnull
-	@Override
-	public PushReaction getPistonPushReaction( @Nonnull BlockState state ) {
-		
-		return PushReaction.DESTROY;
 	}
 	
 	@Override

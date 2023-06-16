@@ -32,7 +32,7 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@Nonnull ResourceLocation spawn_block_registry_name,
 		@Nonnull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
-		super( properties.noCollission().lightLevel( value -> 15 ) );
+		super( properties.noCollission().pushReaction( PushReaction.DESTROY ).lightLevel( value -> 15 ) );
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );
 	}
@@ -47,14 +47,6 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@Nonnull CollisionContext context ) {
 		
 		return Shapes.empty();
-	}
-	
-	@SuppressWarnings( "deprecation" )
-	@Nonnull
-	@Override
-	public PushReaction getPistonPushReaction( @Nonnull BlockState state ) {
-		
-		return PushReaction.DESTROY;
 	}
 	
 	@SuppressWarnings( "deprecation" )

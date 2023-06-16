@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -29,7 +29,11 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 	public AloneTorch() {
 		
 		super(
-			Properties.of( Material.GLASS ).strength( 3.5F ).requiresCorrectToolForDrops().sound( SoundType.GLASS ),
+			Properties.of()
+				.mapColor( MapColor.WOOD )
+				.strength( 3.5F )
+				.requiresCorrectToolForDrops()
+				.sound( SoundType.GLASS ),
 			AloneTorchSpawnBlocker.registry_name,
 			AloneTorchSpawnBlocker::new
 		);

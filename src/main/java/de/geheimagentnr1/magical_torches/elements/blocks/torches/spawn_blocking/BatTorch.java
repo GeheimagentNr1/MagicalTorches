@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -48,7 +48,11 @@ public class BatTorch extends SpawnBlockingTorch implements BlockRenderTypeInter
 	public BatTorch() {
 		
 		super(
-			Properties.of( Material.METAL ).strength( 3.5F ).requiresCorrectToolForDrops().sound( SoundType.LANTERN ),
+			Properties.of()
+				.mapColor( MapColor.METAL )
+				.strength( 3.5F )
+				.requiresCorrectToolForDrops()
+				.sound( SoundType.LANTERN ),
 			BatTorchSpawnBlocker.registry_name,
 			BatTorchSpawnBlocker::new
 		);

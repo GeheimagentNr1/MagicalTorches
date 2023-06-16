@@ -10,10 +10,10 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeTabs;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -91,9 +91,19 @@ public class ModEventHandler {
 	}
 	
 	@SubscribeEvent
-	public static void handleCreativeModeTabRegisterEvent( CreativeModeTabEvent.Register event ) {
+	public static void handleCreativeModeTabRegisterEvent( RegisterEvent event ) {
 		
-		ModCreativeTabs.CREATIVE_TAB_FACTORIES.forEach( creativeModeTabFactory ->
-			event.registerCreativeModeTab( creativeModeTabFactory.getName(), creativeModeTabFactory ) );
+		ModCreativeTabs.CREATIVE_TAB_FACTORIES.forEach( creativeModeTabFactory -> {
+				event.register(
+					Registries.CREATIVE_MODE_TAB,
+					creativeModeTabRegisterHelper -> {
+						creativeModeTabRegisterHelper.register(
+							creativeModeTabFactory.getName(),
+							creativeModeTabFactory.get()
+						);
+					}
+				);
+			}
+		);
 	}
 }
