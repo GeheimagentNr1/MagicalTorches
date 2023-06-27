@@ -1,13 +1,14 @@
 package de.geheimagentnr1.magical_torches.config;
 
+import de.geheimagentnr1.minecraft_forge_api.AbstractMod;
+import de.geheimagentnr1.minecraft_forge_api.config.AbstractConfig;
+import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.ModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraftforge.fml.config.ModConfig;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,110 +17,210 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class ServerConfig {
+public class ServerConfig extends AbstractConfig {
 	
 	
-	private static final Logger LOGGER = LogManager.getLogger( ServerConfig.class );
+	@NotNull
+	private static final String SPAWN_BLOCKERS_KEY = "spawn_blockers";
 	
-	private static final String MOD_NAME = ModLoadingContext.get().getActiveContainer().getModInfo().getDisplayName();
+	@NotNull
+	private static final List<String> ALONE_TORCH_RANGE_KEY = List.of( SPAWN_BLOCKERS_KEY, "alone_torch_range" );
 	
-	private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+	@NotNull
+	private static final List<String> BAT_TORCH_RANGE_KEY = List.of( SPAWN_BLOCKERS_KEY, "bat_torch_range" );
 	
-	public static final ForgeConfigSpec CONFIG;
+	@NotNull
+	private static final String HOSTILE_KEY = "hostile";
 	
-	private static final ForgeConfigSpec.IntValue ALONE_TORCH_RANGE;
+	@NotNull
+	private static final List<String> SMALL_TORCH_RANGE_KEY = List.of(
+		SPAWN_BLOCKERS_KEY,
+		HOSTILE_KEY,
+		"small_torch_range"
+	);
 	
-	private static final ForgeConfigSpec.IntValue BAT_TORCH_RANGE;
+	@NotNull
+	private static final List<String> MEDIUM_TORCH_RANGE_KEY = List.of(
+		SPAWN_BLOCKERS_KEY,
+		HOSTILE_KEY,
+		"medium_torch_range"
+	);
 	
-	private static final ForgeConfigSpec.IntValue SMALL_TORCH_RANGE;
+	@NotNull
+	private static final List<String> GRAND_TORCH_RANGE_KEY = List.of(
+		SPAWN_BLOCKERS_KEY,
+		HOSTILE_KEY,
+		"grand_torch_range"
+	);
 	
-	private static final ForgeConfigSpec.IntValue MEDIUM_TORCH_RANGE;
+	@NotNull
+	private static final List<String> MEGA_TORCH_RANGE_KEY = List.of(
+		SPAWN_BLOCKERS_KEY,
+		HOSTILE_KEY,
+		"mega_torch_range"
+	);
 	
-	private static final ForgeConfigSpec.IntValue GRAND_TORCH_RANGE;
+	@NotNull
+	private static final List<String> HOSTILE_BLOCKED_ENTITIES_KEY = List.of(
+		SPAWN_BLOCKERS_KEY,
+		HOSTILE_KEY,
+		"blocked_entities"
+	);
 	
-	private static final ForgeConfigSpec.IntValue MEGA_TORCH_RANGE;
+	@NotNull
+	private static final String SOUND_MUFFLERS_KEY = "sound_mufflers";
 	
-	private static final ForgeConfigSpec.ConfigValue<List<String>> HOSTILE_BLOCKED_ENTITIES;
+	@NotNull
+	private static final List<String> SOUND_MUFFLING_TORCH_RANGE_KEY = List.of(
+		SOUND_MUFFLERS_KEY,
+		"sound_muffling_torch_range"
+	);
 	
-	private static final ForgeConfigSpec.IntValue SOUND_MUFFLING_TORCH_RANGE;
+	@NotNull
+	private static final List<String> SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS_KEY = List.of(
+		SOUND_MUFFLERS_KEY,
+		"sound_muffling_torch_to_muffle_sounds"
+	);
 	
-	private static final ForgeConfigSpec.ConfigValue<List<String>> SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS;
+	@NotNull
+	private static final String CHICKEN_EGG_TORCH_KEY = "chicken_egg_torch";
 	
-	private static final ForgeConfigSpec.IntValue CHICKEN_EGG_TORCH_RANGE;
+	@NotNull
+	private static final List<String> CHICKEN_EGG_TORCH_RANGE_KEY = List.of( CHICKEN_EGG_TORCH_KEY, "range" );
 	
-	private static final ForgeConfigSpec.BooleanValue SHOULD_INVERT_CHICKEN_EGG_BLOCKING;
+	@NotNull
+	private static final List<String> SHOULD_INVERT_CHICKEN_EGG_BLOCKING_KEY = List.of(
+		CHICKEN_EGG_TORCH_KEY,
+		"should_invert_chicken_egg_blocking"
+	);
 	
-	private static List<ResourceLocation> hostileBlockedEntities = new ArrayList<>();
+	@Getter
+	private static ServerConfig INSTANCE;
 	
-	private static List<SoundSource> soundMufflingTorchToMuffleSounds = new ArrayList<>();
+	@NotNull
+	private List<ResourceLocation> hostileBlockedEntities = new ArrayList<>();
 	
-	static {
+	@NotNull
+	private List<SoundSource> soundMufflingTorchToMuffleSounds = new ArrayList<>();
+	
+	public ServerConfig( @NotNull AbstractMod _abstractMod ) {
 		
-		BUILDER.comment( "Config for the spawn blocking torches" )
-			.push( "spawn_blockers" );
-		ALONE_TORCH_RANGE = BUILDER.comment( "Range of the alone torch." )
-			.defineInRange( "alone_torch_range", 64, 0, Integer.MAX_VALUE );
-		BAT_TORCH_RANGE = BUILDER.comment( "Range of the bat torch." )
-			.defineInRange( "bat_torch_range", 64, 0, Integer.MAX_VALUE );
-		BUILDER.comment( "Config for hostile mob spawn blocking torches" )
-			.push( "hostile" );
-		SMALL_TORCH_RANGE = BUILDER.comment( "Range of the small torch." )
-			.defineInRange( "small_torch_range", 16, 0, Integer.MAX_VALUE );
-		MEDIUM_TORCH_RANGE = BUILDER.comment( "Range of the medium torch." )
-			.defineInRange( "medium_torch_range", 32, 0, Integer.MAX_VALUE );
-		GRAND_TORCH_RANGE = BUILDER.comment( "Range of the grand torch." )
-			.defineInRange( "grand_torch_range", 64, 0, Integer.MAX_VALUE );
-		MEGA_TORCH_RANGE = BUILDER.comment( "Range of the mega torch." )
-			.defineInRange( "mega_torch_range", 128, 0, Integer.MAX_VALUE );
-		HOSTILE_BLOCKED_ENTITIES = BUILDER.comment( "Entities blocked by hostile mob spawn blocking torches" )
-			.define( "blocked_entities", buildBlockedEntities() );
-		BUILDER.pop();
-		BUILDER.pop();
-		BUILDER.comment( "Config for the sound muffling torches" )
-			.push( "sound_mufflers" );
-		SOUND_MUFFLING_TORCH_RANGE = BUILDER.comment( "Range of the sound muffling torch." )
-			.defineInRange( "sound_muffling_torch_range", 64, 0, Integer.MAX_VALUE );
-		SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS = BUILDER.comment(
-			"Sound categories that shall be muffled by the sound muffling torch",
-			"Available Sound Categories: " + buildSoundCategories()
-		).define(
-			"sound_muffling_torch_to_muffle_sounds",
-			Stream.of(
-					SoundSource.HOSTILE,
-					SoundSource.NEUTRAL,
-					SoundSource.BLOCKS,
-					SoundSource.RECORDS
-				).map( SoundSource::name )
-				.collect( Collectors.toList() ),
-			o -> {
-				if( o instanceof List<?> values ) {
-					List<String> avaiableValues = Arrays.stream( SoundSource.values() )
-						.map( Enum::name )
-						.collect( Collectors.toList() );
-					for( Object value : values ) {
-						if( !( value instanceof String ) || !avaiableValues.contains( (String)value ) ) {
-							return false;
-						}
-					}
-					return true;
-				}
-				return false;
-			}
-		);
-		BUILDER.pop();
-		BUILDER.comment( "Config for the chicken egg torch" )
-			.push( "chicken_egg_torch" );
-		CHICKEN_EGG_TORCH_RANGE = BUILDER.comment( "Range of the chicken egg torch." )
-			.defineInRange( "range", 16, 0, Integer.MAX_VALUE );
-		SHOULD_INVERT_CHICKEN_EGG_BLOCKING = BUILDER.comment(
-			"If 'false' chicken egg spawning is allowed and is blocked by chicken egg torches.",
-			"If 'true' chicken egg spawning is disabled and is enabled by chicken egg torches."
-		).define( "should_invert_chicken_egg_blocking", false );
-		BUILDER.pop();
-		CONFIG = BUILDER.build();
+		super( _abstractMod );
+		INSTANCE = this;
 	}
 	
-	private static List<String> buildBlockedEntities() {
+	@NotNull
+	@Override
+	public ModConfig.Type type() {
+		
+		return ModConfig.Type.SERVER;
+	}
+	
+	@Override
+	public boolean isEarlyLoad() {
+		
+		return false;
+	}
+	
+	@Override
+	protected void registerConfigValues() {
+		
+		push( "Config for the spawn blocking torches", SPAWN_BLOCKERS_KEY );
+		registerConfigValue(
+			"Range of the alone torch.",
+			ALONE_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 64, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			"Range of the bat torch.",
+			BAT_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 64, 0, Integer.MAX_VALUE )
+		);
+		push( "Config for hostile mob spawn blocking torches", HOSTILE_KEY );
+		registerConfigValue(
+			"Range of the small torch.",
+			SMALL_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 16, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			"Range of the medium torch.",
+			MEDIUM_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 32, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			"Range of the grand torch.",
+			GRAND_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 64, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			"Range of the mega torch.",
+			MEGA_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 128, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			"Entities blocked by hostile mob spawn blocking torches",
+			HOSTILE_BLOCKED_ENTITIES_KEY,
+			buildBlockedEntities()
+		);
+		pop();
+		pop();
+		push( "Config for the sound muffling torches", SOUND_MUFFLERS_KEY );
+		registerConfigValue(
+			"Range of the sound muffling torch.",
+			SOUND_MUFFLING_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 64, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			List.of(
+				"Sound categories that shall be muffled by the sound muffling torch",
+				"Available Sound Categories: " + buildSoundCategories()
+			),
+			SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS_KEY,
+			( builder, path ) -> builder.define(
+				path,
+				Stream.of(
+						SoundSource.HOSTILE,
+						SoundSource.NEUTRAL,
+						SoundSource.BLOCKS,
+						SoundSource.RECORDS
+					).map( SoundSource::name )
+					.collect( Collectors.toList() ),
+				o -> {
+					if( o instanceof List<?> values ) {
+						List<String> avaiableValues = Arrays.stream( SoundSource.values() )
+							.map( Enum::name )
+							.toList();
+						for( Object value : values ) {
+							if( !( value instanceof String ) || !avaiableValues.contains( (String)value ) ) {
+								return false;
+							}
+						}
+						return true;
+					}
+					return false;
+				}
+			)
+		);
+		pop();
+		push( "Config for the chicken egg torch", CHICKEN_EGG_TORCH_KEY );
+		registerConfigValue(
+			"Range of the chicken egg torch.",
+			CHICKEN_EGG_TORCH_RANGE_KEY,
+			( builder, path ) -> builder.defineInRange( path, 16, 0, Integer.MAX_VALUE )
+		);
+		registerConfigValue(
+			List.of(
+				"If 'false' chicken egg spawning is allowed and is blocked by chicken egg torches.",
+				"If 'true' chicken egg spawning is disabled and is enabled by chicken egg torches."
+			),
+			SHOULD_INVERT_CHICKEN_EGG_BLOCKING_KEY,
+			false
+		);
+		pop();
+	}
+	
+	@NotNull
+	private List<String> buildBlockedEntities() {
 		
 		ArrayList<String> entities = new ArrayList<>();
 		BuiltInRegistries.ENTITY_TYPE.forEach( entityType -> {
@@ -130,23 +231,24 @@ public class ServerConfig {
 		return entities;
 	}
 	
-	private static String buildSoundCategories() {
+	@NotNull
+	private String buildSoundCategories() {
 		
 		return Arrays.stream( SoundSource.values() )
 			.map( Enum::name )
 			.collect( Collectors.joining( ", " ) );
 	}
 	
-	public static void analyseAndPrintConfig() {
+	@Override
+	protected void handleConfigChanging() {
 		
 		loadHostileBlockedEntities();
 		loadSoundMufflingTorchToMuffleSounds();
-		printConfig();
 	}
 	
-	private static void loadHostileBlockedEntities() {
+	private void loadHostileBlockedEntities() {
 		
-		List<String> hostileBlockedEntitiesValue = HOSTILE_BLOCKED_ENTITIES.get();
+		List<String> hostileBlockedEntitiesValue = getHostileBlockedEntitiesValue();
 		List<ResourceLocation> hostile_blocked_entities = new ArrayList<>();
 		boolean changed = false;
 		for( int i = 0; i < hostileBlockedEntitiesValue.size(); i++ ) {
@@ -160,96 +262,90 @@ public class ServerConfig {
 			}
 		}
 		if( changed ) {
-			HOSTILE_BLOCKED_ENTITIES.set( hostileBlockedEntitiesValue );
+			setHostileBlockedEntitiesValue( hostileBlockedEntitiesValue );
 		}
 		hostileBlockedEntities = hostile_blocked_entities;
 	}
 	
-	private static void loadSoundMufflingTorchToMuffleSounds() {
+	private void loadSoundMufflingTorchToMuffleSounds() {
 		
-		soundMufflingTorchToMuffleSounds = SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS.get()
+		soundMufflingTorchToMuffleSounds = getSoundMufflingTorchToMuffleSoundsValue()
 			.stream()
 			.map( SoundSource::valueOf )
 			.collect( Collectors.toList() );
 	}
 	
-	private static void printConfig() {
+	public int getAloneTorchRange() {
 		
-		LOGGER.info( "Loading \"{}\" Server Config", MOD_NAME );
-		LOGGER.info( "{} = {}", ALONE_TORCH_RANGE.getPath(), ALONE_TORCH_RANGE.get() );
-		LOGGER.info( "{} = {}", BAT_TORCH_RANGE.getPath(), BAT_TORCH_RANGE.get() );
-		LOGGER.info( "{} = {}", SMALL_TORCH_RANGE.getPath(), SMALL_TORCH_RANGE.get() );
-		LOGGER.info( "{} = {}", MEDIUM_TORCH_RANGE.getPath(), MEDIUM_TORCH_RANGE.get() );
-		LOGGER.info( "{} = {}", GRAND_TORCH_RANGE.getPath(), GRAND_TORCH_RANGE.get() );
-		LOGGER.info( "{} = {}", MEGA_TORCH_RANGE.getPath(), MEGA_TORCH_RANGE.get() );
-		LOGGER.info( "{} = {}", HOSTILE_BLOCKED_ENTITIES.getPath(), HOSTILE_BLOCKED_ENTITIES.get() );
-		LOGGER.info( "{} = {}", SOUND_MUFFLING_TORCH_RANGE.getPath(), SOUND_MUFFLING_TORCH_RANGE.get() );
-		LOGGER.info(
-			"{} = {}",
-			SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS.getPath(),
-			SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS.get()
-		);
-		LOGGER.info( "{} = {}", CHICKEN_EGG_TORCH_RANGE.getPath(), CHICKEN_EGG_TORCH_RANGE.get() );
-		LOGGER.info(
-			"{} = {}",
-			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.getPath(),
-			SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get()
-		);
-		LOGGER.info( "\"{}\" Server Config loaded", MOD_NAME );
+		return getValue( Integer.class, ALONE_TORCH_RANGE_KEY );
 	}
 	
-	public static int getAloneTorchRange() {
+	public int getBatTorchRange() {
 		
-		return ALONE_TORCH_RANGE.get();
+		return getValue( Integer.class, BAT_TORCH_RANGE_KEY );
 	}
 	
-	public static int getBatTorchRange() {
+	@NotNull
+	private List<String> getHostileBlockedEntitiesValue() {
 		
-		return BAT_TORCH_RANGE.get();
+		return getListValue( String.class, HOSTILE_BLOCKED_ENTITIES_KEY );
 	}
 	
-	public static List<ResourceLocation> getHostileBlockedEntities() {
+	private void setHostileBlockedEntitiesValue( @NotNull List<String> value ) {
+		
+		setListValue( String.class, HOSTILE_BLOCKED_ENTITIES_KEY, value );
+	}
+	
+	@NotNull
+	public List<ResourceLocation> getHostileBlockedEntities() {
 		
 		return hostileBlockedEntities;
 	}
 	
-	public static int getSmallTorchRange() {
+	public int getSmallTorchRange() {
 		
-		return SMALL_TORCH_RANGE.get();
+		return getValue( Integer.class, SMALL_TORCH_RANGE_KEY );
 	}
 	
-	public static int getMediumTorchRange() {
+	public int getMediumTorchRange() {
 		
-		return MEDIUM_TORCH_RANGE.get();
+		return getValue( Integer.class, MEDIUM_TORCH_RANGE_KEY );
 	}
 	
-	public static int getGrandTorchRange() {
+	public int getGrandTorchRange() {
 		
-		return GRAND_TORCH_RANGE.get();
+		return getValue( Integer.class, GRAND_TORCH_RANGE_KEY );
 	}
 	
-	public static int getMegaTorchRange() {
+	public int getMegaTorchRange() {
 		
-		return MEGA_TORCH_RANGE.get();
+		return getValue( Integer.class, MEGA_TORCH_RANGE_KEY );
 	}
 	
-	public static int getSoundMufflingTorchRange() {
+	public int getSoundMufflingTorchRange() {
 		
-		return SOUND_MUFFLING_TORCH_RANGE.get();
+		return getValue( Integer.class, SOUND_MUFFLING_TORCH_RANGE_KEY );
 	}
 	
-	public static List<SoundSource> getSoundMufflingTorchToMuffleSounds() {
+	@NotNull
+	private List<String> getSoundMufflingTorchToMuffleSoundsValue() {
+		
+		return getListValue( String.class, SOUND_MUFFLING_TORCH_TO_MUFFLE_SOUNDS_KEY );
+	}
+	
+	@NotNull
+	public List<SoundSource> getSoundMufflingTorchToMuffleSounds() {
 		
 		return soundMufflingTorchToMuffleSounds;
 	}
 	
-	public static boolean getShouldInvertChickenEggBlocking() {
+	public boolean getShouldInvertChickenEggBlocking() {
 		
-		return SHOULD_INVERT_CHICKEN_EGG_BLOCKING.get();
+		return getValue( Boolean.class, SHOULD_INVERT_CHICKEN_EGG_BLOCKING_KEY );
 	}
 	
-	public static int getChickenEggTorchRange() {
+	public int getChickenEggTorchRange() {
 		
-		return CHICKEN_EGG_TORCH_RANGE.get();
+		return getValue( Integer.class, CHICKEN_EGG_TORCH_RANGE_KEY );
 	}
 }

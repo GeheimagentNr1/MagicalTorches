@@ -4,30 +4,35 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SoundMufflersHolder {
+public class
+SoundMufflersHolder {
 	
 	
+	@NotNull
 	private static TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> DIMENSION_SOUND_MUFFLERS =
 		SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
 	
+	@NotNull
 	public static Optional<TreeSet<SoundMuffler>> getDimensionSoundMufflers( ResourceKey<Level> dimension ) {
 		
 		return Optional.ofNullable( DIMENSION_SOUND_MUFFLERS.get( dimension ) );
 	}
 	
+	@NotNull
 	public static TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> getDimensionSoundMufflers() {
 		
 		return DIMENSION_SOUND_MUFFLERS;
 	}
 	
 	public static void setDimensionSoundMufflers(
-		TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> _dimensionSoundMufflers ) {
+		@NotNull TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> _dimensionSoundMufflers ) {
 		
 		DIMENSION_SOUND_MUFFLERS = _dimensionSoundMufflers;
 	}

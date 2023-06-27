@@ -8,19 +8,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
+import org.jetbrains.annotations.NotNull;
 
 
 public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	
 	
+	@NotNull
 	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( AloneTorch.registry_name );
 	
-	public AloneTorchSpawnBlocker( BlockPos _pos ) {
+	public AloneTorchSpawnBlocker( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
-	
+	@NotNull
 	@Override
 	public ResourceLocation getRegistryName() {
 		
@@ -30,11 +32,11 @@ public class AloneTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return ServerConfig.getAloneTorchRange();
+		return ServerConfig.getINSTANCE().getAloneTorchRange();
 	}
 	
 	@Override
-	public boolean shouldBlockEntity( Entity entity ) {
+	public boolean shouldBlockEntity( @NotNull Entity entity ) {
 		
 		return entity instanceof Mob;
 	}

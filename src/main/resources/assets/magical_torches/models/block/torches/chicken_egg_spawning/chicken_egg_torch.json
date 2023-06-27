@@ -1,4 +1,5 @@
 {
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"white_wool":     "minecraft:block/white_wool",
 		"egg":            "minecraft:item/egg",

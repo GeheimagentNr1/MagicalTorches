@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 import java.util.TreeMap;
@@ -16,15 +17,20 @@ import java.util.TreeSet;
 public class NBTHelper {
 	
 	
+	@NotNull
 	private static final String registryNameName = "registry_name";
 	
+	@NotNull
 	private static final String xName = "x";
 	
+	@NotNull
 	private static final String yName = "y";
 	
+	@NotNull
 	private static final String zName = "z";
 	
-	public static <T extends CapabilityData> ListTag serialize( TreeSet<T> capabilityDatas ) {
+	@NotNull
+	public static <T extends CapabilityData> ListTag serialize( @NotNull TreeSet<T> capabilityDatas ) {
 		
 		ListTag nbt = new ListTag();
 		
@@ -40,9 +46,10 @@ public class NBTHelper {
 		return nbt;
 	}
 	
+	@NotNull
 	public static <T extends CapabilityData> TreeSet<T> deserialize(
-		ListTag nbt,
-		TreeMap<ResourceLocation, ICapabilityDataFactory<T>> capabilityDataRegistery ) {
+		@NotNull ListTag nbt,
+		@NotNull TreeMap<ResourceLocation, ICapabilityDataFactory<T>> capabilityDataRegistery ) {
 		
 		TreeSet<T> capabilityDatas = new TreeSet<>( Comparator.comparing( T::getPos ) );
 		for( Tag inbt : nbt ) {

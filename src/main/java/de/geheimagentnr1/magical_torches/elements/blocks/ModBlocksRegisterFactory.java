@@ -1,19 +1,21 @@
 package de.geheimagentnr1.magical_torches.elements.blocks;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
-import de.geheimagentnr1.magical_torches.elements.RegistryEntry;
-import de.geheimagentnr1.magical_torches.elements.RegistryKeys;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning.ChickenEggTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.*;
+import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlocksRegisterFactory;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryEntry;
+import de.geheimagentnr1.minecraft_forge_api.registry.RegistryKeys;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ObjectHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
-@SuppressWarnings( { "PublicField", "PublicStaticArrayField", "StaticNonFinalField" } )
-public class ModBlocks {
+@SuppressWarnings( { "PublicField", "StaticNonFinalField" } )
+public class ModBlocksRegisterFactory extends BlocksRegisterFactory {
 	
 	//TODO:
 	// B - Block Textur fertig
@@ -25,20 +27,6 @@ public class ModBlocks {
 	// R - Rezept fertig
 	// L - Loottable fertig
 	// T - Tags fertig
-	
-	public static final List<RegistryEntry<? extends Block>> BLOCKS = List.of(
-		//Torches: Chicken Egg Spawning
-		RegistryEntry.create( ChickenEggTorch.registry_name, new ChickenEggTorch() ),//BCPFINRLT
-		//Torches: Sound Muffeling
-		RegistryEntry.create( SoundMufflingTorch.registry_name, new SoundMufflingTorch() ),//BCPFINRLT
-		//Torches: Spawn Blocking
-		RegistryEntry.create( AloneTorch.registry_name, new AloneTorch() ),//BCPFINRLT
-		RegistryEntry.create( BatTorch.registry_name, new BatTorch() ),//BCPFINRLT
-		RegistryEntry.create( GrandTorch.registry_name, new GrandTorch() ),//BCPFINRLT
-		RegistryEntry.create( MediumTorch.registry_name, new MediumTorch() ),//BCPFINRLT
-		RegistryEntry.create( MegaTorch.registry_name, new MegaTorch() ),//BCPFINRLT
-		RegistryEntry.create( SmallTorch.registry_name, new SmallTorch() )//BCPFINRLT
-	);
 	
 	//Torches: Chicken Egg Spawning
 	
@@ -71,4 +59,27 @@ public class ModBlocks {
 	
 	@ObjectHolder( registryName = RegistryKeys.BLOCKS, value = MagicalTorches.MODID + ":" + SmallTorch.registry_name )
 	public static SmallTorch SMALL_TORCH;
+	
+	
+	@NotNull
+	@Override
+	protected List<RegistryEntry<Block>> blocks() {
+		
+		return List.of(
+			//Torches: Chicken Egg Spawning
+			RegistryEntry.create( ChickenEggTorch.registry_name, new ChickenEggTorch() ),//BCPFINRLT
+			//Torches: Sound Muffeling
+			RegistryEntry.create(
+				SoundMufflingTorch.registry_name,
+				new SoundMufflingTorch()
+			),//BCPFINRLT
+			//Torches: Spawn Blocking
+			RegistryEntry.create( AloneTorch.registry_name, new AloneTorch() ),//BCPFINRLT
+			RegistryEntry.create( BatTorch.registry_name, new BatTorch() ),//BCPFINRLT
+			RegistryEntry.create( GrandTorch.registry_name, new GrandTorch() ),//BCPFINRLT
+			RegistryEntry.create( MediumTorch.registry_name, new MediumTorch() ),//BCPFINRLT
+			RegistryEntry.create( MegaTorch.registry_name, new MegaTorch() ),//BCPFINRLT
+			RegistryEntry.create( SmallTorch.registry_name, new SmallTorch() )//BCPFINRLT
+		);
+	}
 }

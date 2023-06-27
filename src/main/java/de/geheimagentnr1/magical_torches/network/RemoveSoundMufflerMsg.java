@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeSet;
 import java.util.function.Supplier;
@@ -20,16 +21,19 @@ import java.util.function.Supplier;
 public class RemoveSoundMufflerMsg {
 	
 	
+	@NotNull
 	private final ResourceLocation dimensionRegistryName;
 	
+	@NotNull
 	private final ResourceLocation soundMufflerRegistryName;
 	
+	@NotNull
 	private final BlockPos pos;
 	
 	private RemoveSoundMufflerMsg(
-		ResourceLocation _dimensionRegistryName,
-		ResourceLocation _soundMufflerRegistryName,
-		BlockPos _pos ) {
+		@NotNull ResourceLocation _dimensionRegistryName,
+		@NotNull ResourceLocation _soundMufflerRegistryName,
+		@NotNull BlockPos _pos ) {
 		
 		dimensionRegistryName = _dimensionRegistryName;
 		soundMufflerRegistryName = _soundMufflerRegistryName;
@@ -37,7 +41,8 @@ public class RemoveSoundMufflerMsg {
 	}
 	
 	//package-private
-	static RemoveSoundMufflerMsg decode( FriendlyByteBuf buffer ) {
+	@NotNull
+	static RemoveSoundMufflerMsg decode( @NotNull FriendlyByteBuf buffer ) {
 		
 		return new RemoveSoundMufflerMsg(
 			buffer.readResourceLocation(),
@@ -47,23 +52,25 @@ public class RemoveSoundMufflerMsg {
 	}
 	
 	//package-private
-	void encode( FriendlyByteBuf buffer ) {
+	void encode( @NotNull FriendlyByteBuf buffer ) {
 		
 		buffer.writeResourceLocation( dimensionRegistryName );
 		buffer.writeResourceLocation( soundMufflerRegistryName );
 		buffer.writeBlockPos( pos );
 	}
 	
-	public static void sendToAll( ResourceLocation dimension, SoundMuffler soundMuffler ) {
+	public static void sendToAll( @NotNull ResourceLocation dimension, @NotNull SoundMuffler soundMuffler ) {
 		
-		Network.CHANNEL.send(
+		Network.getInstance().getChannel().send(
 			PacketDistributor.ALL.noArg(),
 			new RemoveSoundMufflerMsg( dimension, soundMuffler.getRegistryName(), soundMuffler.getPos() )
 		);
 	}
 	
 	//package-private
-	static void handle( RemoveSoundMufflerMsg removeSoundMufflerMsg, Supplier<NetworkEvent.Context> contextSupplier ) {
+	static void handle(
+		@NotNull RemoveSoundMufflerMsg removeSoundMufflerMsg,
+		@NotNull Supplier<NetworkEvent.Context> contextSupplier ) {
 		
 		ResourceKey<Level> dimension = ResourceKey.create(
 			Registries.DIMENSION,

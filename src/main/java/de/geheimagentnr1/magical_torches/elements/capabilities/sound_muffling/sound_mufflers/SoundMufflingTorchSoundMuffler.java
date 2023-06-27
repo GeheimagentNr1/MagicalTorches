@@ -8,21 +8,25 @@ import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 
 public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	
 	
+	@NotNull
 	public static final ResourceLocation registry_name =
 		ResourceLocationBuilder.build( SoundMufflingTorch.registry_name );
 	
+	@NotNull
 	public static final ISoundMufflerFactory FACTORY = SoundMufflingTorchSoundMuffler::new;
 	
-	public SoundMufflingTorchSoundMuffler( BlockPos _pos ) {
+	public SoundMufflingTorchSoundMuffler( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
+	@NotNull
 	@Override
 	public ResourceLocation getRegistryName() {
 		
@@ -32,12 +36,12 @@ public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	@Override
 	public int getRange() {
 		
-		return ServerConfig.getSoundMufflingTorchRange();
+		return ServerConfig.getINSTANCE().getSoundMufflingTorchRange();
 	}
 	
 	@Override
-	public boolean shouldMuffleSound( SoundInstance sound ) {
+	public boolean shouldMuffleSound( @NotNull SoundInstance sound ) {
 		
-		return ServerConfig.getSoundMufflingTorchToMuffleSounds().contains( sound.getSource() );
+		return ServerConfig.getINSTANCE().getSoundMufflingTorchToMuffleSounds().contains( sound.getSource() );
 	}
 }

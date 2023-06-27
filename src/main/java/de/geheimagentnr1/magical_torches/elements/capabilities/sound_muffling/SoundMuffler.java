@@ -5,6 +5,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.CapabilityData;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.stream.Collectors;
 
@@ -12,21 +13,22 @@ import java.util.stream.Collectors;
 public abstract class SoundMuffler extends CapabilityData {
 	
 	
-	protected SoundMuffler( BlockPos _pos ) {
+	protected SoundMuffler( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
 	public abstract int getRange();
 	
-	public abstract boolean shouldMuffleSound( SoundInstance sound );
+	public abstract boolean shouldMuffleSound( @NotNull SoundInstance sound );
 	
-	public String getSoundCategoriesString() {
+	@NotNull
+	public String getSoundCategoriesString( @NotNull ServerConfig serverConfig ) {
 		
-		if( ServerConfig.getSoundMufflingTorchToMuffleSounds().isEmpty() ) {
+		if( serverConfig.getSoundMufflingTorchToMuffleSounds().isEmpty() ) {
 			return "";
 		}
-		return ServerConfig.getSoundMufflingTorchToMuffleSounds()
+		return serverConfig.getSoundMufflingTorchToMuffleSounds()
 			.stream()
 			.map( SoundSource::getName )
 			.collect( Collectors.joining( ", " ) );

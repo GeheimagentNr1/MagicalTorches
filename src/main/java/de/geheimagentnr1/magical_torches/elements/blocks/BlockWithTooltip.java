@@ -8,8 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -19,22 +19,23 @@ public abstract class BlockWithTooltip extends Block {
 	
 	
 	@SuppressWarnings( "ParameterHidesMemberVariable" )
-	protected BlockWithTooltip( Properties properties ) {
+	protected BlockWithTooltip( @NotNull Properties properties ) {
 		
 		super( properties );
 	}
 	
 	@Override
 	public void appendHoverText(
-		@Nonnull ItemStack stack,
+		@NotNull ItemStack stack,
 		@Nullable BlockGetter level,
-		List<Component> tooltip,
-		@Nonnull TooltipFlag flag ) {
+		@NotNull List<Component> tooltip,
+		@NotNull TooltipFlag flag ) {
 		
 		tooltip.add( getInformation().setStyle(
 			Style.EMPTY.applyFormats( ChatFormatting.ITALIC, ChatFormatting.GRAY )
 		) );
 	}
 	
+	@NotNull
 	protected abstract MutableComponent getInformation();
 }

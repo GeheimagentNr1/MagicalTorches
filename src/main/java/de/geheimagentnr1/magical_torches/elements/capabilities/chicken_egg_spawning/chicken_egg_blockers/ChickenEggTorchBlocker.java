@@ -9,19 +9,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 
 public class ChickenEggTorchBlocker extends SpawnBlocker {
 	
 	
+	@NotNull
 	public static final ResourceLocation registry_name =
 		ResourceLocationBuilder.build( ChickenEggTorch.registry_name );
 	
-	public ChickenEggTorchBlocker( BlockPos _pos ) {
+	public ChickenEggTorchBlocker( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
+	@NotNull
 	@Override
 	public ResourceLocation getRegistryName() {
 		
@@ -31,11 +34,11 @@ public class ChickenEggTorchBlocker extends SpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return ServerConfig.getChickenEggTorchRange();
+		return ServerConfig.getINSTANCE().getChickenEggTorchRange();
 	}
 	
 	@Override
-	public boolean shouldBlockEntity( Entity entity ) {
+	public boolean shouldBlockEntity( @NotNull Entity entity ) {
 		
 		return entity instanceof ItemEntity && ( (ItemEntity)entity ).getItem().getItem() == Items.EGG;
 	}

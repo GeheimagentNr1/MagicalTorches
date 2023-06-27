@@ -1,5 +1,6 @@
 {
 	"parent":   "minecraft:item/generated",
+	"render_type": "minecraft:translucent",
 	"textures": {
 		"layer0": "magical_torches:item/torches/spawn_blocking/alone_torch"
 	}

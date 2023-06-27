@@ -1,22 +1,40 @@
 package de.geheimagentnr1.magical_torches;
 
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
+import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocksRegisterFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
+import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeModeTabRegisterFactory;
+import de.geheimagentnr1.magical_torches.handlers.SoundMufflingHandler;
+import de.geheimagentnr1.magical_torches.handlers.SpawnBlockingHandler;
 import de.geheimagentnr1.magical_torches.network.Network;
-import net.minecraftforge.fml.ModLoadingContext;
+import de.geheimagentnr1.minecraft_forge_api.AbstractMod;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import org.jetbrains.annotations.NotNull;
 
 
-@SuppressWarnings( "UtilityClassWithPublicConstructor" )
 @Mod( MagicalTorches.MODID )
-public class MagicalTorches {
+public class MagicalTorches extends AbstractMod {
 	
 	
+	@NotNull
 	public static final String MODID = "magical_torches";
 	
-	public MagicalTorches() {
+	@NotNull
+	@Override
+	public String getModId() {
 		
-		Network.init();
-		ModLoadingContext.get().registerConfig( ModConfig.Type.SERVER, ServerConfig.CONFIG );
+		return MODID;
+	}
+	
+	@Override
+	protected void initMod() {
+		
+		ServerConfig serverConfig = registerConfig( ServerConfig::new );
+		ModBlocksRegisterFactory modBlocksRegisterFactory = registerEventHandler( new ModBlocksRegisterFactory() );
+		registerEventHandler( new ModCapabilitiesRegisterFactory( this, serverConfig ) );
+		registerEventHandler( new ModCreativeModeTabRegisterFactory( modBlocksRegisterFactory ) );
+		registerEventHandler( new SoundMufflingHandler() );
+		registerEventHandler( new SpawnBlockingHandler() );
+		registerEventHandler( Network.getInstance() );
 	}
 }

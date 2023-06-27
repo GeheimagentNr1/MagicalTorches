@@ -1,15 +1,12 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
+import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
-import de.geheimagentnr1.magical_torches.elements.blocks.BlockRenderTypeInterface;
-import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.AloneTorchSpawnBlocker;
-import de.geheimagentnr1.magical_torches.helpers.TranslationKeyHelper;
-import net.minecraft.client.renderer.RenderType;
+import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,13 +14,13 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 
-
-public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInterface {
+public class AloneTorch extends SpawnBlockingTorch {
 	
 	
+	@NotNull
 	public static final String registry_name = "alone_torch";
 	
 	public AloneTorch() {
@@ -39,36 +36,24 @@ public class AloneTorch extends SpawnBlockingTorch implements BlockRenderTypeInt
 		);
 	}
 	
-	@Nonnull
+	@NotNull
 	@Override
 	public VoxelShape getCollisionShape(
-		@Nonnull BlockState state,
-		@Nonnull BlockGetter level,
-		@Nonnull BlockPos pos,
-		@Nonnull CollisionContext context ) {
+		@NotNull BlockState state,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull CollisionContext context ) {
 		
 		return Shapes.block();
 	}
 	
-	@Override
-	public RenderType getRenderType() {
-		
-		return RenderType.translucent();
-	}
-	
+	@NotNull
 	@Override
 	protected MutableComponent getInformation() {
 		
 		return Component.translatable(
-			TranslationKeyHelper.buildTooltipTranslationKey( "spawn_blocking_all" ),
-			ServerConfig.getAloneTorchRange()
+			TranslationKeyHelper.generateTooltipTranslationKey( MagicalTorches.MODID, "spawn_blocking_all" ),
+			ServerConfig.getINSTANCE().getAloneTorchRange()
 		);
-	}
-	
-	@SuppressWarnings( "ParameterHidesMemberVariable" )
-	@Override
-	public Item getBlockItem( Item.Properties properties ) {
-		
-		return createBlockItem( ModBlocks.ALONE_TORCH, properties );
 	}
 }

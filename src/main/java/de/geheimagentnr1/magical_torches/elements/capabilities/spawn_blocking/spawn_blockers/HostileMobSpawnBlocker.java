@@ -6,21 +6,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
 
 public abstract class HostileMobSpawnBlocker extends SpawnBlocker {
 	
 	
-	//package-private
-	HostileMobSpawnBlocker( BlockPos _pos ) {
+	HostileMobSpawnBlocker( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
 	@Override
-	public boolean shouldBlockEntity( Entity entity ) {
+	public boolean shouldBlockEntity( @NotNull Entity entity ) {
 		
-		for( ResourceLocation registryName : ServerConfig.getHostileBlockedEntities() ) {
+		for( ResourceLocation registryName : ServerConfig.getINSTANCE().getHostileBlockedEntities() ) {
 			if( registryName.equals( BuiltInRegistries.ENTITY_TYPE.getKey( entity.getType() ) ) ) {
 				return true;
 			}

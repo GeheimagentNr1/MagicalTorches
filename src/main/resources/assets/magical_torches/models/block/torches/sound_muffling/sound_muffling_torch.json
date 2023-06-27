@@ -1,4 +1,5 @@
 {
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"particle":   "magical_torches:block/torches/sound_muffling/note",
 		"note":       "magical_torches:block/torches/sound_muffling/note",

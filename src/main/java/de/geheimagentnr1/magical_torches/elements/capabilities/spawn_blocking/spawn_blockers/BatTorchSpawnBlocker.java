@@ -8,18 +8,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import org.jetbrains.annotations.NotNull;
 
 
 public class BatTorchSpawnBlocker extends SpawnBlocker {
 	
 	
+	@NotNull
 	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
 	
-	public BatTorchSpawnBlocker( BlockPos _pos ) {
+	public BatTorchSpawnBlocker( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
+	@NotNull
 	@Override
 	public ResourceLocation getRegistryName() {
 		
@@ -29,11 +32,11 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return ServerConfig.getBatTorchRange();
+		return ServerConfig.getINSTANCE().getBatTorchRange();
 	}
 	
 	@Override
-	public boolean shouldBlockEntity( Entity entity ) {
+	public boolean shouldBlockEntity( @NotNull Entity entity ) {
 		
 		return entity.getType() == EntityType.BAT;
 	}

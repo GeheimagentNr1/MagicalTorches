@@ -5,18 +5,21 @@ import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 
 public class SmallTorchSpawnBlocker extends HostileMobSpawnBlocker {
 	
 	
+	@NotNull
 	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( SmallTorch.registry_name );
 	
-	public SmallTorchSpawnBlocker( BlockPos _pos ) {
+	public SmallTorchSpawnBlocker( @NotNull BlockPos _pos ) {
 		
 		super( _pos );
 	}
 	
+	@NotNull
 	@Override
 	public ResourceLocation getRegistryName() {
 		
@@ -26,6 +29,6 @@ public class SmallTorchSpawnBlocker extends HostileMobSpawnBlocker {
 	@Override
 	public int getRange() {
 		
-		return ServerConfig.getSmallTorchRange();
+		return ServerConfig.getINSTANCE().getSmallTorchRange();
 	}
 }
