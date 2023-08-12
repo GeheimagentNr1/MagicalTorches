@@ -1,1 +1,1 @@
-- Fix #1, that modded hostile mobs where not added to the spawn_blockers.hostile.blocked_entities configuration list
+- Fix #1, that modded hostile mobs were not added to the spawn_blockers.hostile.blocked_entities configuration list
