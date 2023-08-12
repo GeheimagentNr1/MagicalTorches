@@ -15,9 +15,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 
@@ -36,6 +39,12 @@ public class ModEventHandler {
 	public static void handleModConfigReloadingEvent( ModConfigEvent.Reloading event ) {
 		
 		ServerConfig.analyseAndPrintConfig();
+	}
+	
+	@SubscribeEvent
+	public static void handleFMLCommonSetupEvent( FMLCommonSetupEvent event ) {
+		
+		ModLoadingContext.get().registerConfig( ModConfig.Type.SERVER, ServerConfig.CONFIG );
 	}
 	
 	@SubscribeEvent
