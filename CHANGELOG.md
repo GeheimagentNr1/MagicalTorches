@@ -1,1 +1,1 @@
-Ported to 1.20.1 
+- Fix #1, that modded hostile mobs where not added to the spawn_blockers.hostile.blocked_entities configuration list
