@@ -4,6 +4,7 @@ import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocksRegisterFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
 import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeModeTabRegisterFactory;
+import de.geheimagentnr1.magical_torches.handlers.LateConfigInitilizationHandler;
 import de.geheimagentnr1.magical_torches.handlers.SoundMufflingHandler;
 import de.geheimagentnr1.magical_torches.handlers.SpawnBlockingHandler;
 import de.geheimagentnr1.magical_torches.network.Network;
@@ -20,6 +21,9 @@ public class MagicalTorches extends AbstractMod {
 	public static final String MODID = "magical_torches";
 	
 	@NotNull
+	public static final String SERVER_CONFIG_NOT_FOUND_ERROR_MESSAGE = "MoreMobGriefingOptions ServerConfig not found";
+	
+	@NotNull
 	@Override
 	public String getModId() {
 		
@@ -29,12 +33,17 @@ public class MagicalTorches extends AbstractMod {
 	@Override
 	protected void initMod() {
 		
-		ServerConfig serverConfig = registerConfig( ServerConfig::new );
 		ModBlocksRegisterFactory modBlocksRegisterFactory = registerEventHandler( new ModBlocksRegisterFactory() );
-		registerEventHandler( new ModCapabilitiesRegisterFactory( this, serverConfig ) );
+		registerEventHandler( new ModCapabilitiesRegisterFactory( this ) );
 		registerEventHandler( new ModCreativeModeTabRegisterFactory( modBlocksRegisterFactory ) );
+		registerEventHandler( new LateConfigInitilizationHandler( this ) );
 		registerEventHandler( new SoundMufflingHandler() );
 		registerEventHandler( new SpawnBlockingHandler() );
 		registerEventHandler( Network.getInstance() );
+	}
+	
+	public void initMobgriefingConfig() {
+		
+		registerConfig( ServerConfig::new );
 	}
 }

@@ -1,5 +1,6 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities;
 
+import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
@@ -11,6 +12,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.config.ModConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -38,12 +40,24 @@ public class ModCapabilitiesRegisterFactory extends CapabilitiesRegisterFactory 
 		} );
 	
 	@NotNull
-	private final ServerConfig serverConfig;
+	private final AbstractMod abstractMod;
 	
-	public ModCapabilitiesRegisterFactory( @NotNull AbstractMod abstractMod, @NotNull ServerConfig _serverConfig ) {
+	private ServerConfig serverConfig;
+	
+	@NotNull
+	private ServerConfig serverConfig() {
+		
+		if( serverConfig == null ) {
+			serverConfig = abstractMod.getConfig( ModConfig.Type.SERVER, ServerConfig.class )
+				.orElseThrow( () -> new IllegalStateException( MagicalTorches.SERVER_CONFIG_NOT_FOUND_ERROR_MESSAGE ) );
+		}
+		return serverConfig;
+	}
+	
+	public ModCapabilitiesRegisterFactory( @NotNull AbstractMod abstractMod ) {
 		
 		super( abstractMod );
-		this.serverConfig = _serverConfig;
+		this.abstractMod = abstractMod;
 	}
 	
 	@NotNull
@@ -64,7 +78,7 @@ public class ModCapabilitiesRegisterFactory extends CapabilitiesRegisterFactory 
 		return List.of(
 			RegistryEntry.create(
 				ChickenEggSpawningCapability.registry_name,
-				new ChickenEggSpawningCapability( serverConfig )
+				new ChickenEggSpawningCapability( serverConfig() )
 			),
 			RegistryEntry.create( SpawnBlockingCapability.registry_name, new SpawnBlockingCapability() ),
 			RegistryEntry.create( SoundMufflingCapability.registry_name, new SoundMufflingCapability() )
