@@ -11,14 +11,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.function.Supplier;
 
 
 public class InitSoundMufflersMsg {
@@ -85,17 +84,17 @@ public class InitSoundMufflersMsg {
 				);
 			} );
 		Network.getInstance().getChannel().send(
-			PacketDistributor.PLAYER.with( () -> player ),
-			new InitSoundMufflersMsg( dimensionSoundMufflers )
+			new InitSoundMufflersMsg( dimensionSoundMufflers ),
+			PacketDistributor.PLAYER.with( player )
 		);
 	}
 	
 	//package-private
 	static void handle(
 		@NotNull InitSoundMufflersMsg initSoundMufflersMsg,
-		@NotNull Supplier<NetworkEvent.Context> contextSupplier ) {
+		@NotNull CustomPayloadEvent.Context contextSupplier ) {
 		
 		SoundMufflersHolder.setDimensionSoundMufflers( initSoundMufflersMsg.soundMufflers );
-		contextSupplier.get().setPacketHandled( true );
+		contextSupplier.setPacketHandled( true );
 	}
 }

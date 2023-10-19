@@ -34,26 +34,20 @@ public class Network extends AbstractNetwork {
 	@Override
 	public void registerPackets() {
 		
-		getChannel().registerMessage(
-			0,
-			InitSoundMufflersMsg.class,
-			InitSoundMufflersMsg::encode,
-			InitSoundMufflersMsg::decode,
-			InitSoundMufflersMsg::handle
-		);
-		getChannel().registerMessage(
-			1,
-			AddSoundMufflerMsg.class,
-			AddSoundMufflerMsg::encode,
-			AddSoundMufflerMsg::decode,
-			AddSoundMufflerMsg::handle
-		);
-		getChannel().registerMessage(
-			2,
-			RemoveSoundMufflerMsg.class,
-			RemoveSoundMufflerMsg::encode,
-			RemoveSoundMufflerMsg::decode,
-			RemoveSoundMufflerMsg::handle
-		);
+		getChannel().messageBuilder( InitSoundMufflersMsg.class )
+			.encoder( InitSoundMufflersMsg::encode )
+			.decoder( InitSoundMufflersMsg::decode )
+			.consumerNetworkThread( InitSoundMufflersMsg::handle )
+			.add();
+		getChannel().messageBuilder( AddSoundMufflerMsg.class )
+			.encoder( AddSoundMufflerMsg::encode )
+			.decoder( AddSoundMufflerMsg::decode )
+			.consumerNetworkThread( AddSoundMufflerMsg::handle )
+			.add();
+		getChannel().messageBuilder( RemoveSoundMufflerMsg.class )
+			.encoder( RemoveSoundMufflerMsg::encode )
+			.decoder( RemoveSoundMufflerMsg::decode )
+			.consumerNetworkThread( RemoveSoundMufflerMsg::handle )
+			.add();
 	}
 }

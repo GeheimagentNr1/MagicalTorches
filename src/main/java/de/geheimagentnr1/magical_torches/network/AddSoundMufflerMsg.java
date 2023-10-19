@@ -10,12 +10,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeSet;
-import java.util.function.Supplier;
 
 
 public class AddSoundMufflerMsg {
@@ -62,15 +61,15 @@ public class AddSoundMufflerMsg {
 	public static void sendToAll( @NotNull ResourceLocation dimension, @NotNull SoundMuffler soundMuffler ) {
 		
 		Network.getInstance().getChannel().send(
-			PacketDistributor.ALL.noArg(),
-			new AddSoundMufflerMsg( dimension, soundMuffler.getRegistryName(), soundMuffler.getPos() )
+			new AddSoundMufflerMsg( dimension, soundMuffler.getRegistryName(), soundMuffler.getPos() ),
+			PacketDistributor.ALL.noArg()
 		);
 	}
 	
 	//package-private
 	static void handle(
 		@NotNull AddSoundMufflerMsg addSoundMufflerMsg,
-		@NotNull Supplier<NetworkEvent.Context> contextSupplier ) {
+		@NotNull CustomPayloadEvent.Context contextSupplier ) {
 		
 		ResourceKey<Level> dimension = ResourceKey.create(
 			Registries.DIMENSION,
@@ -83,6 +82,6 @@ public class AddSoundMufflerMsg {
 			addSoundMufflerMsg.pos
 		) );
 		SoundMufflersHolder.getDimensionSoundMufflers().put( dimension, list );
-		contextSupplier.get().setPacketHandled( true );
+		contextSupplier.setPacketHandled( true );
 	}
 }
