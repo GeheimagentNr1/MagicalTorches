@@ -2,7 +2,7 @@
 	"parent":       "magical_torches:magical_torches/root",
 	"display":      {
 		"icon":             {
-			"item": "magical_torches:bat_torch"
+			"id": "magical_torches:bat_torch"
 		},
 		"title":            {
 			"translate": "advancements.magical_torches.bat_torch.title"

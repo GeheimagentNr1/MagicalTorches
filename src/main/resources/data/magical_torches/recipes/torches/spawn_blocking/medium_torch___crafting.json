@@ -11,6 +11,6 @@
 		"B": { "tag": "forge:storage_blocks/quartz" }
 	},
 	"result":  {
-		"item": "magical_torches:medium_torch"
+		"id": "magical_torches:medium_torch"
 	}
 }

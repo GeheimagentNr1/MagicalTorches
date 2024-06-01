@@ -11,6 +11,6 @@
 		"H": { "item": "minecraft:hay_block" }
 	},
 	"result":  {
-		"item": "magical_torches:chicken_egg_torch"
+		"id": "magical_torches:chicken_egg_torch"
 	}
 }

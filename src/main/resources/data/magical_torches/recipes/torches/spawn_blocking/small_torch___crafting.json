@@ -12,6 +12,6 @@
 		"B": { "tag": "forge:storage_blocks/gold" }
 	},
 	"result":  {
-		"item": "magical_torches:small_torch"
+		"id": "magical_torches:small_torch"
 	}
 }

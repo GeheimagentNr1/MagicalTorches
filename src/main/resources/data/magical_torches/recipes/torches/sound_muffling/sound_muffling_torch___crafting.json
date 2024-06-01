@@ -13,6 +13,6 @@
 		"N": { "item": "minecraft:note_block" }
 	},
 	"result":  {
-		"item": "magical_torches:sound_muffling_torch"
+		"id": "magical_torches:sound_muffling_torch"
 	}
 }

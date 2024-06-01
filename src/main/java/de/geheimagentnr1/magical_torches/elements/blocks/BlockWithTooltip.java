@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -26,12 +27,12 @@ public abstract class BlockWithTooltip extends Block {
 	
 	@Override
 	public void appendHoverText(
-		@NotNull ItemStack stack,
-		@Nullable BlockGetter level,
-		@NotNull List<Component> tooltip,
-		@NotNull TooltipFlag flag ) {
+		ItemStack pStack,
+		Item.TooltipContext pContext,
+		List<Component> pTootipComponents,
+		TooltipFlag pTooltipFlag ) {
 		
-		tooltip.add( getInformation().setStyle(
+		pTootipComponents.add( getInformation().setStyle(
 			Style.EMPTY.applyFormats( ChatFormatting.ITALIC, ChatFormatting.GRAY )
 		) );
 	}

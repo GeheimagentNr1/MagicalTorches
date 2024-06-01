@@ -11,6 +11,6 @@
 		"B": { "tag": "forge:storage_blocks/emerald" }
 	},
 	"result":  {
-		"item": "magical_torches:mega_torch"
+		"id": "magical_torches:mega_torch"
 	}
 }

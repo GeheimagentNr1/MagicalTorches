@@ -1,7 +1,7 @@
 {
 	"display":      {
 		"icon":             {
-			"item": "magical_torches:mega_torch"
+			"id": "magical_torches:mega_torch"
 		},
 		"title":            {
 			"translate": "advancements.magical_torches.root.title"

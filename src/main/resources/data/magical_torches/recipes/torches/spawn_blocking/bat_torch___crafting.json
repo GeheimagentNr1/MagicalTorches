@@ -14,6 +14,6 @@
 		}
 	},
 	"result":  {
-		"item": "magical_torches:bat_torch"
+		"id": "magical_torches:bat_torch"
 	}
 }
