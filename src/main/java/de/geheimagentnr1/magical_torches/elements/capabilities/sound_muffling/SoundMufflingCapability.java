@@ -9,6 +9,7 @@ import de.geheimagentnr1.magical_torches.network.RemoveSoundMufflerMsg;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -65,15 +66,14 @@ public class SoundMufflingCapability implements ICapabilitySerializable<ListTag>
 		return LazyOptional.empty();
 	}
 	
-	@NotNull
 	@Override
-	public ListTag serializeNBT() {
+	public ListTag serializeNBT( HolderLookup.Provider provider ) {
 		
 		return NBTHelper.serialize( soundMufflers );
 	}
 	
 	@Override
-	public void deserializeNBT( @NotNull ListTag nbt ) {
+	public void deserializeNBT( HolderLookup.Provider provider, ListTag nbt ) {
 		
 		soundMufflers = NBTHelper.deserialize( nbt, SOUND_MUFFLING_REGISTERY );
 	}

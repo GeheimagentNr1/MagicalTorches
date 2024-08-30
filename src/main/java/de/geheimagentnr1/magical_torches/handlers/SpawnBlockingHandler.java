@@ -21,7 +21,7 @@ public class SpawnBlockingHandler implements ForgeEventHandlerInterface {
 	
 	
 	@NotNull
-	private static final String BLOCK_SPAWNING_TAG = new ResourceLocation( MagicalTorches.MODID, "block_spawning" )
+	private static final String BLOCK_SPAWNING_TAG = ResourceLocation.fromNamespaceAndPath( MagicalTorches.MODID, "block_spawning" )
 		.toString();
 	
 	@NotNull

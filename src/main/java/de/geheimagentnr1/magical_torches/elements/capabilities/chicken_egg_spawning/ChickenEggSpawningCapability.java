@@ -11,6 +11,7 @@ import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerHelper;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -83,15 +84,14 @@ public class ChickenEggSpawningCapability implements ICapabilitySerializable<Lis
 		return LazyOptional.empty();
 	}
 	
-	@NotNull
 	@Override
-	public ListTag serializeNBT() {
+	public ListTag serializeNBT( HolderLookup.Provider provider ) {
 		
 		return NBTHelper.serialize( spawnBlockers );
 	}
 	
 	@Override
-	public void deserializeNBT( @NotNull ListTag nbt ) {
+	public void deserializeNBT( HolderLookup.Provider provider, ListTag nbt ) {
 		
 		spawnBlockers = NBTHelper.deserialize( nbt, SPAWN_BLOCKING_REGISTERY );
 	}
