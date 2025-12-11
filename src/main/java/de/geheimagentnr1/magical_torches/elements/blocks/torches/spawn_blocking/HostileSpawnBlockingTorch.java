@@ -2,7 +2,6 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -45,7 +44,7 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	protected MutableComponent getInformation() {
 		
 		return Component.translatable(
-			TranslationKeyHelper.generateTooltipTranslationKey( MagicalTorches.MODID, "spawn_blocking_hostile" ),
+			"tooltip." + MagicalTorches.MODID + ".spawn_blocking_hostile",
 			spawnBlockFactory.build( BlockPos.ZERO ).getRange()
 		);
 	}

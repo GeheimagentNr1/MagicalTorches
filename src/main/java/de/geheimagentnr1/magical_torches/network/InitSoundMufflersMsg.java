@@ -2,17 +2,21 @@ package de.geheimagentnr1.magical_torches.network;
 
 
 import de.geheimagentnr1.magical_torches.config.SoundMufflersHolder;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.network.CustomPayloadEvent;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -20,52 +24,53 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class InitSoundMufflersMsg {
+public record InitSoundMufflersMsg(
+	@NotNull TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> soundMufflers
+) implements CustomPacketPayload {
 	
 	
 	@NotNull
-	private final TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> soundMufflers;
+	public static final Type<InitSoundMufflersMsg> TYPE = new Type<>( Network.INIT_SOUND_MUFFLERS_ID );
 	
-	private InitSoundMufflersMsg( @NotNull TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> _soundMufflers ) {
-		
-		soundMufflers = _soundMufflers;
-	}
-	
-	//package-private
 	@NotNull
-	static InitSoundMufflersMsg decode( @NotNull FriendlyByteBuf buffer ) {
+	public static final StreamCodec<ByteBuf, InitSoundMufflersMsg> STREAM_CODEC = StreamCodec.of(
+		InitSoundMufflersMsg::encode,
+		InitSoundMufflersMsg::decode
+	);
+	
+	@NotNull
+	private static InitSoundMufflersMsg decode( @NotNull ByteBuf buffer ) {
 		
 		TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
-		int dimensionCount = buffer.readInt();
+		int dimensionCount = ByteBufCodecs.VAR_INT.decode( buffer );
 		for( int i = 0; i < dimensionCount; i++ ) {
 			ResourceKey<Level> dimension = ResourceKey.create(
 				Registries.DIMENSION,
-				buffer.readResourceLocation()
+				ResourceLocation.STREAM_CODEC.decode( buffer )
 			);
 			TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
 			dimensionSoundMufflers.put( dimension, soundMufflers );
-			int soundMufflersCount = buffer.readInt();
+			int soundMufflersCount = ByteBufCodecs.VAR_INT.decode( buffer );
 			for( int j = 0; j < soundMufflersCount; j++ ) {
 				soundMufflers.add( SoundMufflingCapability.buildSoundMuffler(
-					buffer.readResourceLocation(),
-					buffer.readBlockPos()
+					ResourceLocation.STREAM_CODEC.decode( buffer ),
+					net.minecraft.core.BlockPos.STREAM_CODEC.decode( buffer )
 				) );
 			}
 		}
 		return new InitSoundMufflersMsg( dimensionSoundMufflers );
 	}
 	
-	//package-private
-	void encode( @NotNull FriendlyByteBuf buffer ) {
+	private static void encode( @NotNull ByteBuf buffer, @NotNull InitSoundMufflersMsg msg ) {
 		
-		buffer.writeInt( soundMufflers.size() );
-		soundMufflers.forEach( ( dimension, soundMufflersSet ) -> {
-			buffer.writeResourceLocation( Objects.requireNonNull( dimension.location() ) );
-			buffer.writeInt( soundMufflersSet.size() );
+		ByteBufCodecs.VAR_INT.encode( buffer, msg.soundMufflers.size() );
+		msg.soundMufflers.forEach( ( dimension, soundMufflersSet ) -> {
+			ResourceLocation.STREAM_CODEC.encode( buffer, Objects.requireNonNull( dimension.location() ) );
+			ByteBufCodecs.VAR_INT.encode( buffer, soundMufflersSet.size() );
 			soundMufflersSet.forEach( soundMuffler -> {
-				buffer.writeResourceLocation( soundMuffler.getRegistryName() );
-				buffer.writeBlockPos( soundMuffler.getPos() );
+				ResourceLocation.STREAM_CODEC.encode( buffer, soundMuffler.getRegistryName() );
+				net.minecraft.core.BlockPos.STREAM_CODEC.encode( buffer, soundMuffler.getPos() );
 			} );
 		} );
 	}
@@ -79,22 +84,25 @@ public class InitSoundMufflersMsg {
 			.forEach( serverLevel -> {
 				TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
 				dimensionSoundMufflers.put( serverLevel.dimension(), soundMufflers );
-				serverLevel.getCapability( ModCapabilitiesRegisterFactory.SOUND_MUFFLING ).ifPresent(
-					soundMufflingCapability -> soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() )
-				);
+				if( serverLevel.hasData( ModAttachments.SOUND_MUFFLING ) ) {
+					var soundMufflingCapability = serverLevel.getData( ModAttachments.SOUND_MUFFLING );
+					soundMufflers.addAll( soundMufflingCapability.getSoundMufflers() );
+				}
 			} );
-		Network.getInstance().getChannel().send(
-			new InitSoundMufflersMsg( dimensionSoundMufflers ),
-			PacketDistributor.PLAYER.with( player )
-		);
+		PacketDistributor.sendToPlayer( player, new InitSoundMufflersMsg( dimensionSoundMufflers ) );
 	}
 	
-	//package-private
-	static void handle(
-		@NotNull InitSoundMufflersMsg initSoundMufflersMsg,
-		@NotNull CustomPayloadEvent.Context contextSupplier ) {
+	public static void handle( @NotNull InitSoundMufflersMsg msg, @NotNull IPayloadContext context ) {
 		
-		SoundMufflersHolder.setDimensionSoundMufflers( initSoundMufflersMsg.soundMufflers );
-		contextSupplier.setPacketHandled( true );
+		context.enqueueWork( () -> {
+			SoundMufflersHolder.setDimensionSoundMufflers( msg.soundMufflers );
+		} );
+	}
+	
+	@NotNull
+	@Override
+	public Type<? extends CustomPacketPayload> type() {
+		
+		return TYPE;
 	}
 }

@@ -4,28 +4,25 @@ import de.geheimagentnr1.magical_torches.config.SoundMufflersHolder;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMuffler;
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.network.InitSoundMufflersMsg;
-import de.geheimagentnr1.minecraft_forge_api.events.ForgeEventHandlerInterface;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.sound.PlaySoundEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
 
 
-public class SoundMufflingHandler implements ForgeEventHandlerInterface {
+public class SoundMufflingHandler {
 	
 	
 	@SubscribeEvent
-	@Override
 	public void handlePlayerLoggedInEvent( @NotNull PlayerEvent.PlayerLoggedInEvent event ) {
 		
 		Player player = event.getEntity();
@@ -36,13 +33,9 @@ public class SoundMufflingHandler implements ForgeEventHandlerInterface {
 	
 	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
-	@Override
 	public void handlePlaySoundEvent( @NotNull PlaySoundEvent event ) {
 		
-		if( event.getResult() == Event.Result.ALLOW ) {
-			return;
-		}
-		SoundInstance sound = event.getSound();
+		SoundInstance sound = event.getOriginalSound();
 		Level level = Minecraft.getInstance().level;
 		
 		if( sound != null && level != null ) {
@@ -55,7 +48,6 @@ public class SoundMufflingHandler implements ForgeEventHandlerInterface {
 						soundMuffler.getRange()
 					) ) {
 						event.setSound( null );
-						event.setResult( Event.Result.DENY );
 					}
 				}
 			} );
@@ -64,7 +56,6 @@ public class SoundMufflingHandler implements ForgeEventHandlerInterface {
 	
 	@OnlyIn( Dist.CLIENT )
 	@SubscribeEvent
-	@Override
 	public void handleClientPlayerNetworkLoggingOutEvent( @NotNull ClientPlayerNetworkEvent.LoggingOut event ) {
 		
 		SoundMufflersHolder.clear();

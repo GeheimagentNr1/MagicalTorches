@@ -1,36 +1,26 @@
 package de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.capabilities.ICapabilityDataFactory;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
 import de.geheimagentnr1.magical_torches.helpers.NBTHelper;
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerHelper;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-@RequiredArgsConstructor
-public class SpawnBlockingCapability implements ICapabilitySerializable<ListTag> {
+public class SpawnBlockingCapability implements INBTSerializable<ListTag> {
 	
 	
 	@NotNull
 	public static final String registry_name = "spawn_blocking";
-	
-	@NotNull
-	private final LazyOptional<SpawnBlockingCapability> capability = LazyOptional.of( () -> this );
 	
 	@NotNull
 	private TreeSet<SpawnBlocker> spawnBlockers = SpawnBlockerHelper.buildSpawnBlockerTreeSet();
@@ -56,16 +46,6 @@ public class SpawnBlockingCapability implements ICapabilitySerializable<ListTag>
 			}
 		}
 		return false;
-	}
-	
-	@NotNull
-	@Override
-	public <T> LazyOptional<T> getCapability( @NotNull Capability<T> cap, @Nullable Direction side ) {
-		
-		if( cap == ModCapabilitiesRegisterFactory.SPAWN_BLOCKING ) {
-			return capability.cast();
-		}
-		return LazyOptional.empty();
 	}
 	
 	@Override

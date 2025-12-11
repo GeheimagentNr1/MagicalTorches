@@ -1,10 +1,9 @@
 package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking;
 
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockGetter;
@@ -18,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 //package-private
-abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemInterface {
+abstract class SpawnBlockingTorch extends BlockWithTooltip {
 	
 	
 	//package-private
@@ -60,9 +59,10 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@NotNull BlockState oldState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.SPAWN_BLOCKING ).ifPresent(
-			capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) )
-		);
+		if( !level.isClientSide ) {
+			var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
+			capability.addSpawnBlocker( spawnBlockFactory.build( pos ) );
+		}
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -74,9 +74,10 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip implements BlockItemI
 		@NotNull BlockState newState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.SPAWN_BLOCKING ).ifPresent(
-			capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) )
-		);
+		if( !level.isClientSide ) {
+			var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
+			capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) );
+		}
 		super.onRemove( state, level, pos, newState, isMoving );
 	}
 }

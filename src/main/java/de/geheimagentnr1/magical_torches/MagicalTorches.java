@@ -1,49 +1,45 @@
 package de.geheimagentnr1.magical_torches;
 
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
-import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocksRegisterFactory;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
-import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeModeTabRegisterFactory;
-import de.geheimagentnr1.magical_torches.handlers.LateConfigInitilizationHandler;
+import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
+import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeModeTabs;
 import de.geheimagentnr1.magical_torches.handlers.SoundMufflingHandler;
 import de.geheimagentnr1.magical_torches.handlers.SpawnBlockingHandler;
 import de.geheimagentnr1.magical_torches.network.Network;
-import de.geheimagentnr1.minecraft_forge_api.AbstractMod;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 
 
 @Mod( MagicalTorches.MODID )
-public class MagicalTorches extends AbstractMod {
+public class MagicalTorches {
 	
 	
 	@NotNull
 	public static final String MODID = "magical_torches";
 	
 	@NotNull
-	public static final String SERVER_CONFIG_NOT_FOUND_ERROR_MESSAGE = "MoreMobGriefingOptions ServerConfig not found";
+	public static final String SERVER_CONFIG_NOT_FOUND_ERROR_MESSAGE = "MagicalTorches ServerConfig not found";
 	
-	@NotNull
-	@Override
-	public String getModId() {
+	public MagicalTorches( IEventBus modEventBus, ModContainer modContainer ) {
 		
-		return MODID;
-	}
-	
-	@Override
-	protected void initMod() {
+		// Register blocks and items
+		ModBlocks.register( modEventBus );
+		ModCreativeModeTabs.register( modEventBus );
+		ModAttachments.register( modEventBus );
 		
-		ModBlocksRegisterFactory modBlocksRegisterFactory = registerEventHandler( new ModBlocksRegisterFactory() );
-		registerEventHandler( new ModCapabilitiesRegisterFactory( this ) );
-		registerEventHandler( new ModCreativeModeTabRegisterFactory( modBlocksRegisterFactory ) );
-		registerEventHandler( new LateConfigInitilizationHandler( this ) );
-		registerEventHandler( new SoundMufflingHandler() );
-		registerEventHandler( new SpawnBlockingHandler() );
-		registerEventHandler( Network.getInstance() );
-	}
-	
-	public void initMobgriefingConfig() {
+		// Register mod event listeners
+		modEventBus.addListener( Network::onRegisterPayloadHandlers );
 		
-		registerConfig( ServerConfig::new );
+		// Register forge event listeners
+		NeoForge.EVENT_BUS.register( new SoundMufflingHandler() );
+		NeoForge.EVENT_BUS.register( new SpawnBlockingHandler() );
+		
+		// Register config
+		modContainer.registerConfig( ModConfig.Type.SERVER, ServerConfig.SPEC );
 	}
 }

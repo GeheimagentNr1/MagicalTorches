@@ -1,23 +1,21 @@
 package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
-import de.geheimagentnr1.minecraft_forge_api.events.ForgeEventHandlerInterface;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
-public class SpawnBlockingHandler implements ForgeEventHandlerInterface {
+public class SpawnBlockingHandler {
 	
 	
 	@NotNull
@@ -34,42 +32,39 @@ public class SpawnBlockingHandler implements ForgeEventHandlerInterface {
 	);
 	
 	@SubscribeEvent
-	@Override
-	public void handleMobSpawnFinalizeSpawnEvent( @NotNull MobSpawnEvent.FinalizeSpawn event ) {
+	public void handleFinalizeSpawnEvent( @NotNull FinalizeSpawnEvent event ) {
 		
-		if( event.getResult() == Event.Result.ALLOW ||
-			CHECK_SPAWN_NON_BLOCKED_TYPES.contains( event.getSpawnType() ) ) {
+		if( CHECK_SPAWN_NON_BLOCKED_TYPES.contains( event.getSpawnType() ) ) {
 			return;
 		}
 		Entity entity = event.getEntity();
-		entity.getCommandSenderWorld().getCapability( ModCapabilitiesRegisterFactory.SPAWN_BLOCKING ).ifPresent(
-			capability -> {
-				if( capability.shouldBlockEntitySpawn( entity ) ) {
-					entity.addTag( BLOCK_SPAWNING_TAG );
-				}
-			} );
+		Level level = entity.getCommandSenderWorld();
+		if( level.hasData( ModAttachments.SPAWN_BLOCKING ) ) {
+			var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
+			if( capability.shouldBlockEntitySpawn( entity ) ) {
+				entity.addTag( BLOCK_SPAWNING_TAG );
+			}
+		}
 	}
 	
 	@SubscribeEvent
-	@Override
 	public void handleEntityJoinLevelEvent( @NotNull EntityJoinLevelEvent event ) {
 		
-		if( event.getResult() == Event.Result.ALLOW ) {
-			return;
-		}
 		Entity entity = event.getEntity();
 		if( entity instanceof Player ) {
 			return;
 		}
 		if( entity.getTags().contains( BLOCK_SPAWNING_TAG ) ) {
 			event.setCanceled( true );
+			return;
 		}
 		Level level = event.getLevel();
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.CHICKEN_EGG_SPAWNING ).ifPresent( capability -> {
+		if( level.hasData( ModAttachments.CHICKEN_EGG_SPAWNING ) ) {
+			var capability = level.getData( ModAttachments.CHICKEN_EGG_SPAWNING );
 			if( capability.shouldBlockChickenEggSpawn( entity ) ) {
 				event.setCanceled( true );
 			}
-		} );
+		}
 	}
 }

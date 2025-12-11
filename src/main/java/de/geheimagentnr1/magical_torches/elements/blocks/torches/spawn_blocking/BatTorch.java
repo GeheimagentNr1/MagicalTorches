@@ -3,7 +3,6 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.spawn_blockers.BatTorchSpawnBlocker;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -76,7 +75,7 @@ public class BatTorch extends SpawnBlockingTorch {
 	protected MutableComponent getInformation() {
 		
 		return Component.translatable(
-			TranslationKeyHelper.generateTooltipTranslationKey( MagicalTorches.MODID, "spawn_blocking_bat" ),
+			"tooltip." + MagicalTorches.MODID + ".spawn_blocking_bat",
 			ServerConfig.getINSTANCE().getBatTorchRange()
 		);
 	}

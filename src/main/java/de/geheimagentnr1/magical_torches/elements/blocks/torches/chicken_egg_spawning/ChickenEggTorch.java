@@ -3,12 +3,10 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_sp
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.ChickenEggSpawningCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawning.chicken_egg_blockers.ChickenEggTorchBlocker;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -25,7 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 
-public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterface {
+public class ChickenEggTorch extends BlockWithTooltip {
 	
 	
 	@NotNull
@@ -85,18 +83,12 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 		ServerConfig serverConfig = ServerConfig.getINSTANCE();
 		if( serverConfig.getShouldInvertChickenEggBlocking() ) {
 			return Component.translatable(
-				TranslationKeyHelper.generateTooltipTranslationKey(
-					MagicalTorches.MODID,
-					"chicken_egg_spawning_enable"
-				),
+				"tooltip." + MagicalTorches.MODID + ".chicken_egg_spawning_enable",
 				serverConfig.getChickenEggTorchRange()
 			);
 		} else {
 			return Component.translatable(
-				TranslationKeyHelper.generateTooltipTranslationKey(
-					MagicalTorches.MODID,
-					"chicken_egg_spawning_blocking"
-				),
+				"tooltip." + MagicalTorches.MODID + ".chicken_egg_spawning_blocking",
 				serverConfig.getChickenEggTorchRange()
 			);
 		}
@@ -111,9 +103,10 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 		@NotNull BlockState oldState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.CHICKEN_EGG_SPAWNING ).ifPresent(
-			capability -> capability.addSpawnBlocker( spawnBlockFactory.build( pos ) )
-		);
+		if( !level.isClientSide ) {
+			var capability = level.getData( ModAttachments.CHICKEN_EGG_SPAWNING );
+			capability.addSpawnBlocker( spawnBlockFactory.build( pos ) );
+		}
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -125,8 +118,10 @@ public class ChickenEggTorch extends BlockWithTooltip implements BlockItemInterf
 		@NotNull BlockState newState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.CHICKEN_EGG_SPAWNING )
-			.ifPresent( capability -> capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) ) );
+		if( !level.isClientSide ) {
+			var capability = level.getData( ModAttachments.CHICKEN_EGG_SPAWNING );
+			capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) );
+		}
 		super.onRemove( state, level, pos, newState, isMoving );
 	}
 }

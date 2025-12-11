@@ -1,53 +1,58 @@
 package de.geheimagentnr1.magical_torches.network;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
-import de.geheimagentnr1.minecraft_forge_api.network.AbstractNetwork;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.jetbrains.annotations.NotNull;
 
 
-public class Network extends AbstractNetwork {
+public class Network {
 	
 	
 	@NotNull
-	private static final Network INSTANCE = new Network();
+	public static final ResourceLocation INIT_SOUND_MUFFLERS_ID = ResourceLocation.fromNamespaceAndPath(
+		MagicalTorches.MODID,
+		"init_sound_mufflers"
+	);
 	
 	@NotNull
-	public static Network getInstance() {
+	public static final ResourceLocation ADD_SOUND_MUFFLER_ID = ResourceLocation.fromNamespaceAndPath(
+		MagicalTorches.MODID,
+		"add_sound_muffler"
+	);
+	
+	@NotNull
+	public static final ResourceLocation REMOVE_SOUND_MUFFLER_ID = ResourceLocation.fromNamespaceAndPath(
+		MagicalTorches.MODID,
+		"remove_sound_muffler"
+	);
+	
+	public static void register() {
 		
-		return INSTANCE;
+		// Registration is now done via event in NeoForge
 	}
 	
-	@NotNull
-	@Override
-	protected String getModId() {
+	public static void onRegisterPayloadHandlers( @NotNull RegisterPayloadHandlersEvent event ) {
 		
-		return MagicalTorches.MODID;
-	}
-	
-	@NotNull
-	@Override
-	protected String getNetworkName() {
+		PayloadRegistrar registrar = event.registrar( MagicalTorches.MODID );
 		
-		return "main";
-	}
-	
-	@Override
-	public void registerPackets() {
+		registrar.playToClient(
+			InitSoundMufflersMsg.TYPE,
+			InitSoundMufflersMsg.STREAM_CODEC,
+			InitSoundMufflersMsg::handle
+		);
 		
-		getChannel().messageBuilder( InitSoundMufflersMsg.class )
-			.encoder( InitSoundMufflersMsg::encode )
-			.decoder( InitSoundMufflersMsg::decode )
-			.consumerNetworkThread( InitSoundMufflersMsg::handle )
-			.add();
-		getChannel().messageBuilder( AddSoundMufflerMsg.class )
-			.encoder( AddSoundMufflerMsg::encode )
-			.decoder( AddSoundMufflerMsg::decode )
-			.consumerNetworkThread( AddSoundMufflerMsg::handle )
-			.add();
-		getChannel().messageBuilder( RemoveSoundMufflerMsg.class )
-			.encoder( RemoveSoundMufflerMsg::encode )
-			.decoder( RemoveSoundMufflerMsg::decode )
-			.consumerNetworkThread( RemoveSoundMufflerMsg::handle )
-			.add();
+		registrar.playToClient(
+			AddSoundMufflerMsg.TYPE,
+			AddSoundMufflerMsg.STREAM_CODEC,
+			AddSoundMufflerMsg::handle
+		);
+		
+		registrar.playToClient(
+			RemoveSoundMufflerMsg.TYPE,
+			RemoveSoundMufflerMsg.STREAM_CODEC,
+			RemoveSoundMufflerMsg::handle
+		);
 	}
 }

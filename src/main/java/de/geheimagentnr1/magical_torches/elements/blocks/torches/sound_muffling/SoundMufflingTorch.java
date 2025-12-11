@@ -3,11 +3,9 @@ package de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.BlockWithTooltip;
-import de.geheimagentnr1.magical_torches.elements.capabilities.ModCapabilitiesRegisterFactory;
+import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.SoundMufflingCapability;
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
-import de.geheimagentnr1.minecraft_forge_api.elements.blocks.BlockItemInterface;
-import de.geheimagentnr1.minecraft_forge_api.util.TranslationKeyHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 
-public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInterface {
+public class SoundMufflingTorch extends BlockWithTooltip {
 	
 	
 	@NotNull
@@ -79,7 +77,7 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		
 		ServerConfig serverConfig = ServerConfig.getINSTANCE();
 		return Component.translatable(
-			TranslationKeyHelper.generateTooltipTranslationKey( MagicalTorches.MODID, "sound_muffling" ),
+			"tooltip." + MagicalTorches.MODID + ".sound_muffling",
 			serverConfig.getSoundMufflingTorchRange(),
 			SoundMufflingTorchSoundMuffler.FACTORY.build( BlockPos.ZERO ).getSoundCategoriesString( serverConfig )
 		);
@@ -94,12 +92,13 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		@NotNull BlockState oldState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.SOUND_MUFFLING ).ifPresent(
-			capability -> capability.addSoundMuffler(
+		if( !level.isClientSide ) {
+			var capability = level.getData( ModAttachments.SOUND_MUFFLING );
+			capability.addSoundMuffler(
 				level.dimension(),
 				new SoundMufflingTorchSoundMuffler( pos )
-			)
-		);
+			);
+		}
 	}
 	
 	@SuppressWarnings( "deprecation" )
@@ -111,12 +110,13 @@ public class SoundMufflingTorch extends BlockWithTooltip implements BlockItemInt
 		@NotNull BlockState newState,
 		boolean isMoving ) {
 		
-		level.getCapability( ModCapabilitiesRegisterFactory.SOUND_MUFFLING ).ifPresent(
-			capability -> capability.removeSoundMuffler(
+		if( !level.isClientSide ) {
+			var capability = level.getData( ModAttachments.SOUND_MUFFLING );
+			capability.removeSoundMuffler(
 				level.dimension(),
 				new SoundMufflingTorchSoundMuffler( pos )
-			)
-		);
+			);
+		}
 		super.onRemove( state, level, pos, newState, isMoving );
 	}
 }
