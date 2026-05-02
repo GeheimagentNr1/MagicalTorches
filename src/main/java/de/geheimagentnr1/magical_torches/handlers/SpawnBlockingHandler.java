@@ -16,12 +16,12 @@ import java.util.List;
 
 
 public class SpawnBlockingHandler {
-	
-	
+
+
 	@NotNull
 	private static final String BLOCK_SPAWNING_TAG = ResourceLocation.fromNamespaceAndPath( MagicalTorches.MODID, "block_spawning" )
 		.toString();
-	
+
 	@NotNull
 	private static final List<MobSpawnType> CHECK_SPAWN_NON_BLOCKED_TYPES = List.of(
 		MobSpawnType.BUCKET,
@@ -30,10 +30,10 @@ public class SpawnBlockingHandler {
 		MobSpawnType.DISPENSER,
 		MobSpawnType.SPAWNER
 	);
-	
+
 	@SubscribeEvent
 	public void handleFinalizeSpawnEvent( @NotNull FinalizeSpawnEvent event ) {
-		
+
 		if( CHECK_SPAWN_NON_BLOCKED_TYPES.contains( event.getSpawnType() ) ) {
 			return;
 		}
@@ -46,10 +46,10 @@ public class SpawnBlockingHandler {
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void handleEntityJoinLevelEvent( @NotNull EntityJoinLevelEvent event ) {
-		
+
 		Entity entity = event.getEntity();
 		if( entity instanceof Player ) {
 			return;
@@ -59,7 +59,7 @@ public class SpawnBlockingHandler {
 			return;
 		}
 		Level level = event.getLevel();
-		
+
 		if( level.hasData( ModAttachments.CHICKEN_EGG_SPAWNING ) ) {
 			var capability = level.getData( ModAttachments.CHICKEN_EGG_SPAWNING );
 			if( capability.shouldBlockChickenEggSpawn( entity ) ) {

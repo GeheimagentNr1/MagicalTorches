@@ -18,24 +18,74 @@ Keine Mod-Abhängigkeiten - eigenständiger Mod.
 
 ```
 src/main/java/de/geheimagentnr1/magical_torches/
-├── MagicalTorches.java              # Haupt-Mod-Klasse
+├── MagicalTorches.java                                        # Haupt-Mod-Klasse
+├── MagicalTorchesClientSetup.java                             # Client-Dist-Setup
 ├── config/
-│   ├── ServerConfig.java            # Server-Konfiguration
-│   └── SoundMufflersHolder.java     # Sound-Muffler Daten
+│   ├── ServerConfig.java
+│   └── SoundMufflersHolder.java
+├── elements/
+│   ├── blocks/
+│   │   ├── BlockWithTooltip.java
+│   │   ├── ModBlocks.java
+│   │   └── torches/
+│   │       ├── chicken_egg_spawning/
+│   │       │   └── ChickenEggTorch.java
+│   │       ├── sound_muffling/
+│   │       │   └── SoundMufflingTorch.java
+│   │       └── spawn_blocking/
+│   │           ├── AloneTorch.java
+│   │           ├── BatTorch.java
+│   │           ├── GrandTorch.java
+│   │           ├── HostileSpawnBlockingTorch.java
+│   │           ├── MediumTorch.java
+│   │           ├── MegaTorch.java
+│   │           ├── SmallTorch.java
+│   │           └── SpawnBlockingTorch.java
+│   ├── capabilities/
+│   │   ├── CapabilityData.java
+│   │   ├── ICapabilityDataFactory.java
+│   │   ├── ModAttachments.java
+│   │   ├── chicken_egg_spawning/
+│   │   │   ├── ChickenEggSpawningCapability.java
+│   │   │   └── chicken_egg_blockers/
+│   │   │       └── ChickenEggTorchBlocker.java
+│   │   ├── sound_muffling/
+│   │   │   ├── ISoundMufflerFactory.java
+│   │   │   ├── SoundMuffler.java
+│   │   │   ├── SoundMufflingCapability.java
+│   │   │   └── sound_mufflers/
+│   │   │       └── SoundMufflingTorchSoundMuffler.java
+│   │   └── spawn_blocking/
+│   │       ├── ISpawnBlockerFactory.java
+│   │       ├── SpawnBlocker.java
+│   │       ├── SpawnBlockingCapability.java
+│   │       └── spawn_blockers/
+│   │           ├── AloneTorchSpawnBlocker.java
+│   │           ├── BatTorchSpawnBlocker.java
+│   │           ├── GrandTorchSpawnBlocker.java
+│   │           ├── HostileMobSpawnBlocker.java
+│   │           ├── MediumTorchSpawnBlocker.java
+│   │           ├── MegaTorchSpawnBlocker.java
+│   │           └── SmallTorchSpawnBlocker.java
+│   ├── creative_mod_tabs/
+│   │   └── ModCreativeModeTabs.java
+│   └── gametests/
+│       └── MagicalTorchesGameTests.java
 ├── handlers/
-│   ├── SoundMufflingHandler.java    # Sound-Dämpfung Handler
-│   └── SpawnBlockingHandler.java    # Spawn-Blocking Handler
+│   ├── ClientSoundMufflingHandler.java
+│   ├── CommonSoundMufflingHandler.java
+│   └── SpawnBlockingHandler.java
 ├── helpers/
-│   ├── NBTHelper.java               # NBT-Utilities
-│   ├── RadiusHelper.java            # Radius-Berechnungen
-│   ├── ResourceLocationBuilder.java # ResourceLocation Builder
-│   ├── SoundMufflerHelper.java      # Sound-Muffler Helper
-│   └── SpawnBlockerHelper.java      # Spawn-Blocker Helper
+│   ├── NBTHelper.java
+│   ├── RadiusHelper.java
+│   ├── ResourceLocationBuilder.java
+│   ├── SoundMufflerHelper.java
+│   └── SpawnBlockerHelper.java
 └── network/
-    ├── Network.java                 # Netzwerk-Handler
-    ├── AddSoundMufflerMsg.java      # Netzwerk-Paket
-    ├── InitSoundMufflersMsg.java    # Netzwerk-Paket
-    └── RemoveSoundMufflerMsg.java   # Netzwerk-Paket
+    ├── AddSoundMufflerMsg.java
+    ├── InitSoundMufflersMsg.java
+    ├── Network.java
+    └── RemoveSoundMufflerMsg.java
 ```
 
 ## Besonderheiten
@@ -111,3 +161,7 @@ Der Workflow `.github/workflows/build-and-test.yml` führt automatisch aus:
 | Commands | ✅ | GameTest |
 | Block/Item-Verhalten | ✅ | GameTest |
 | Multi-MC-Version | ⚠️ Pro Branch | CI Matrix |
+
+## Referenzen
+
+- [NeoForge Migration Primer](https://docs.neoforged.net/primer/docs/) — Dokumentiert API-Aenderungen zwischen Minecraft/NeoForge-Versionen; nuetzlich fuer die Pruefung von Breaking Changes beim Upgrade auf neue Versionen
