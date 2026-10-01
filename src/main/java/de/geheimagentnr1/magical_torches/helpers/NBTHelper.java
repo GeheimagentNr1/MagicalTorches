@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -54,22 +55,15 @@ public class NBTHelper {
 		TreeSet<T> capabilityDatas = new TreeSet<>( Comparator.comparing( T::getPos ) );
 		for( Tag inbt : nbt ) {
 			if( inbt instanceof CompoundTag compoundNBT ) {
-				if( compoundNBT.contains( registryNameName, Tag.TAG_STRING ) ) {
-					String registry_name_string = compoundNBT.getString( registryNameName );
-					ResourceLocation registry_name = ResourceLocation.tryParse( registry_name_string );
-					if( registry_name != null &&
-						compoundNBT.contains( xName, Tag.TAG_INT ) &&
-						compoundNBT.contains( yName, Tag.TAG_INT ) &&
-						compoundNBT.contains( zName, Tag.TAG_INT ) ) {
-						BlockPos pos = new BlockPos(
-							compoundNBT.getInt( xName ),
-							compoundNBT.getInt( yName ),
-							compoundNBT.getInt( zName )
-						);
-						ICapabilityDataFactory<T> factory = capabilityDataRegistery.get( registry_name );
-						if( factory != null ) {
-							capabilityDatas.add( factory.build( pos ) );
-						}
+				Optional<ResourceLocation> registry_name = compoundNBT.getString( registryNameName )
+					.map( ResourceLocation::tryParse );
+				Optional<Integer> x = compoundNBT.getInt( xName );
+				Optional<Integer> y = compoundNBT.getInt( yName );
+				Optional<Integer> z = compoundNBT.getInt( zName );
+				if( registry_name.isPresent() && x.isPresent() && y.isPresent() && z.isPresent() ) {
+					ICapabilityDataFactory<T> factory = capabilityDataRegistery.get( registry_name.get() );
+					if( factory != null ) {
+						capabilityDatas.add( factory.build( new BlockPos( x.get(), y.get(), z.get() ) ) );
 					}
 				}
 			}

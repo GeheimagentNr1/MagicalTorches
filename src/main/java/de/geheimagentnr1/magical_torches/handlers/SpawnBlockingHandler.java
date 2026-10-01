@@ -4,7 +4,7 @@ import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -23,12 +23,12 @@ public class SpawnBlockingHandler {
 		.toString();
 
 	@NotNull
-	private static final List<MobSpawnType> CHECK_SPAWN_NON_BLOCKED_TYPES = List.of(
-		MobSpawnType.BUCKET,
-		MobSpawnType.SPAWN_EGG,
-		MobSpawnType.COMMAND,
-		MobSpawnType.DISPENSER,
-		MobSpawnType.SPAWNER
+	private static final List<EntitySpawnReason> CHECK_SPAWN_NON_BLOCKED_TYPES = List.of(
+		EntitySpawnReason.BUCKET,
+		EntitySpawnReason.SPAWN_ITEM_USE,
+		EntitySpawnReason.COMMAND,
+		EntitySpawnReason.DISPENSER,
+		EntitySpawnReason.SPAWNER
 	);
 
 	@SubscribeEvent

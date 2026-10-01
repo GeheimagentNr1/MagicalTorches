@@ -6,12 +6,8 @@
 		"CCC"
 	],
 	"key":     {
-		"C": {
-			"tag": "minecraft:coals"
-		},
-		"L": {
-			"item": "minecraft:lantern"
-		}
+		"C": "#minecraft:coals",
+		"L": "minecraft:lantern"
 	},
 	"result":  {
 		"id": "magical_torches:bat_torch"

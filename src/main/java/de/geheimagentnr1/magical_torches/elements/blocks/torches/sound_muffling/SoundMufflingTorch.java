@@ -8,6 +8,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.sound_mufflers.SoundMufflingTorchSoundMuffler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -31,10 +32,10 @@ public class SoundMufflingTorch extends BlockWithTooltip {
 	@NotNull
 	private static final VoxelShape SHAPE = Block.box( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
-	public SoundMufflingTorch() {
+	public SoundMufflingTorch( @NotNull Properties properties ) {
 		
 		super(
-			Properties.of()
+			properties
 				.mapColor( MapColor.WOOD )
 				.noCollission()
 				.pushReaction( PushReaction.DESTROY )
@@ -101,22 +102,20 @@ public class SoundMufflingTorch extends BlockWithTooltip {
 		}
 	}
 	
-	@SuppressWarnings( "deprecation" )
+	//Since 1.21.5 onRemove is replaced by affectNeighborsAfterRemoval. It is only called on the server when
+	//the block is replaced by another block (with neighbor updates).
 	@Override
-	public void onRemove(
+	protected void affectNeighborsAfterRemoval(
 		@NotNull BlockState state,
-		@NotNull Level level,
+		@NotNull ServerLevel level,
 		@NotNull BlockPos pos,
-		@NotNull BlockState newState,
-		boolean isMoving ) {
+		boolean movedByPiston ) {
 		
-		if( !level.isClientSide ) {
-			var capability = level.getData( ModAttachments.SOUND_MUFFLING );
-			capability.removeSoundMuffler(
-				level.dimension(),
-				new SoundMufflingTorchSoundMuffler( pos )
-			);
-		}
-		super.onRemove( state, level, pos, newState, isMoving );
+		var capability = level.getData( ModAttachments.SOUND_MUFFLING );
+		capability.removeSoundMuffler(
+			level.dimension(),
+			new SoundMufflingTorchSoundMuffler( pos )
+		);
+		super.affectNeighborsAfterRemoval( state, level, pos, movedByPiston );
 	}
 }

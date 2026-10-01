@@ -9,6 +9,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.chicken_egg_spawn
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -35,10 +36,10 @@ public class ChickenEggTorch extends BlockWithTooltip {
 	@NotNull
 	private final ISpawnBlockerFactory spawnBlockFactory;
 	
-	public ChickenEggTorch() {
+	public ChickenEggTorch( @NotNull Properties properties ) {
 		
 		super(
-			Properties.of()
+			properties
 				.mapColor( MapColor.WOOD )
 				.noCollission()
 				.pushReaction( PushReaction.DESTROY )
@@ -109,19 +110,17 @@ public class ChickenEggTorch extends BlockWithTooltip {
 		}
 	}
 	
-	@SuppressWarnings( "deprecation" )
+	//Since 1.21.5 onRemove is replaced by affectNeighborsAfterRemoval. It is only called on the server when
+	//the block is replaced by another block (with neighbor updates).
 	@Override
-	public void onRemove(
+	protected void affectNeighborsAfterRemoval(
 		@NotNull BlockState state,
-		@NotNull Level level,
+		@NotNull ServerLevel level,
 		@NotNull BlockPos pos,
-		@NotNull BlockState newState,
-		boolean isMoving ) {
+		boolean movedByPiston ) {
 		
-		if( !level.isClientSide ) {
-			var capability = level.getData( ModAttachments.CHICKEN_EGG_SPAWNING );
-			capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) );
-		}
-		super.onRemove( state, level, pos, newState, isMoving );
+		var capability = level.getData( ModAttachments.CHICKEN_EGG_SPAWNING );
+		capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) );
+		super.affectNeighborsAfterRemoval( state, level, pos, movedByPiston );
 	}
 }

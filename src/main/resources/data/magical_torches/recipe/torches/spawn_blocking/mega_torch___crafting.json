@@ -6,9 +6,9 @@
 		"BAB"
 	],
 	"key":     {
-		"C": { "tag": "minecraft:coals" },
-		"A": { "item": "minecraft:ancient_debris" },
-		"B": { "tag": "forge:storage_blocks/emerald" }
+		"C": "#minecraft:coals",
+		"A": "minecraft:ancient_debris",
+		"B": "#c:storage_blocks/emerald"
 	},
 	"result":  {
 		"id": "magical_torches:mega_torch"
