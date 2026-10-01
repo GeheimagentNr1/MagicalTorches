@@ -5,7 +5,7 @@ import de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spa
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Items;
@@ -16,7 +16,7 @@ public class ChickenEggTorchBlocker extends SpawnBlocker {
 	
 	
 	@NotNull
-	public static final ResourceLocation registry_name =
+	public static final Identifier registry_name =
 		ResourceLocationBuilder.build( ChickenEggTorch.registry_name );
 	
 	public ChickenEggTorchBlocker( @NotNull BlockPos _pos ) {
@@ -26,7 +26,7 @@ public class ChickenEggTorchBlocker extends SpawnBlocker {
 	
 	@NotNull
 	@Override
-	public ResourceLocation getRegistryName() {
+	public Identifier getRegistryName() {
 		
 		return registry_name;
 	}

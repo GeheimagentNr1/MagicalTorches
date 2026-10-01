@@ -5,9 +5,9 @@ import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -15,7 +15,10 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	
 	
 	@NotNull
-	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
+	private static final Identifier BAT_ID = Identifier.withDefaultNamespace( "bat" );
+	
+	@NotNull
+	public static final Identifier registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
 	
 	public BatTorchSpawnBlocker( @NotNull BlockPos _pos ) {
 		
@@ -24,7 +27,7 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	
 	@NotNull
 	@Override
-	public ResourceLocation getRegistryName() {
+	public Identifier getRegistryName() {
 		
 		return registry_name;
 	}
@@ -38,6 +41,7 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	@Override
 	public boolean shouldBlockEntity( @NotNull Entity entity ) {
 		
-		return entity.getType() == EntityType.BAT;
+		//EntityType.BAT moved to EntityTypes.BAT in 26.3, the registry id is the same in all versions
+		return BAT_ID.equals( BuiltInRegistries.ENTITY_TYPE.getKey( entity.getType() ) );
 	}
 }

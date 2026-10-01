@@ -19,9 +19,10 @@ public class SmallTorch extends HostileSpawnBlockingTorch {
 	@NotNull
 	private static final VoxelShape SHAPE = Block.box( 7, 0, 7, 9, 10, 9 );
 	
-	public SmallTorch() {
+	public SmallTorch( @NotNull Properties properties ) {
 		
 		super(
+			properties,
 			SmallTorchSpawnBlocker.registry_name,
 			SmallTorchSpawnBlocker::new
 		);

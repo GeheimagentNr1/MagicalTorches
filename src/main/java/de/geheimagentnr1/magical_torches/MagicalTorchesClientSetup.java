@@ -8,7 +8,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
 
-@EventBusSubscriber( modid = MagicalTorches.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD )
+@EventBusSubscriber( modid = MagicalTorches.MODID, value = Dist.CLIENT )
 public class MagicalTorchesClientSetup {
 
 	@SubscribeEvent

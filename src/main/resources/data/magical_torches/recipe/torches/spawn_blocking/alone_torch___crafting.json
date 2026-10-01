@@ -6,12 +6,8 @@
 		"GGG"
 	],
 	"key":     {
-		"B": {
-			"item": "minecraft:beacon"
-		},
-		"G": {
-			"item": "minecraft:black_stained_glass"
-		}
+		"B": "minecraft:beacon",
+		"G": "minecraft:black_stained_glass"
 	},
 	"result":  {
 		"id": "magical_torches:alone_torch"

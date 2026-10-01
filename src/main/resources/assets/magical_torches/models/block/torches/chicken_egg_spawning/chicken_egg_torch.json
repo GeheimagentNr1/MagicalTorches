@@ -2,7 +2,7 @@
 	"render_type": "minecraft:cutout",
 	"textures": {
 		"white_wool":     "minecraft:block/white_wool",
-		"egg":            "minecraft:item/egg",
+		"egg":            "magical_torches:block/torches/chicken_egg_spawning/egg",
 		"torch":          "minecraft:block/torch",
 		"particle":       "minecraft:block/hay_block_side",
 		"hay_block_side": "minecraft:block/hay_block_side"

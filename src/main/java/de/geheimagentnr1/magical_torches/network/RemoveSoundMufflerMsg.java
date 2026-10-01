@@ -10,7 +10,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -20,8 +20,8 @@ import java.util.TreeSet;
 
 
 public record RemoveSoundMufflerMsg(
-	@NotNull ResourceLocation dimensionRegistryName,
-	@NotNull ResourceLocation soundMufflerRegistryName,
+	@NotNull Identifier dimensionRegistryName,
+	@NotNull Identifier soundMufflerRegistryName,
 	@NotNull BlockPos pos
 ) implements CustomPacketPayload {
 	
@@ -39,20 +39,20 @@ public record RemoveSoundMufflerMsg(
 	private static RemoveSoundMufflerMsg decode( @NotNull ByteBuf buffer ) {
 		
 		return new RemoveSoundMufflerMsg(
-			ResourceLocation.STREAM_CODEC.decode( buffer ),
-			ResourceLocation.STREAM_CODEC.decode( buffer ),
+			Identifier.STREAM_CODEC.decode( buffer ),
+			Identifier.STREAM_CODEC.decode( buffer ),
 			BlockPos.STREAM_CODEC.decode( buffer )
 		);
 	}
 	
 	private static void encode( @NotNull ByteBuf buffer, @NotNull RemoveSoundMufflerMsg msg ) {
 		
-		ResourceLocation.STREAM_CODEC.encode( buffer, msg.dimensionRegistryName );
-		ResourceLocation.STREAM_CODEC.encode( buffer, msg.soundMufflerRegistryName );
+		Identifier.STREAM_CODEC.encode( buffer, msg.dimensionRegistryName );
+		Identifier.STREAM_CODEC.encode( buffer, msg.soundMufflerRegistryName );
 		BlockPos.STREAM_CODEC.encode( buffer, msg.pos );
 	}
 	
-	public static void sendToAll( @NotNull ResourceLocation dimension, @NotNull SoundMuffler soundMuffler ) {
+	public static void sendToAll( @NotNull Identifier dimension, @NotNull SoundMuffler soundMuffler ) {
 		
 		PacketDistributor.sendToAllPlayers(
 			new RemoveSoundMufflerMsg( dimension, soundMuffler.getRegistryName(), soundMuffler.getPos() )

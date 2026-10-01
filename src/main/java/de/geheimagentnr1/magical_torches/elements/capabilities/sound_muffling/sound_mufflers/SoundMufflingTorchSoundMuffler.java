@@ -7,7 +7,7 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.sound_muffling.So
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -15,7 +15,7 @@ public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	
 	
 	@NotNull
-	public static final ResourceLocation registry_name =
+	public static final Identifier registry_name =
 		ResourceLocationBuilder.build( SoundMufflingTorch.registry_name );
 	
 	@NotNull
@@ -28,7 +28,7 @@ public class SoundMufflingTorchSoundMuffler extends SoundMuffler {
 	
 	@NotNull
 	@Override
-	public ResourceLocation getRegistryName() {
+	public Identifier getRegistryName() {
 		
 		return registry_name;
 	}

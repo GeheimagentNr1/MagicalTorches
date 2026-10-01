@@ -12,7 +12,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -47,14 +47,14 @@ public record InitSoundMufflersMsg(
 		for( int i = 0; i < dimensionCount; i++ ) {
 			ResourceKey<Level> dimension = ResourceKey.create(
 				Registries.DIMENSION,
-				ResourceLocation.STREAM_CODEC.decode( buffer )
+				Identifier.STREAM_CODEC.decode( buffer )
 			);
 			TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
 			dimensionSoundMufflers.put( dimension, soundMufflers );
 			int soundMufflersCount = ByteBufCodecs.VAR_INT.decode( buffer );
 			for( int j = 0; j < soundMufflersCount; j++ ) {
 				soundMufflers.add( SoundMufflingCapability.buildSoundMuffler(
-					ResourceLocation.STREAM_CODEC.decode( buffer ),
+					Identifier.STREAM_CODEC.decode( buffer ),
 					net.minecraft.core.BlockPos.STREAM_CODEC.decode( buffer )
 				) );
 			}
@@ -66,10 +66,10 @@ public record InitSoundMufflersMsg(
 		
 		ByteBufCodecs.VAR_INT.encode( buffer, msg.soundMufflers.size() );
 		msg.soundMufflers.forEach( ( dimension, soundMufflersSet ) -> {
-			ResourceLocation.STREAM_CODEC.encode( buffer, Objects.requireNonNull( dimension.location() ) );
+			Identifier.STREAM_CODEC.encode( buffer, Objects.requireNonNull( dimension.identifier() ) );
 			ByteBufCodecs.VAR_INT.encode( buffer, soundMufflersSet.size() );
 			soundMufflersSet.forEach( soundMuffler -> {
-				ResourceLocation.STREAM_CODEC.encode( buffer, soundMuffler.getRegistryName() );
+				Identifier.STREAM_CODEC.encode( buffer, soundMuffler.getRegistryName() );
 				net.minecraft.core.BlockPos.STREAM_CODEC.encode( buffer, soundMuffler.getPos() );
 			} );
 		} );
@@ -79,7 +79,7 @@ public record InitSoundMufflersMsg(
 		
 		TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
-		Objects.requireNonNull( player.getServer() )
+		Objects.requireNonNull( player.level().getServer() )
 			.getAllLevels()
 			.forEach( serverLevel -> {
 				TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();

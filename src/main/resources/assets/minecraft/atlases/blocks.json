@@ -1,0 +1,9 @@
+{
+	"sources": [
+		{
+			"type":     "minecraft:single",
+			"resource": "minecraft:item/egg",
+			"sprite":   "magical_torches:block/torches/chicken_egg_spawning/egg"
+		}
+	]
+}
