@@ -6,19 +6,20 @@ import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
 import de.geheimagentnr1.magical_torches.network.AddSoundMufflerMsg;
 import de.geheimagentnr1.magical_torches.network.RemoveSoundMufflerMsg;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SoundMufflingCapability implements INBTSerializable<ListTag> {
+public class SoundMufflingCapability implements ValueIOSerializable {
 	
 	
 	@NotNull
@@ -28,11 +29,11 @@ public class SoundMufflingCapability implements INBTSerializable<ListTag> {
 	private TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();
 	
 	@NotNull
-	private static final TreeMap<ResourceLocation, ICapabilityDataFactory<SoundMuffler>> SOUND_MUFFLING_REGISTERY =
+	private static final TreeMap<Identifier, ICapabilityDataFactory<SoundMuffler>> SOUND_MUFFLING_REGISTERY =
 		new TreeMap<>();
 	
 	public static void registerSoundMufflers(
-		@NotNull ResourceLocation _registry_name,
+		@NotNull Identifier _registry_name,
 		@NotNull ISoundMufflerFactory factory ) {
 		
 		SOUND_MUFFLING_REGISTERY.put( _registry_name, factory );
@@ -40,20 +41,26 @@ public class SoundMufflingCapability implements INBTSerializable<ListTag> {
 	
 	@NotNull
 	public static SoundMuffler buildSoundMuffler(
-		@NotNull ResourceLocation soundMufflerRegistryName,
+		@NotNull Identifier soundMufflerRegistryName,
 		@NotNull BlockPos pos ) {
 		
 		return SOUND_MUFFLING_REGISTERY.get( soundMufflerRegistryName ).build( pos );
 	}
 	
 	@Override
-	public ListTag serializeNBT( HolderLookup.Provider provider ) {
+	public void serialize( @NotNull ValueOutput output ) {
 		
-		return NBTHelper.serialize( soundMufflers );
+		NBTHelper.serialize( soundMufflers, output );
 	}
 	
 	@Override
-	public void deserializeNBT( HolderLookup.Provider provider, ListTag nbt ) {
+	public void deserialize( @NotNull ValueInput input ) {
+		
+		soundMufflers = NBTHelper.deserialize( input, SOUND_MUFFLING_REGISTERY );
+	}
+	
+	//Format up to 1.21.5 (INBTSerializable<ListTag>), see LegacyAttachmentMigrationHandler
+	public void deserializeLegacy( @NotNull ListTag nbt ) {
 		
 		soundMufflers = NBTHelper.deserialize( nbt, SOUND_MUFFLING_REGISTERY );
 	}
@@ -61,13 +68,13 @@ public class SoundMufflingCapability implements INBTSerializable<ListTag> {
 	public void addSoundMuffler( @NotNull ResourceKey<Level> dimension, @NotNull SoundMuffler soundMuffler ) {
 		
 		soundMufflers.add( soundMuffler );
-		AddSoundMufflerMsg.sendToAll( dimension.location(), soundMuffler );
+		AddSoundMufflerMsg.sendToAll( dimension.identifier(), soundMuffler );
 	}
 	
 	public void removeSoundMuffler( @NotNull ResourceKey<Level> dimension, @NotNull SoundMuffler soundMuffler ) {
 		
 		soundMufflers.remove( soundMuffler );
-		RemoveSoundMufflerMsg.sendToAll( dimension.location(), soundMuffler );
+		RemoveSoundMufflerMsg.sendToAll( dimension.identifier(), soundMuffler );
 	}
 	
 	@NotNull

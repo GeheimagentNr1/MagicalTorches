@@ -5,7 +5,7 @@ import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlocker;
 import de.geheimagentnr1.magical_torches.helpers.ResourceLocationBuilder;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	
 	
 	@NotNull
-	public static final ResourceLocation registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
+	public static final Identifier registry_name = ResourceLocationBuilder.build( BatTorch.registry_name );
 	
 	public BatTorchSpawnBlocker( @NotNull BlockPos _pos ) {
 		
@@ -24,7 +24,7 @@ public class BatTorchSpawnBlocker extends SpawnBlocker {
 	
 	@NotNull
 	@Override
-	public ResourceLocation getRegistryName() {
+	public Identifier getRegistryName() {
 		
 		return registry_name;
 	}

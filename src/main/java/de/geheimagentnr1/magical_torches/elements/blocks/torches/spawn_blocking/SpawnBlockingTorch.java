@@ -5,7 +5,8 @@ import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.ISpawnBlockerFactory;
 import de.geheimagentnr1.magical_torches.elements.capabilities.spawn_blocking.SpawnBlockingCapability;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,11 +29,13 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip {
 	@SuppressWarnings( "ParameterHidesMemberVariable" )
 	SpawnBlockingTorch(
 		@NotNull Properties properties,
-		@NotNull ResourceLocation spawn_block_registry_name,
+		@NotNull Identifier spawn_block_registry_name,
 		@NotNull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
+		//noOcclusion instead of noCollission (renamed to noCollision in 1.21.9): the collision flag is only read by the
+		//default getCollisionShape, which this block overrides with an empty shape
 		super(
-			properties.noCollission().pushReaction( PushReaction.DESTROY ).lightLevel( value -> 15 )
+			properties.noOcclusion().pushReaction( PushReaction.DESTROY ).lightLevel( value -> 15 )
 		);
 		spawnBlockFactory = _spawnBlockFactory;
 		SpawnBlockingCapability.registerSpawnBlocker( spawn_block_registry_name, _spawnBlockFactory );
@@ -59,25 +62,23 @@ abstract class SpawnBlockingTorch extends BlockWithTooltip {
 		@NotNull BlockState oldState,
 		boolean isMoving ) {
 		
-		if( !level.isClientSide ) {
+		if( !level.isClientSide() ) {
 			var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
 			capability.addSpawnBlocker( spawnBlockFactory.build( pos ) );
 		}
 	}
 	
-	@SuppressWarnings( "deprecation" )
+	//Since 1.21.5 onRemove is replaced by affectNeighborsAfterRemoval. It is only called on the server when
+	//the block is replaced by another block (with neighbor updates).
 	@Override
-	public void onRemove(
+	protected void affectNeighborsAfterRemoval(
 		@NotNull BlockState state,
-		@NotNull Level level,
+		@NotNull ServerLevel level,
 		@NotNull BlockPos pos,
-		@NotNull BlockState newState,
-		boolean isMoving ) {
+		boolean movedByPiston ) {
 		
-		if( !level.isClientSide ) {
-			var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
-			capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) );
-		}
-		super.onRemove( state, level, pos, newState, isMoving );
+		var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
+		capability.removeSpawnBlocker( spawnBlockFactory.build( pos ) );
+		super.affectNeighborsAfterRemoval( state, level, pos, movedByPiston );
 	}
 }

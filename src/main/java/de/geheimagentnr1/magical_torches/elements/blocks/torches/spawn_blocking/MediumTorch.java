@@ -19,9 +19,10 @@ public class MediumTorch extends HostileSpawnBlockingTorch {
 	@NotNull
 	private static final VoxelShape SHAPE = Block.box( 6.5, 0, 6.5, 9.5, 11, 9.5 );
 	
-	public MediumTorch() {
+	public MediumTorch( @NotNull Properties properties ) {
 		
 		super(
+			properties,
 			MediumTorchSpawnBlocker.registry_name,
 			MediumTorchSpawnBlocker::new
 		);

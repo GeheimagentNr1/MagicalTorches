@@ -2,7 +2,7 @@ package de.geheimagentnr1.magical_torches.elements.capabilities;
 
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -18,7 +18,7 @@ public abstract class CapabilityData {
 	}
 	
 	@NotNull
-	public abstract ResourceLocation getRegistryName();
+	public abstract Identifier getRegistryName();
 	
 	@NotNull
 	public BlockPos getPos() {

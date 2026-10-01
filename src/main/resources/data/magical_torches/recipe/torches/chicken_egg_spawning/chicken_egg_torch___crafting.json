@@ -6,9 +6,9 @@
 		"FHF"
 	],
 	"key":     {
-		"F": { "item": "minecraft:feather" },
-		"W": { "tag": "minecraft:wool" },
-		"H": { "item": "minecraft:hay_block" }
+		"F": "minecraft:feather",
+		"W": "#minecraft:wool",
+		"H": "minecraft:hay_block"
 	},
 	"result":  {
 		"id": "magical_torches:chicken_egg_torch"

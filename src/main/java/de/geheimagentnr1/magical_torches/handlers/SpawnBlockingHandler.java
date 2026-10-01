@@ -2,9 +2,9 @@ package de.geheimagentnr1.magical_torches.handlers;
 
 import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -19,16 +19,16 @@ public class SpawnBlockingHandler {
 
 
 	@NotNull
-	private static final String BLOCK_SPAWNING_TAG = ResourceLocation.fromNamespaceAndPath( MagicalTorches.MODID, "block_spawning" )
+	private static final String BLOCK_SPAWNING_TAG = Identifier.fromNamespaceAndPath( MagicalTorches.MODID, "block_spawning" )
 		.toString();
 
 	@NotNull
-	private static final List<MobSpawnType> CHECK_SPAWN_NON_BLOCKED_TYPES = List.of(
-		MobSpawnType.BUCKET,
-		MobSpawnType.SPAWN_EGG,
-		MobSpawnType.COMMAND,
-		MobSpawnType.DISPENSER,
-		MobSpawnType.SPAWNER
+	private static final List<EntitySpawnReason> CHECK_SPAWN_NON_BLOCKED_TYPES = List.of(
+		EntitySpawnReason.BUCKET,
+		EntitySpawnReason.SPAWN_ITEM_USE,
+		EntitySpawnReason.COMMAND,
+		EntitySpawnReason.DISPENSER,
+		EntitySpawnReason.SPAWNER
 	);
 
 	@SubscribeEvent
@@ -38,7 +38,7 @@ public class SpawnBlockingHandler {
 			return;
 		}
 		Entity entity = event.getEntity();
-		Level level = entity.getCommandSenderWorld();
+		Level level = entity.level();
 		if( level.hasData( ModAttachments.SPAWN_BLOCKING ) ) {
 			var capability = level.getData( ModAttachments.SPAWN_BLOCKING );
 			if( capability.shouldBlockEntitySpawn( entity ) ) {

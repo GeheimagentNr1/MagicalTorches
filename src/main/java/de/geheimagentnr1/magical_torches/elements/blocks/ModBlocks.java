@@ -4,17 +4,15 @@ import de.geheimagentnr1.magical_torches.MagicalTorches;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.chicken_egg_spawning.ChickenEggTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.sound_muffling.SoundMufflingTorch;
 import de.geheimagentnr1.magical_torches.elements.blocks.torches.spawn_blocking.*;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 
 public class ModBlocks {
@@ -79,10 +77,10 @@ public class ModBlocks {
 	
 	private static <T extends Block> DeferredBlock<T> registerBlockWithItem(
 		@NotNull String name,
-		@NotNull Supplier<T> blockSupplier ) {
+		@NotNull Function<BlockBehaviour.Properties, T> blockFactory ) {
 		
-		DeferredBlock<T> block = BLOCKS.register( name, blockSupplier );
-		ITEMS.register( name, () -> new BlockItem( block.get(), new Item.Properties() ) );
+		DeferredBlock<T> block = BLOCKS.registerBlock( name, blockFactory, BlockBehaviour.Properties.of() );
+		ITEMS.registerSimpleBlockItem( name, block );
 		return block;
 	}
 	

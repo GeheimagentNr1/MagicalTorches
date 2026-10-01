@@ -19,9 +19,10 @@ public class MegaTorch extends HostileSpawnBlockingTorch {
 	@NotNull
 	private static final VoxelShape SHAPE = Block.box( 6, 0, 6, 10, 13, 10 );
 	
-	public MegaTorch() {
+	public MegaTorch( @NotNull Properties properties ) {
 		
 		super(
+			properties,
 			MegaTorchSpawnBlocker.registry_name,
 			MegaTorchSpawnBlocker::new
 		);

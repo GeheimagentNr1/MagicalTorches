@@ -5,18 +5,19 @@ import de.geheimagentnr1.magical_torches.helpers.NBTHelper;
 import de.geheimagentnr1.magical_torches.helpers.RadiusHelper;
 import de.geheimagentnr1.magical_torches.helpers.SpawnBlockerHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SpawnBlockingCapability implements INBTSerializable<ListTag> {
+public class SpawnBlockingCapability implements ValueIOSerializable {
 	
 	
 	@NotNull
@@ -26,11 +27,11 @@ public class SpawnBlockingCapability implements INBTSerializable<ListTag> {
 	private TreeSet<SpawnBlocker> spawnBlockers = SpawnBlockerHelper.buildSpawnBlockerTreeSet();
 	
 	@NotNull
-	private static final TreeMap<ResourceLocation, ICapabilityDataFactory<SpawnBlocker>> SPAWN_BLOCKING_REGISTERY =
+	private static final TreeMap<Identifier, ICapabilityDataFactory<SpawnBlocker>> SPAWN_BLOCKING_REGISTERY =
 		new TreeMap<>();
 	
 	public static void registerSpawnBlocker(
-		@NotNull ResourceLocation _registry_name,
+		@NotNull Identifier _registry_name,
 		@NotNull ISpawnBlockerFactory factory ) {
 		
 		SPAWN_BLOCKING_REGISTERY.put( _registry_name, factory );
@@ -49,13 +50,19 @@ public class SpawnBlockingCapability implements INBTSerializable<ListTag> {
 	}
 	
 	@Override
-	public ListTag serializeNBT( HolderLookup.Provider provider ) {
+	public void serialize( @NotNull ValueOutput output ) {
 		
-		return NBTHelper.serialize( spawnBlockers );
+		NBTHelper.serialize( spawnBlockers, output );
 	}
 	
 	@Override
-	public void deserializeNBT( HolderLookup.Provider provider, ListTag nbt ) {
+	public void deserialize( @NotNull ValueInput input ) {
+		
+		spawnBlockers = NBTHelper.deserialize( input, SPAWN_BLOCKING_REGISTERY );
+	}
+	
+	//Format up to 1.21.5 (INBTSerializable<ListTag>), see LegacyAttachmentMigrationHandler
+	public void deserializeLegacy( @NotNull ListTag nbt ) {
 		
 		spawnBlockers = NBTHelper.deserialize( nbt, SPAWN_BLOCKING_REGISTERY );
 	}

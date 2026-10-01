@@ -2,7 +2,7 @@ package de.geheimagentnr1.magical_torches.config;
 
 import lombok.Getter;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.MobCategory;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -183,10 +183,10 @@ public class ServerConfig {
 	}
 	
 	@NotNull
-	public List<ResourceLocation> getHostileBlockedEntities() {
+	public List<Identifier> getHostileBlockedEntities() {
 		
 		return HOSTILE_BLOCKED_ENTITIES.get().stream()
-			.map( ResourceLocation::tryParse )
+			.map( Identifier::tryParse )
 			.filter( loc -> loc != null && BuiltInRegistries.ENTITY_TYPE.getOptional( loc ).isPresent() )
 			.collect( Collectors.toList() );
 	}
