@@ -9,8 +9,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -44,10 +45,10 @@ public class BatTorch extends SpawnBlockingTorch {
 		Block.box( 6.0D, 8.0D, 6.0D, 10.0D, 10.0D, 10.0D )
 	);
 	
-	public BatTorch() {
+	public BatTorch( @NotNull Properties properties ) {
 		
 		super(
-			Properties.of()
+			properties
 				.mapColor( MapColor.METAL )
 				.strength( 3.5F )
 				.requiresCorrectToolForDrops()
@@ -109,15 +110,17 @@ public class BatTorch extends SpawnBlockingTorch {
 	@Override
 	public BlockState updateShape(
 		@NotNull BlockState state,
-		@NotNull Direction facing,
-		@NotNull BlockState facingState,
-		@NotNull LevelAccessor level,
+		@NotNull LevelReader levelReader,
+		@NotNull ScheduledTickAccess tickAccess,
 		@NotNull BlockPos currentPos,
-		@NotNull BlockPos facingPos ) {
-		
-		return hangingToDirection( state ).getOpposite() == facing && !state.canSurvive( level, currentPos )
+		@NotNull Direction facing,
+		@NotNull BlockPos facingPos,
+		@NotNull BlockState facingState,
+		@NotNull RandomSource random ) {
+
+		return hangingToDirection( state ).getOpposite() == facing && !state.canSurvive( levelReader, currentPos )
 			? Blocks.AIR.defaultBlockState()
-			: super.updateShape( state, facing, facingState, level, currentPos, facingPos );
+			: super.updateShape( state, levelReader, tickAccess, currentPos, facing, facingPos, facingState, random );
 	}
 	
 	@SuppressWarnings( "deprecation" )

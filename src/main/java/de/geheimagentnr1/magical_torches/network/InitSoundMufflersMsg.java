@@ -79,7 +79,7 @@ public record InitSoundMufflersMsg(
 		
 		TreeMap<ResourceKey<Level>, TreeSet<SoundMuffler>> dimensionSoundMufflers =
 			SoundMufflerHelper.buildDimensionSoundMufflersTreeMap();
-		Objects.requireNonNull( player.getServer() )
+		Objects.requireNonNull( player.level().getServer() )
 			.getAllLevels()
 			.forEach( serverLevel -> {
 				TreeSet<SoundMuffler> soundMufflers = SoundMufflerHelper.buildSoundMufflersTreeSet();

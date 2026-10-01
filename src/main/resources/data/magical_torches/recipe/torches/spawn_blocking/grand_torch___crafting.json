@@ -6,10 +6,10 @@
 		"BLB"
 	],
 	"key":     {
-		"C": { "tag": "minecraft:coals" },
-		"L": { "tag": "minecraft:logs" },
-		"M": { "tag": "forge:gems/diamond" },
-		"B": { "tag": "forge:storage_blocks/diamond" }
+		"C": "#minecraft:coals",
+		"L": "#minecraft:logs",
+		"M": "#c:gems/diamond",
+		"B": "#c:storage_blocks/diamond"
 	},
 	"result":  {
 		"id": "magical_torches:grand_torch"

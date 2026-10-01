@@ -4,7 +4,9 @@ import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
 import de.geheimagentnr1.magical_torches.elements.creative_mod_tabs.ModCreativeModeTabs;
+import de.geheimagentnr1.magical_torches.handlers.BlockTooltipHandler;
 import de.geheimagentnr1.magical_torches.handlers.CommonSoundMufflingHandler;
+import de.geheimagentnr1.magical_torches.handlers.LegacyAttachmentMigrationHandler;
 import de.geheimagentnr1.magical_torches.handlers.SpawnBlockingHandler;
 import de.geheimagentnr1.magical_torches.network.Network;
 import net.neoforged.bus.api.IEventBus;
@@ -38,6 +40,8 @@ public class MagicalTorches {
 		// Register forge event listeners
 		NeoForge.EVENT_BUS.register( new CommonSoundMufflingHandler() );
 		NeoForge.EVENT_BUS.register( new SpawnBlockingHandler() );
+		NeoForge.EVENT_BUS.register( new BlockTooltipHandler() );
+		NeoForge.EVENT_BUS.register( new LegacyAttachmentMigrationHandler() );
 		
 		// Register config
 		modContainer.registerConfig( ModConfig.Type.SERVER, ServerConfig.SPEC );

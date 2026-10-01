@@ -8,7 +8,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -28,11 +30,12 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	
 	//package-private
 	HostileSpawnBlockingTorch(
+		@NotNull Properties properties,
 		@NotNull ResourceLocation spawn_block_registry_name,
 		@NotNull ISpawnBlockerFactory _spawnBlockFactory ) {
 		
 		super(
-			Properties.of().mapColor( MapColor.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
+			properties.mapColor( MapColor.WOOD ).strength( 3 ).sound( SoundType.WOOD ),
 			spawn_block_registry_name,
 			_spawnBlockFactory
 		);
@@ -81,14 +84,16 @@ public abstract class HostileSpawnBlockingTorch extends SpawnBlockingTorch imple
 	@Override
 	public BlockState updateShape(
 		@NotNull BlockState state,
-		@NotNull Direction facing,
-		@NotNull BlockState facingState,
-		@NotNull LevelAccessor level,
+		@NotNull LevelReader levelReader,
+		@NotNull ScheduledTickAccess tickAccess,
 		@NotNull BlockPos currentPos,
-		@NotNull BlockPos facingPos ) {
-		
+		@NotNull Direction facing,
+		@NotNull BlockPos facingPos,
+		@NotNull BlockState facingState,
+		@NotNull RandomSource random ) {
+
 		if( state.getValue( BlockStateProperties.WATERLOGGED ) ) {
-			level.scheduleTick( currentPos, Fluids.WATER, Fluids.WATER.getTickDelay( level ) );
+			tickAccess.scheduleTick( currentPos, Fluids.WATER, Fluids.WATER.getTickDelay( levelReader ) );
 		}
 		return state;
 	}

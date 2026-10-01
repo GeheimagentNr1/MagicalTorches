@@ -6,19 +6,20 @@ import de.geheimagentnr1.magical_torches.helpers.SoundMufflerHelper;
 import de.geheimagentnr1.magical_torches.network.AddSoundMufflerMsg;
 import de.geheimagentnr1.magical_torches.network.RemoveSoundMufflerMsg;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 
-public class SoundMufflingCapability implements INBTSerializable<ListTag> {
+public class SoundMufflingCapability implements ValueIOSerializable {
 	
 	
 	@NotNull
@@ -47,13 +48,19 @@ public class SoundMufflingCapability implements INBTSerializable<ListTag> {
 	}
 	
 	@Override
-	public ListTag serializeNBT( HolderLookup.Provider provider ) {
+	public void serialize( @NotNull ValueOutput output ) {
 		
-		return NBTHelper.serialize( soundMufflers );
+		NBTHelper.serialize( soundMufflers, output );
 	}
 	
 	@Override
-	public void deserializeNBT( HolderLookup.Provider provider, ListTag nbt ) {
+	public void deserialize( @NotNull ValueInput input ) {
+		
+		soundMufflers = NBTHelper.deserialize( input, SOUND_MUFFLING_REGISTERY );
+	}
+	
+	//Format up to 1.21.5 (INBTSerializable<ListTag>), see LegacyAttachmentMigrationHandler
+	public void deserializeLegacy( @NotNull ListTag nbt ) {
 		
 		soundMufflers = NBTHelper.deserialize( nbt, SOUND_MUFFLING_REGISTERY );
 	}

@@ -22,10 +22,10 @@ public class AloneTorch extends SpawnBlockingTorch {
 	@NotNull
 	public static final String registry_name = "alone_torch";
 	
-	public AloneTorch() {
+	public AloneTorch( @NotNull Properties properties ) {
 		
 		super(
-			Properties.of()
+			properties
 				.mapColor( MapColor.WOOD )
 				.strength( 3.5F )
 				.requiresCorrectToolForDrops()

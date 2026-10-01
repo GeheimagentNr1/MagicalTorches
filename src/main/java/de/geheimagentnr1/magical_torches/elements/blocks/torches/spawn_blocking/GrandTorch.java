@@ -19,9 +19,10 @@ public class GrandTorch extends HostileSpawnBlockingTorch {
 	@NotNull
 	private static final VoxelShape SHAPE = Block.box( 6, 0, 6, 10, 12, 10 );
 	
-	public GrandTorch() {
+	public GrandTorch( @NotNull Properties properties ) {
 		
 		super(
+			properties,
 			GrandTorchSpawnBlocker.registry_name,
 			GrandTorchSpawnBlocker::new
 		);
