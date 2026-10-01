@@ -31,10 +31,10 @@ public class SoundMufflingTorch extends BlockWithTooltip {
 	@NotNull
 	private static final VoxelShape SHAPE = Block.box( 6.5, 0, 6.5, 9.5, 10, 9.5 );
 	
-	public SoundMufflingTorch() {
+	public SoundMufflingTorch( @NotNull Properties properties ) {
 		
 		super(
-			Properties.of()
+			properties
 				.mapColor( MapColor.WOOD )
 				.noCollission()
 				.pushReaction( PushReaction.DESTROY )

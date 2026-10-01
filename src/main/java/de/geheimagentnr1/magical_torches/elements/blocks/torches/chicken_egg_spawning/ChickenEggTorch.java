@@ -35,10 +35,10 @@ public class ChickenEggTorch extends BlockWithTooltip {
 	@NotNull
 	private final ISpawnBlockerFactory spawnBlockFactory;
 	
-	public ChickenEggTorch() {
+	public ChickenEggTorch( @NotNull Properties properties ) {
 		
 		super(
-			Properties.of()
+			properties
 				.mapColor( MapColor.WOOD )
 				.noCollission()
 				.pushReaction( PushReaction.DESTROY )
