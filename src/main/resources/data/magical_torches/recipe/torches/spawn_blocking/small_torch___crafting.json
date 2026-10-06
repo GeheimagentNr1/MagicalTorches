@@ -8,8 +8,8 @@
 	"key":     {
 		"C": { "tag": "minecraft:coals" },
 		"L": { "tag": "minecraft:logs" },
-		"M": { "tag": "forge:ingots/gold" },
-		"B": { "tag": "forge:storage_blocks/gold" }
+		"M": { "tag": "c:ingots/gold" },
+		"B": { "tag": "c:storage_blocks/gold" }
 	},
 	"result":  {
 		"id": "magical_torches:small_torch"

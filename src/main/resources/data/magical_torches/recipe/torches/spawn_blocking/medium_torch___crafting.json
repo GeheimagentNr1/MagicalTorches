@@ -8,7 +8,7 @@
 	"key":     {
 		"C": { "tag": "minecraft:coals" },
 		"L": { "tag": "minecraft:logs" },
-		"B": { "tag": "forge:storage_blocks/quartz" }
+		"B": { "item": "minecraft:quartz_block" }
 	},
 	"result":  {
 		"id": "magical_torches:medium_torch"

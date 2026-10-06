@@ -7,7 +7,7 @@
 	],
 	"key":     {
 		"R": { "item": "minecraft:rotten_flesh" },
-		"C": { "tag": "forge:storage_blocks/coal" },
+		"C": { "tag": "c:storage_blocks/coal" },
 		"E": { "item": "minecraft:egg" },
 		"W": { "tag": "minecraft:wool" },
 		"N": { "item": "minecraft:note_block" }
