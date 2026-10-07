@@ -1,1 +1,1 @@
-- Fix #1, that modded hostile mobs were not added to the spawn_blockers.hostile.blocked_entities configuration list
+- Fix dedicated servers not starting with Forge 47.4.16 and newer ("Attempted to load class net/minecraft/client/multiplayer/MultiPlayerGameMode for invalid dist DEDICATED_SERVER")
