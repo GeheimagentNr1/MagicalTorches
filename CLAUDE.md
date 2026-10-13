@@ -6,7 +6,7 @@ Diese Datei ist auf allen `develop_*`-Branches identisch; Quelle: `../Docs/mod-c
 
 ## Versionen
 
-- Forge: `develop_1.18.2` bis `develop_1.21`, dazu `develop_1.21.1_forge`. `develop_1.21.3` ist ein alter, nur lokaler Forge-Stand, kein NeoForge-Port.
+- Forge: `develop_1.18.2` bis `develop_1.21`, dazu `develop_1.21.1_forge`.
 - NeoForge: `develop_1.21.1`, `develop_1.21.2` (1.21.2 - 1.21.4), `develop_1.21.5`, `develop_1.21.6` (1.21.6 - 1.21.10), `develop_1.21.11`, `develop_26.1` (ein Jar 26.1 - 26.3).
 - Jar-Grenzen: 1.21.2 (Registrierung mit ID, `EntitySpawnReason`), 1.21.5 (`onRemove`), 1.21.6 (`ValueIOSerializable`-Attachments), 1.21.11 (`Identifier`, Block-Atlas), 26.1 (Tooling, Attachment-Datei). Ranges und Tags: [`../Docs/VERSIONEN.md`](../Docs/VERSIONEN.md).
 - Die NeoForge-Property heißt hier `neo_version` (nicht `neo_forge_version`).
