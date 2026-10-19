@@ -1,5 +1,6 @@
 package de.geheimagentnr1.magical_torches;
 
+import de.geheimagentnr1.magical_torches.config.ServerConfigRegistration;
 import de.geheimagentnr1.magical_torches.config.ServerConfig;
 import de.geheimagentnr1.magical_torches.elements.blocks.ModBlocks;
 import de.geheimagentnr1.magical_torches.elements.capabilities.ModAttachments;
@@ -12,7 +13,6 @@ import de.geheimagentnr1.magical_torches.network.Network;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +44,6 @@ public class MagicalTorches {
 		NeoForge.EVENT_BUS.register( new LegacyAttachmentMigrationHandler() );
 		
 		// Register config
-		modContainer.registerConfig( ModConfig.Type.SERVER, ServerConfig.SPEC );
+		ServerConfigRegistration.register( modContainer, ServerConfig.SPEC );
 	}
 }
